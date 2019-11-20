@@ -22,6 +22,7 @@
 using BH.oM.OpenStreetMap;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
+using System.Linq;
 
 namespace BH.Engine.OpenStreetMap
 {
@@ -31,24 +32,17 @@ namespace BH.Engine.OpenStreetMap
         /****           Public Methods                  ****/
         /***************************************************/
 
-        [Description("Calculate the area of an OSM way in metres")]
-        [Input("way", "OSM Way for area query ")]
-        [Output("double", "Area of the way in metres")]
+        [Description("Calculate the average node in an of an OsmObjectContainer")]
+        [Input("container", "OsmObjectContainer")]
+        [Output("Node", "Single average node")]
 
-        public static double Area(this Way way)
+        public static Node AverageNode(this OsmObjectContainer container)
         {
-            //is the way closed?
+            double lat = container.Nodes.Sum(x => x.Location.Y) / container.Nodes.Count;
 
-            //first and last should be the same
+            double lon = container.Nodes.Sum(x => x.Location.X) / container.Nodes.Count;
 
-            if(way.Nodes[0].Location.CompareTo(way.Nodes[way.Nodes.Count - 1].Location)!=0)
-            {
-
-                return -1;
-
-            }
-            
-            return Geometry.Query.Area(way.WayToUTMPolyline());
+            return Create.Node(Geometry.Create.Point(lon, lat, 0), 0);
         }
         /***************************************************/
     }
