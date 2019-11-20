@@ -19,11 +19,11 @@
  * You should have received a copy of the GNU Lesser General Public License     
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
-using BH.oM.Osm;
+using BH.oM.OpenStreetMap;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
-namespace BH.Engine.Osm
+namespace BH.Engine.OpenStreetMap
 {
     public static partial class Create
     {
@@ -54,6 +54,7 @@ namespace BH.Engine.Osm
         [Input("key", "OSM tag key for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
         [Input("value", "OSM tag value for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
         [Output("QueryString", "OSM QueryString")]
+
         public static QueryString QueryInBox(double north, double east, double south, double west, string key, string value)
         {
             //bounding box minimum latitude, minimum longitude, maximum latitude, maximum longitude (or South-West-North-East)
@@ -76,31 +77,31 @@ namespace BH.Engine.Osm
 
         /***************************************************/
         ////too generic to describe
-        //public static QueryString QueryForLatLonByCityName(string city, string key, string value)
-        //{
-            
-        //    string q = jsonBaseUri +
-        //        "(" +
-        //        "node[\"" + key + "\" = \"" + value + "\"][\"name\" = \"" + city + "\"];" +
-        //        ");" +
-        //        "(._;>;);" +
-        //        "out;";
-        //    return QueryString(q);
-        //}
+        public static QueryString QueryForLatLonByCityName(string city, string key, string value)
+        {
+
+            string q = jsonBaseUri +
+                "(" +
+                "node[\"" + key + "\" = \"" + value + "\"][\"name\" = \"" + city + "\"];" +
+                ");" +
+                "(._;>;);" +
+                "out;";
+            return QueryString(q);
+        }
 
         ///***************************************************/
         ////too generic to describe
-        //public static QueryString QueryForLatLonByNameKeyValue(string name, string key, string value)
-        //{
-        //    string q = jsonBaseUri +
-        //        "(" +
-        //        "way[\"" + key + "\" = \"" + value + "\"][\"name\" = \"" + name + "\"];" +
-        //        "relation[\"" + key + "\" = \"" + value + "\"][\"name\" = \"" + name + "\"];" +
-        //        ");" +
-        //        "(._;>;);" +
-        //        "out center;";
-        //    return QueryString(q);
-        //}
+        public static QueryString QueryForLatLonByNameKeyValue(string name, string key, string value)
+        {
+            string q = jsonBaseUri +
+                "(" +
+                "way[\"" + key + "\" = \"" + value + "\"][\"name\" = \"" + name + "\"];" +
+                "relation[\"" + key + "\" = \"" + value + "\"][\"name\" = \"" + name + "\"];" +
+                ");" +
+                "(._;>;);" +
+                "out center;";
+            return QueryString(q);
+        }
 
         /***************************************************/
         [Description("Create an OpenStreetMap_oM QueryString to search for Ways tagged with the specified key and value within a radius of a point")]

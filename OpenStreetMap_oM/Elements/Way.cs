@@ -22,7 +22,7 @@
 using BH.oM.Base;
 using System.Collections.Generic;
 
-namespace BH.oM.Osm
+namespace BH.oM.OpenStreetMap
 {
     public class Way : BHoMObject, IBHoMFragment
     {

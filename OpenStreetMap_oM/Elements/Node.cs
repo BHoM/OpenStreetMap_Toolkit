@@ -23,7 +23,7 @@ using BH.oM.Base;
 using BH.oM.Geometry;
 using System.Collections.Generic;
 
-namespace BH.oM.Osm
+namespace BH.oM.OpenStreetMap
 {
     public class Node : BHoMObject
     {

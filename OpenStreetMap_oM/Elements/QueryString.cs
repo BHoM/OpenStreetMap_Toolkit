@@ -21,7 +21,7 @@
  */
 using BH.oM.Base;
 
-namespace BH.oM.Osm
+namespace BH.oM.OpenStreetMap
 {
     public class QueryString : BHoMObject
     {
