@@ -7,8 +7,8 @@
     <ProjectGuid>{743D0DE2-40C7-4229-AF19-C7A656894242}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OpenStreetMap_Toolkit</RootNamespace>
-    <AssemblyName>OpenStreetMap_Toolkit</AssemblyName>
+    <RootNamespace>OpenStreetMap_oM</RootNamespace>
+    <AssemblyName>OpenStreetMap_oM</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
