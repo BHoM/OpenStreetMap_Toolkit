@@ -57,9 +57,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Elements\BoundingBox.cs" />
+    <Compile Include="Elements\CentreRadius.cs" />
+    <Compile Include="Elements\IOpenStreetMapElement.cs" />
+    <Compile Include="Elements\IOpenStreetMapRegion.cs" />
+    <Compile Include="Elements\LineStringRadius.cs" />
     <Compile Include="Elements\Node.cs" />
-    <Compile Include="Elements\OsmObjectContainer.cs" />
+    <Compile Include="Elements\ElementContainer.cs" />
+    <Compile Include="Elements\Polygon.cs" />
+    <Compile Include="Elements\QueryBuilder.cs" />
     <Compile Include="Elements\QueryString.cs" />
+    <Compile Include="Elements\Relation.cs" />
     <Compile Include="Elements\Way.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

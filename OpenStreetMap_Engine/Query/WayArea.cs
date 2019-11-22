@@ -37,16 +37,9 @@ namespace BH.Engine.OpenStreetMap
 
         public static double Area(this Way way)
         {
-            //is the way closed?
+            //is the way closed? maybe a warning is needed
 
             //first and last should be the same
-
-            if(way.Nodes[0].Location.CompareTo(way.Nodes[way.Nodes.Count - 1].Location)!=0)
-            {
-
-                return -1;
-
-            }
             
             return Geometry.Query.Area(way.WayToUTMPolyline());
         }

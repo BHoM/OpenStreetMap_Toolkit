@@ -37,13 +37,13 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Create an OpenStreetMap_oM OsmObjectContainer from Nodes and Ways")]
+        [Description("Create an OpenStreetMap_oM ElementContainer from Nodes and Ways")]
         [Input("nodes", "OpenStreetMap_oM Nodes for the container")]
         [Input("ways", "OpenStreetMap_oM Ways for the container")]
-        [Output("OsmObjectContainer", "OsmObjectContainer containing the Nodes and Ways")]
-        public static OsmObjectContainer OsmObjectContainer(List<Node> nodes, List<Way> ways)
+        [Output("ElementContainer", "ElementContainer containing the Nodes and Ways")]
+        public static ElementContainer ElementContainer(List<Node> nodes, List<Way> ways)
         {
-            return new OsmObjectContainer()
+            return new ElementContainer()
             {
                Nodes = nodes,
 
@@ -53,12 +53,12 @@ namespace BH.Engine.OpenStreetMap
         }
 
         /***************************************************/
-        [Description("Create an OpenStreetMap_oM OsmObjectContainer from Nodes")]
+        [Description("Create an OpenStreetMap_oM ElementContainer from Nodes")]
         [Input("nodes", "OpenStreetMap_oM Nodes for the container")]
-        [Output("OsmObjectContainer", "OsmObjectContainer containing the Nodes")]
-        public static OsmObjectContainer OsmObjectContainer(List<Node> nodes)
+        [Output("ElementContainer", "ElementContainer containing the Nodes")]
+        public static ElementContainer ElementContainer(List<Node> nodes)
         {
-            return new OsmObjectContainer()
+            return new ElementContainer()
             {
                 Nodes = nodes
             };
@@ -66,12 +66,12 @@ namespace BH.Engine.OpenStreetMap
         }
 
         /***************************************************/
-        [Description("Create an OpenStreetMap_oM OsmObjectContainer from Ways")]
+        [Description("Create an OpenStreetMap_oM ElementContainer from Ways")]
         [Input("ways", "OpenStreetMap_oM Ways for the container")]
-        [Output("OsmObjectContainer", "OsmObjectContainer with the Ways")]
-        public static OsmObjectContainer OsmObjectContainer(List<Way> ways)
+        [Output("ElementContainer", "ElementContainer with the Ways")]
+        public static ElementContainer ElementContainer(List<Way> ways)
         {
-            return new OsmObjectContainer()
+            return new ElementContainer()
             {
                 Ways = ways
             };
@@ -79,16 +79,16 @@ namespace BH.Engine.OpenStreetMap
         }
 
         /***************************************************/
-        [Description("Create an OpenStreetMap_oM OsmObjectContainer from JSON formatted query result")]
+        [Description("Create an OpenStreetMap_oM ElementContainer from JSON formatted query result")]
         [Input("OSMQueryJSONResult", "string formatted as JSON")] 
-        [Output("OsmObjectContainer", "OsmObjectContainer containing the objects defined in the JSON formatted query result")]
-        public static OsmObjectContainer OsmObjectContainer(string OSMQueryJSONResult)
+        [Output("ElementContainer", "ElementContainer containing the objects defined in the JSON formatted query result")]
+        public static ElementContainer ElementContainer(string OSMQueryJSONResult)
         {
             List<Way> ways = new List<Way>();
 
             List<Node> nodes = new List<Node>();
 
-            if (OSMQueryJSONResult == null) return new OsmObjectContainer();
+            if (OSMQueryJSONResult == null) return new ElementContainer();
 
             JObject data;
 
@@ -105,9 +105,8 @@ namespace BH.Engine.OpenStreetMap
                 {
                     if ((string)g.SelectToken("type") == "node")
                     {
-                        Point location = Geometry.Create.Point((double)g.SelectToken("lon"), (double)g.SelectToken("lat"), 0);
 
-                        Node node = Create.Node(location, (long)g.SelectToken("id"));
+                        Node node = Create.Node((double)g.SelectToken("lat"), (double)g.SelectToken("lon"), (long)g.SelectToken("id"));
                         
                         //add key values to node
                         var tags = g.SelectToken("tags");
@@ -116,7 +115,8 @@ namespace BH.Engine.OpenStreetMap
                         {
                             foreach (JProperty jp in tags)
                             {
-                                node.KeyValues.Add(new KeyValuePair<string, string>((string)jp.Name, (string)jp.Value));
+                                node.KeyValues.Add(jp.Name, (string)jp.Value);
+
                             }
                         }
 
@@ -126,8 +126,8 @@ namespace BH.Engine.OpenStreetMap
                     if ((string)g.SelectToken("type") == "way")
                     {
                         List<Int64> ids = new List<Int64>();
-                        string wayid = (string)g.SelectToken("id");
-                        Way way = Create.Way(ids, wayid);
+                        
+                        Way way = Create.Way(ids, (long)g.SelectToken("id"));
                         var n = g.SelectToken("nodes");
                         if (n is JArray)
                         {
@@ -141,7 +141,8 @@ namespace BH.Engine.OpenStreetMap
                         {
                             foreach (JProperty jp in tags)
                             {
-                                way.KeyValues.Add(new KeyValuePair<string, string>((string)jp.Name, (string)jp.Value));
+                                way.KeyValues.Add(jp.Name, (string)jp.Value);
+
                             }
                             
                         }
@@ -157,7 +158,7 @@ namespace BH.Engine.OpenStreetMap
                 way.Nodes = waynodes;
                 
             }
-            return Create.OsmObjectContainer(nodes, ways);
+            return Create.ElementContainer(nodes, ways);
 
 
         }

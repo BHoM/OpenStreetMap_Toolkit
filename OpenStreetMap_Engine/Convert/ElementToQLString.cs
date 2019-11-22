@@ -20,30 +20,57 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 using BH.oM.OpenStreetMap;
-using System.ComponentModel;
-using BH.oM.Reflection.Attributes;
-using System.Linq;
+using System.Collections.Generic;
+using System.Text;
 
 namespace BH.Engine.OpenStreetMap
 {
-    public static partial class Query
+    public static partial class Convert
     {
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-
-        [Description("Calculate the average node in an of an OsmObjectContainer")]
-        [Input("container", "OsmObjectContainer")]
-        [Output("Node", "Single average node")]
-
-        public static Node AverageNode(this ElementContainer container)
+        public static string ElementToQLString(this IOpenStreetMapElement element)
         {
-            double lat = container.Nodes.Sum(x => x.Latitude) / container.Nodes.Count;
+            if (element == null) return "";
 
-            double lon = container.Nodes.Sum(x => x.Longitude) / container.Nodes.Count;
+            string tagfilter = keyvalues(element);
 
-            return Create.Node(lat,lon);
+            if (element is Node)
+            {
+                return "node" + tagfilter;
+            }
+            if (element is Way)
+            {
+                return "way" + tagfilter;
+            }
+            if (element is Relation)
+            {
+                return "rel" + tagfilter;
+            }
+            return "";
         }
         /***************************************************/
+        /****           Private Methods                 ****/
+        /***************************************************/
+        private static string keyvalues(IOpenStreetMapElement element)
+        {
+            //other tagfilters to be implmented see: https://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide#Tag_request_clauses_.28or_.22tag_filters.22.29
+            StringBuilder tagfilter = new StringBuilder();
+            foreach(KeyValuePair<string,string> kvp in element.KeyValues)
+            {
+                if (kvp.Key == "") continue;
+                if (kvp.Value == "")
+                {
+                    tagfilter.Append(string.Format("[{0}]", kvp.Key));
+                }
+                else
+                {
+                    tagfilter.Append(string.Format("[{0}={1}]", kvp.Key, kvp.Value));
+                }
+
+            }
+            return tagfilter.ToString();
+        }
     }
 }

@@ -19,31 +19,21 @@
  * You should have received a copy of the GNU Lesser General Public License     
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
-using BH.oM.OpenStreetMap;
-using System.ComponentModel;
-using BH.oM.Reflection.Attributes;
-using System.Linq;
+using BH.oM.Base;
+using System.Collections.Generic;
 
-namespace BH.Engine.OpenStreetMap
+namespace BH.oM.OpenStreetMap
 {
-    public static partial class Query
+    public class ElementContainer : BHoMObject
     {
         /***************************************************/
-        /****           Public Methods                  ****/
+        /****            Public Properties              ****/
         /***************************************************/
 
-        [Description("Calculate the average node in an of an OsmObjectContainer")]
-        [Input("container", "OsmObjectContainer")]
-        [Output("Node", "Single average node")]
+        public List<Node> Nodes { get; set; } = new List<Node>();
 
-        public static Node AverageNode(this ElementContainer container)
-        {
-            double lat = container.Nodes.Sum(x => x.Latitude) / container.Nodes.Count;
+        public List<Way> Ways { get; set; } = new List<Way>();
 
-            double lon = container.Nodes.Sum(x => x.Longitude) / container.Nodes.Count;
-
-            return Create.Node(lat,lon);
-        }
         /***************************************************/
     }
 }

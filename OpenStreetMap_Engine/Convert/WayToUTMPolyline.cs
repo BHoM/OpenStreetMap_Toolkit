@@ -32,16 +32,16 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Create an OSM Way from nodes and id")]
-        [Input("latlonnodes", "List of OSM Nodes")]
-        [Output("Way", "OSM Way")]
+        [Description("Covert an OSM Way to a UTM Polyine")]
+        [Input("Way", "OSM Way to convert")]
+        [Output("Polyline", "Converterd Way as a Polyline")]
         public static Polyline WayToUTMPolyline(this Way way)
         {
             List<Point> points = new List<Point>();
 
             foreach (Node n in way.Nodes)
             {
-                double[] eastingNorthing = LatLonToUTM(n.Location.Y, n.Location.X);
+                double[] eastingNorthing = LatLonToUTM(n.Latitude,n.Longitude);
 
                 Point utmPoint = Geometry.Create.Point(eastingNorthing[0], eastingNorthing[1], 0);
 

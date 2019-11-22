@@ -19,21 +19,29 @@
  * You should have received a copy of the GNU Lesser General Public License     
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
-using BH.oM.Base;
+using BH.oM.Geometry;
+using BH.oM.OpenStreetMap;
 using System.Collections.Generic;
+using System.ComponentModel;
+using BH.oM.Reflection.Attributes;
 
-namespace BH.oM.OpenStreetMap
+namespace BH.Engine.OpenStreetMap
 {
-    public class OsmObjectContainer : BHoMObject
+    public static partial class Convert
     {
         /***************************************************/
-        /****            Public Properties              ****/
+        /****           Public Methods                  ****/
         /***************************************************/
+        [Description("Covert an OpenStreetMap Node to a UTM Point")]
+        [Input("Node", "OpenStreetMap Node to convert")]
+        [Output("Point", "Converted Way as a Point")]
+        public static Point NodeToUTMPoint(this Node node)
+        {
+            double[] eastingNorthing = LatLonToUTM(node.Latitude, node.Longitude);
 
-        public List<Node> Nodes { get; set; } = new List<Node>();
+            Point utmPoint = Geometry.Create.Point(eastingNorthing[0], eastingNorthing[1], 0);
 
-        public List<Way> Ways { get; set; } = new List<Way>();
-
-        /***************************************************/
+            return utmPoint;
+        }
     }
 }

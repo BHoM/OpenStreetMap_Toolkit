@@ -22,28 +22,63 @@
 using BH.oM.OpenStreetMap;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace BH.Engine.OpenStreetMap
 {
-    public static partial class Query
+    public static partial class Create
     {
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-
-        [Description("Calculate the average node in an of an OsmObjectContainer")]
-        [Input("container", "OsmObjectContainer")]
-        [Output("Node", "Single average node")]
-
-        public static Node AverageNode(this ElementContainer container)
+        public static QueryBuilder QueryBuilder(IOpenStreetMapRegion region, List<Node> nodes = null, List<Way> ways = null, List<Relation> relations = null)
         {
-            double lat = container.Nodes.Sum(x => x.Latitude) / container.Nodes.Count;
+            StringBuilder q = new StringBuilder();
 
-            double lon = container.Nodes.Sum(x => x.Longitude) / container.Nodes.Count;
+            q.Append(jsonBaseUri);
 
-            return Create.Node(lat,lon);
+            q.Append("(");
+
+            if (nodes != null) q.Append(GetElementAndRegion(nodes.Cast<IOpenStreetMapElement>().ToList(), region));
+
+            if (ways != null) q.Append(GetElementAndRegion(ways.Cast<IOpenStreetMapElement>().ToList(), region));
+
+            if(relations!=null) q.Append(GetElementAndRegion(relations.Cast<IOpenStreetMapElement>().ToList(), region));
+
+            q.Append(");");
+            q.Append("(._;");
+            q.Append(">;");
+            q.Append(");");
+            q.Append("out body;");
+            return new QueryBuilder()
+            {
+                QueryString = q.ToString()
+            };
         }
         /***************************************************/
+        /****           Private Methods                 ****/
+        /***************************************************/
+        private static string BaseUri()
+        {
+            return "https://www.overpass-api.de/api/interpreter?data=[out:json];";
+        }
+        /***************************************************/
+        private static string GetElementAndRegion(List<IOpenStreetMapElement> elements, IOpenStreetMapRegion region)
+        {
+            if (elements == null) return "";
+
+            string elementQuery = "";
+
+            string regionQuery = region.RegionToQLString();
+
+            foreach (IOpenStreetMapElement element in elements)
+            {
+                elementQuery += element.ElementToQLString() + regionQuery;
+            }
+
+            return elementQuery;
+        }
     }
 }

@@ -20,29 +20,28 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 using BH.oM.OpenStreetMap;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
-using System.Linq;
 
 namespace BH.Engine.OpenStreetMap
 {
-    public static partial class Query
+    public static partial class Create
     {
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-
-        [Description("Calculate the average node in an of an OsmObjectContainer")]
-        [Input("container", "OsmObjectContainer")]
-        [Output("Node", "Single average node")]
-
-        public static Node AverageNode(this ElementContainer container)
+        [Description("Create an OSM Polygon Region from nodes")]
+        [Input("nodes", "List of OpenStreetMap Nodes associated with the Polygon")]
+        [Output("Polygon", "OSM Polygon")]
+        public static Polygon Polygon(List<Node> nodes)
         {
-            double lat = container.Nodes.Sum(x => x.Latitude) / container.Nodes.Count;
+            return new Polygon()
+            {
+                Nodes = nodes
+            };
 
-            double lon = container.Nodes.Sum(x => x.Longitude) / container.Nodes.Count;
-
-            return Create.Node(lat,lon);
         }
         /***************************************************/
     }

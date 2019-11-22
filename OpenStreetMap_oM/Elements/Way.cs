@@ -24,7 +24,7 @@ using System.Collections.Generic;
 
 namespace BH.oM.OpenStreetMap
 {
-    public class Way : BHoMObject, IBHoMFragment
+    public class Way : BHoMObject, IOpenStreetMapElement
     {
         /***************************************************/
         /****            Public Properties              ****/
@@ -32,11 +32,11 @@ namespace BH.oM.OpenStreetMap
 
         public List<Node>Nodes { get; set; } = new List<Node>();
 
-        public string OsmID { get; set; }
+        public long OsmID { get; set; }
 
         public List<long> NodeOsmIds { get; set; } = new List<long>();
 
-        public List<KeyValuePair<string, string>> KeyValues { get; set; } = new List<KeyValuePair<string, string>>();
+        public Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
 
         /***************************************************/
     }

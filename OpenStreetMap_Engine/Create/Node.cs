@@ -23,6 +23,7 @@ using BH.oM.Geometry;
 using BH.oM.OpenStreetMap;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
+using System.Collections.Generic;
 
 namespace BH.Engine.OpenStreetMap
 {
@@ -31,19 +32,59 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Constructors             ****/
         /***************************************************/
-        [Description("Create a Node from location and id")]
-        [Input("location", "Point object with longitude (X) and latitude (Y) of the location")]
-        [Input("osmId", "OpenStreetMap id associated with the Node")]
+
+        [Description("Create a Node from latitude, longitude and OpenStreetMap id")]
+        [Input("latitude", "Latitude in decimal degrees")]
+        [Input("longitude", "Longitude in decimal degrees")]
+        [Input("osmid", "OpenStreetMap id")]
         [Output("Node", "Node")]
-        public static Node Node(Point location, long osmId)
+        public static Node Node(double latitude =0.0, double longitude =0.0, long osmId =0)
         {
-            return new Node()
+            Node n = new Node()
             {
-                Location = location,
+                Latitude = latitude,
+
+                Longitude = longitude,
 
                 OsmID = osmId
 
             };
+
+            return n;
+        }
+
+        /***************************************************/
+
+        [Description("Create a Node from key values")]
+        [Input("keyvalues", "OpenStreetMap tags associated with the Node")]
+        [Output("Node", "Node")]
+        public static Node Node(Dictionary<string, string> keyvalues)
+        {
+            Node n = new Node()
+            {
+
+                KeyValues = keyvalues
+
+            };
+
+            return n;
+        }
+
+        [Description("Create a Node from latitude and longitude")]
+        [Input("latitude", "Latitude in decimal degrees")]
+        [Input("longitude", "Longitude in decimal degrees")]
+        [Output("Node", "Node")]
+        public static Node Node(double latitude = 0.0, double longitude = 0.0)
+        {
+            Node n = new Node()
+            {
+                Latitude = latitude,
+
+                Longitude = longitude,
+
+            };
+
+            return n;
         }
 
         /***************************************************/
