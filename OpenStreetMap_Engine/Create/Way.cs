@@ -35,7 +35,7 @@ namespace BH.Engine.OpenStreetMap
         [Description("Create an OSM Way from nodes and id")]
         [Input("latlonnodes", "List of OSM Nodes")]
         [Output("Way", "OSM Way")]
-        public static Way Way(List<Node>latlonnodes, string osmId)
+        public static Way Way(List<Node>latlonnodes, long osmId)
         {
             return new Way()
             {
@@ -50,7 +50,7 @@ namespace BH.Engine.OpenStreetMap
         [Description("Create an OSM Way from Nodes ids and id")]
         [Input("pointIds", "List of OSM Nodes ids")]
         [Output("Way", "OSM Way")]
-        public static Way Way(List<Int64> pointIds, string osmId)
+        public static Way Way(List<Int64> pointIds, long osmId)
         {
             return new Way()
             {
@@ -59,6 +59,19 @@ namespace BH.Engine.OpenStreetMap
                 OsmID = osmId
 
             };
+        }
+        /***************************************************/
+
+        [Description("Create an OSM Way from key values")]
+        [Input("keyvalues", "OpenStreetMap tags associated with the Way")]
+        [Output("Way", "OSM Way")]
+        public static Way Way(Dictionary<string,string> keyvalues)
+        {
+            return new Way()
+            {
+                KeyValues = keyvalues
+            };
+            
         }
         /***************************************************/
     }

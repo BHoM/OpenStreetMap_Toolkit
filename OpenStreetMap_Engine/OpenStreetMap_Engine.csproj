@@ -65,9 +65,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Convert\LatLonToUTM.cs" />
+    <Compile Include="Convert\ElementToQLString.cs" />
+    <Compile Include="Convert\NodeToUTMPoint.cs" />
+    <Compile Include="Convert\RegionToQLString.cs" />
     <Compile Include="Create\Node.cs" />
-    <Compile Include="Create\OsmObjectContainer.cs" />
+    <Compile Include="Create\ElementContainer.cs" />
+    <Compile Include="Create\Polygon.cs" />
+    <Compile Include="Create\QueryBuilder.cs" />
     <Compile Include="Create\QueryString.cs" />
+    <Compile Include="Create\Relation.cs" />
     <Compile Include="Create\Way.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Convert\UTMtoLatLon.cs" />

@@ -31,19 +31,6 @@ namespace BH.Engine.OpenStreetMap
         /****           Public Methods                  ****/
         /***************************************************/
 
-        [Description("Create an OSM QueryString")]
-        [Input("query", "Query as string")]
-        [Output("QueryString", "OSM QueryString")]
-        public static QueryString QueryString(string query)
-        {
-            return new QueryString()
-            {
-                Query = query
-
-            };
-        }
-
-        /***************************************************/
         //base uri to overpass api
         private static string jsonBaseUri = "https://www.overpass-api.de/api/interpreter?data=[out:json];";
         [Description("Create an OpenStreetMap_oM QueryString to search for Nodes, Ways and Relations tagged with the specified key and value in a box")]
@@ -72,7 +59,10 @@ namespace BH.Engine.OpenStreetMap
                 ">;" +
                 ");" +
                 "out body;";
-            return QueryString(q);
+            return new QueryString()
+            {
+                Query = q
+            };
         }
 
         /***************************************************/
@@ -86,7 +76,10 @@ namespace BH.Engine.OpenStreetMap
                 ");" +
                 "(._;>;);" +
                 "out;";
-            return QueryString(q);
+            return new QueryString()
+            {
+                Query = q
+            };
         }
 
         ///***************************************************/
@@ -100,7 +93,10 @@ namespace BH.Engine.OpenStreetMap
                 ");" +
                 "(._;>;);" +
                 "out center;";
-            return QueryString(q);
+            return new QueryString()
+            {
+                Query = q
+            };
         }
 
         /***************************************************/
@@ -120,7 +116,10 @@ namespace BH.Engine.OpenStreetMap
                 ");" +
                 "(._;>;);" +
                 "out body;";
-            return QueryString(q);
+            return new QueryString()
+            {
+                Query = q
+            };
         }
 
         /***************************************************/
@@ -139,7 +138,10 @@ namespace BH.Engine.OpenStreetMap
                 "(around:" + radius + ", " + latitude + ", " + longitude + ");" +
                 ");" +
                 "out body;";
-            return QueryString(q);
+            return new QueryString()
+            {
+                Query = q
+            };
         }
 
         /***************************************************/
@@ -158,7 +160,10 @@ namespace BH.Engine.OpenStreetMap
                 "(around:" + radius + ", " + latitude + ", " + longitude + ");" +
                 ");" +
                 "out body;";
-            return QueryString(q);
+            return new QueryString()
+            {
+                Query = q
+            };
         }
 
         /***************************************************/
@@ -183,7 +188,10 @@ namespace BH.Engine.OpenStreetMap
                 "(around:" + radius + ", " + latitude + ", " + longitude + ");" +
                 ");" +
                 "out body;";
-            return QueryString(q);
+            return new QueryString()
+            {
+                Query = q
+            };
         }
 
         /***************************************************/

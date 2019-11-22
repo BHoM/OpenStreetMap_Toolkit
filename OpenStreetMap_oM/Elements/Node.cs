@@ -25,17 +25,19 @@ using System.Collections.Generic;
 
 namespace BH.oM.OpenStreetMap
 {
-    public class Node : BHoMObject
+    public class Node : BHoMObject, IOpenStreetMapElement
     {
         /***************************************************/
         /****            Public Properties              ****/
         /***************************************************/
 
-        public Point Location { get; set; }
+        public double Latitude { get; set; } = 0;
 
-        public long OsmID { get; set; }
+        public double Longitude { get; set; } = 0;
 
-        public List<KeyValuePair<string, string>> KeyValues { get; set; } = new List<KeyValuePair<string, string>>();
+        public long OsmID { get; set; } = 0;
+
+        public Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
 
     }
 }
