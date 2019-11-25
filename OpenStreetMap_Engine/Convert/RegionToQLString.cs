@@ -59,6 +59,14 @@ namespace BH.Engine.OpenStreetMap
 
                 return string.Format("(around:{0},{1});", lineRad.Radius,lineRad.Polygon.PolygonToLatLonString());
             }
+            if(region is TaggedArea)
+            {
+                TaggedArea taggedArea = region as TaggedArea;
+
+                string keyvalues = KeyValuesToQLString(taggedArea.KeyValues);
+
+                return string.Format("area{0};", keyvalues);
+            }
             return "";
         }
         /***************************************************/

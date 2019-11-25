@@ -19,10 +19,9 @@
  * You should have received a copy of the GNU Lesser General Public License     
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
-using System;
-using CoordinateSharp;
-using System.ComponentModel;
-using BH.oM.Reflection.Attributes;
+using BH.oM.OpenStreetMap;
+using System.Collections.Generic;
+using System.Text;
 
 namespace BH.Engine.OpenStreetMap
 {
@@ -31,19 +30,32 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Convert latitude and longitude to universal transvers mercator")]
-        [Input("lat", "Decimal latitude")]
-        [Input("lon", "Decimal longitude")]
-        [Output("double []", "Array of two doubles as easting and northing (x,y)")]
-        public static double[] LatLonToUTM(double lat, double lon)
+
+        public static string KeyValuesToQLString(Dictionary<string, string> keyvalues)
         {
-            Coordinate c = new Coordinate(lat,lon);
+            
+            //other tagfilters to be implmented see: https://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide#Tag_request_clauses_.28or_.22tag_filters.22.29
 
-            double[] eastingNorthing = new double[] { c.UTM.Easting, c.UTM.Northing };
+            StringBuilder tagfilter = new StringBuilder();
 
-            return eastingNorthing;
+            foreach (KeyValuePair<string, string> kvp in keyvalues)
+            {
+                if (kvp.Key == "") continue;
+
+                if (kvp.Value == "")
+                {
+                    tagfilter.Append(string.Format("[{0}]", kvp.Key));
+                }
+                else
+                {
+                    tagfilter.Append(string.Format("[{0}={1}]", kvp.Key, kvp.Value));
+                }
+
+            }
+
+            return tagfilter.ToString();
+            
         }
-
-        /***************************************************/
+        
     }
 }
