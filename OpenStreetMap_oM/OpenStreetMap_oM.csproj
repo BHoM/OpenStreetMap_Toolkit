@@ -68,6 +68,7 @@
     <Compile Include="Elements\QueryBuilder.cs" />
     <Compile Include="Elements\QueryString.cs" />
     <Compile Include="Elements\Relation.cs" />
+    <Compile Include="Elements\TaggedArea.cs" />
     <Compile Include="Elements\Way.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

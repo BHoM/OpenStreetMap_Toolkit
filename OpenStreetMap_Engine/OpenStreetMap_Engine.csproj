@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Convert\KeyValuesToQLString.cs" />
     <Compile Include="Convert\LatLonToUTM.cs" />
     <Compile Include="Convert\ElementToQLString.cs" />
     <Compile Include="Convert\NodeToUTMPoint.cs" />

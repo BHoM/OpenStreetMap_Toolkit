@@ -19,31 +19,19 @@
  * You should have received a copy of the GNU Lesser General Public License     
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
-using System;
-using CoordinateSharp;
-using System.ComponentModel;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base;
+using BH.oM.Geometry;
+using System.Collections.Generic;
 
-namespace BH.Engine.OpenStreetMap
+namespace BH.oM.OpenStreetMap
 {
-    public static partial class Convert
+    public class TaggedArea : BHoMObject, IOpenStreetMapRegion
     {
         /***************************************************/
-        /****           Public Methods                  ****/
+        /****            Public Properties              ****/
         /***************************************************/
-        [Description("Convert latitude and longitude to universal transvers mercator")]
-        [Input("lat", "Decimal latitude")]
-        [Input("lon", "Decimal longitude")]
-        [Output("double []", "Array of two doubles as easting and northing (x,y)")]
-        public static double[] LatLonToUTM(double lat, double lon)
-        {
-            Coordinate c = new Coordinate(lat,lon);
 
-            double[] eastingNorthing = new double[] { c.UTM.Easting, c.UTM.Northing };
+        public Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
 
-            return eastingNorthing;
-        }
-
-        /***************************************************/
     }
 }

@@ -33,19 +33,17 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        public static QueryBuilder QueryBuilder(IOpenStreetMapRegion region, List<Node> nodes = null, List<Way> ways = null, List<Relation> relations = null)
+        public static QueryBuilder QueryBuilder(IOpenStreetMapRegion region, List<IOpenStreetMapElement> elements)
         {
             StringBuilder q = new StringBuilder();
 
             q.Append(jsonBaseUri);
 
+            if (region is TaggedArea) q.Append(region.RegionToQLString());
+
             q.Append("(");
 
-            if (nodes != null) q.Append(GetElementAndRegion(nodes.Cast<IOpenStreetMapElement>().ToList(), region));
-
-            if (ways != null) q.Append(GetElementAndRegion(ways.Cast<IOpenStreetMapElement>().ToList(), region));
-
-            if(relations!=null) q.Append(GetElementAndRegion(relations.Cast<IOpenStreetMapElement>().ToList(), region));
+            q.Append(GetElementAndRegion(elements, region));
 
             q.Append(");");
             q.Append("(._;");
@@ -57,21 +55,29 @@ namespace BH.Engine.OpenStreetMap
                 QueryString = q.ToString()
             };
         }
+
         /***************************************************/
         /****           Private Methods                 ****/
         /***************************************************/
+
         private static string BaseUri()
         {
             return "https://www.overpass-api.de/api/interpreter?data=[out:json];";
         }
+
         /***************************************************/
+
         private static string GetElementAndRegion(List<IOpenStreetMapElement> elements, IOpenStreetMapRegion region)
         {
             if (elements == null) return "";
 
             string elementQuery = "";
 
-            string regionQuery = region.RegionToQLString();
+            string regionQuery = "";
+
+            if (region is TaggedArea) regionQuery = "(area);";
+
+            else regionQuery = region.RegionToQLString();
 
             foreach (IOpenStreetMapElement element in elements)
             {
@@ -80,5 +86,9 @@ namespace BH.Engine.OpenStreetMap
 
             return elementQuery;
         }
+
+        /***************************************************/
+
+        
     }
 }
