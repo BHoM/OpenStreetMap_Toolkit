@@ -32,9 +32,9 @@ namespace BH.Engine.OpenStreetMap
         /****           Public Methods                  ****/
         /***************************************************/
 
-        [Description("Calculate the average node in an of an OsmObjectContainer")]
-        [Input("container", "OsmObjectContainer")]
-        [Output("Node", "Single average node")]
+        [Description("Calculate the average node in an of an OpenStreetMap ElementContainer")]
+        [Input("container", "OpenStreetMap ElementContainer")]
+        [Output("node", "Single average node")]
 
         public static Node AverageNode(this ElementContainer container)
         {
@@ -42,7 +42,7 @@ namespace BH.Engine.OpenStreetMap
 
             double lon = container.Nodes.Sum(x => x.Longitude) / container.Nodes.Count;
 
-            return Create.Node(lat,lon);
+            return Create.Node(lat, lon);
         }
         /***************************************************/
     }

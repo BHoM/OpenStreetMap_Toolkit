@@ -32,14 +32,14 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Create an OSM Relation from key values")]
-        [Input("keyvalues", "OpenStreetMap tags associated with the Relation")]
-        [Output("Relation", "OSM Relation")]
-        public static Relation Relation(Dictionary<string, string> keyvalues)
+        [Description("Create an OpenStreetMap Relation from key values")]
+        [Input("keyValues", "OpenStreetMap tags associated with the Relation")]
+        [Output("relation", "OpenStreetMap Relation")]
+        public static Relation Relation(Dictionary<string, string> keyValues)
         {
             return new Relation()
             {
-                KeyValues = keyvalues
+                KeyValues = keyValues
             };
 
         }

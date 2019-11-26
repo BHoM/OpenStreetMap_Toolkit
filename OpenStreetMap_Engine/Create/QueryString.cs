@@ -38,9 +38,9 @@ namespace BH.Engine.OpenStreetMap
         [Input("south", "Southern limit of box (minimum decimal latitude)")]
         [Input("east", "Eastern limit of box (maximum decimal longitude)")]
         [Input("west", "Western limit of box (minimum decimal longitude)")]
-        [Input("key", "OSM tag key for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
-        [Input("value", "OSM tag value for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
-        [Output("QueryString", "OSM QueryString")]
+        [Input("key", "OpenStreetMap tag key for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
+        [Input("value", "OpenStreetMap tag value for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
+        [Output("QueryString", "OpenStreetMap QueryString")]
 
         public static QueryString QueryInBox(double north, double east, double south, double west, string key, string value)
         {
@@ -104,9 +104,9 @@ namespace BH.Engine.OpenStreetMap
         [Input("radius", "Search radius in metres")]
         [Input("latitude", "Decimal latitude of centre point")]
         [Input("longitude", "Decimal longitudeof centre point")]
-        [Input("key", "OSM tag key for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
-        [Input("value", "OSM tag value for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
-        [Output("QueryString", "OSM QueryString")]
+        [Input("key", "OpenStreetMap tag key for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
+        [Input("value", "OpenStreetMap tag value for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
+        [Output("QueryString", "OpenStreetMap QueryString")]
         public static QueryString QueryWayFromPointAndRadiusByKeyValue(double radius, double latitude, double longitude, string key, string value)
         {
             string q = jsonBaseUri +
@@ -127,9 +127,9 @@ namespace BH.Engine.OpenStreetMap
         [Input("radius", "Search radius in metres")]
         [Input("latitude", "Decimal latitude of centre point")]
         [Input("longitude", "Decimal longitudeof centre point")]
-        [Input("key", "OSM tag key for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
+        [Input("key", "OpenStreetMap tag key for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
         
-        [Output("QueryString", "OSM QueryString")]
+        [Output("QueryString", "OpenStreetMap QueryString")]
         public static QueryString QueryNodesFromPointAndRadiusByKey(double radius, double latitude, double longitude, string key)
         {
             string q = jsonBaseUri +
@@ -149,9 +149,9 @@ namespace BH.Engine.OpenStreetMap
         [Input("radius", "Search radius in metres")]
         [Input("latitude", "Decimal latitude of centre point")]
         [Input("longitude", "Decimal longitudeof centre point")]
-        [Input("key", "OSM tag key for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
-        [Input("value", "OSM tag value for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
-        [Output("QueryString", "OSM QueryString")]
+        [Input("key", "OpenStreetMap tag key for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
+        [Input("value", "OpenStreetMap tag value for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
+        [Output("QueryString", "OpenStreetMap QueryString")]
         public static QueryString QueryNodesFromPointAndRadiusByKeyValue(double radius, double latitude, double longitude, string key, string value)
         {
             string q = jsonBaseUri +
@@ -171,9 +171,9 @@ namespace BH.Engine.OpenStreetMap
         [Input("radius", "Search radius in metres")]
         [Input("latitude", "Decimal latitude of centre point")]
         [Input("longitude", "Decimal longitudeof centre point")]
-        [Input("key", "OSM tag key for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
-        [Input("value", "OSM tag value for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
-        [Output("QueryString", "OSM QueryString")]
+        [Input("key", "OpenStreetMap tag key for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
+        [Input("value", "OpenStreetMap tag value for search. See: https://wiki.openstreetmap.org/wiki/Tags")]
+        [Output("QueryString", "OpenStreetMap QueryString")]
         public static QueryString QueryFromPointAndRadiusKeyValue(double radius, double latitude, double longitude, string key, string value)
         {
             string q = jsonBaseUri +

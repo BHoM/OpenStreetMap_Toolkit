@@ -81,7 +81,7 @@ namespace BH.Engine.OpenStreetMap
 
             foreach (IOpenStreetMapElement element in elements)
             {
-                elementQuery += element.ElementToQLString() + regionQuery;
+                elementQuery += element.ToQLString() + regionQuery;
             }
 
             return elementQuery;

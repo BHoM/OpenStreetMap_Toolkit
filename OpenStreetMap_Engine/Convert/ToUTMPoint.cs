@@ -32,16 +32,18 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Covert an OpenStreetMap Node to a UTM Point")]
-        [Input("Node", "OpenStreetMap Node to convert")]
-        [Output("Point", "Converted Way as a Point")]
-        public static Point NodeToUTMPoint(this Node node)
+        [Description("Convert an OpenStreetMap Node to a UTM Point")]
+        [Input("node", "OpenStreetMap Node to convert")]
+        [Output("utmPoint", "Converted Way as a Point")]
+        public static Point ToUTMPoint(this Node node)
         {
+
             double[] eastingNorthing = LatLonToUTM(node.Latitude, node.Longitude);
 
             Point utmPoint = Geometry.Create.Point(eastingNorthing[0], eastingNorthing[1], 0);
 
             return utmPoint;
+
         }
     }
 }
