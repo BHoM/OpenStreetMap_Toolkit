@@ -40,23 +40,17 @@ namespace BH.Engine.OpenStreetMap
         [Description("Create an OpenStreetMap_oM ElementContainer from JSON formatted query result")]
         [Input("OpenStreetMapQueryJSONResult", "string formatted as JSON")]
         [Output("ElementContainer", "ElementContainer containing the objects defined in the JSON formatted query result")]
-        public static ElementContainer ElementContainer(string OpenStreetMapQueryJSONResult)
+        public static ElementContainer ToElementContainer(string OpenStreetMapQueryJSONResult)
         {
             List<Way> ways = new List<Way>();
-
             List<Node> nodes = new List<Node>();
-
             if (OpenStreetMapQueryJSONResult == null) return new ElementContainer();
-
             JObject data;
-
             using (JsonTextReader reader = new JsonTextReader(new StringReader(OpenStreetMapQueryJSONResult)))
             {
                 data = (JObject)JToken.ReadFrom(reader);
             }
-
             var ele = data.SelectToken("elements");
-
             if (ele is JArray)
             {
                 foreach (JObject g in ele)
@@ -64,46 +58,45 @@ namespace BH.Engine.OpenStreetMap
                     if ((string)g.SelectToken("type") == "node")
                     {
                         double latitude = 0;
-
                         double longitude = 0;
-
                         long id = 0;
-
                         double.TryParse((string)g.SelectToken("lat"), out latitude);
-                        
                         double.TryParse((string)g.SelectToken("lon"), out  longitude);
-
                         long.TryParse((string)g.SelectToken("id"), out id);
-
-                        Node node = Create.Node(latitude, longitude, id);
-
+                        Node node = new Node()
+                        {
+                            Latitude = latitude,
+                            Longitude = longitude,
+                            OsmID = id
+                        };
                         //add key values to node
                         var tags = g.SelectToken("tags");
-
                         if (tags != null)
                         {
                             foreach (JProperty jp in tags)
                             {
-
                                 node.KeyValues.Add(jp.Name, (string)jp.Value);
-
                             }
                         }
-
                         nodes.Add(node);
                     }
-
                     if ((string)g.SelectToken("type") == "way")
                     {
                         List<Int64> ids = new List<Int64>();
-
-                        Way way = Create.Way(ids, (long)g.SelectToken("id"));
+                        long id = 0;
+                        long.TryParse((string)g.SelectToken("id"), out id);
+                        Way way = new Way()
+                        {
+                            NodeOsmIds = ids,
+                            OsmID = id
+                        };
                         var n = g.SelectToken("nodes");
                         if (n is JArray)
                         {
                             for (int i = 0; i < n.Count(); i++)
                             {
-                                ids.Add((long)n[i]);
+                                long.TryParse((string)n[i], out id);
+                                ids.Add(id);
                             }
                         }
                         var tags = g.SelectToken("tags");
@@ -112,29 +105,23 @@ namespace BH.Engine.OpenStreetMap
                             foreach (JProperty jp in tags)
                             {
                                 way.KeyValues.Add(jp.Name, (string)jp.Value);
-
                             }
-
                         }
-
                         ways.Add(way);
-
                     }
-
                 }
             }
             foreach (Way way in ways)
             {
-
                 List<Node> waynodes = new List<Node>();
-
                 foreach (Int64 id in way.NodeOsmIds) waynodes.Add(nodes.Find(x => x.OsmID == id));
-
                 way.Nodes = waynodes;
-
             }
-
-            return Create.ElementContainer(nodes, ways);
+            return new ElementContainer()
+            {
+                Nodes = nodes,
+                Ways = ways
+            }; 
 
         }
     }

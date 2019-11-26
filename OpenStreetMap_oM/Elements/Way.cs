@@ -31,11 +31,8 @@ namespace BH.oM.OpenStreetMap
         /***************************************************/
 
         public List<Node>Nodes { get; set; } = new List<Node>();
-
         public long OsmID { get; set; }
-
         public List<long> NodeOsmIds { get; set; } = new List<long>();
-
         public Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
 
         /***************************************************/

@@ -37,9 +37,7 @@ namespace BH.Engine.OpenStreetMap
         public static double[] LatLonToUTM(double lat, double lon)
         {
             Coordinate c = new Coordinate(lat,lon);
-
             double[] eastingNorthing = new double[] { c.UTM.Easting, c.UTM.Northing };
-
             return eastingNorthing;
         }
 

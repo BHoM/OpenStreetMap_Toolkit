@@ -32,7 +32,6 @@ namespace BH.oM.OpenStreetMap
         /***************************************************/
 
         public Node Centre { get; set; } = new Node();
-
         public double Radius { get; set; } = 0.0;
 
     }

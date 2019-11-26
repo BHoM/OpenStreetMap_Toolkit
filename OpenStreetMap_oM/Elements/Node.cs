@@ -32,11 +32,8 @@ namespace BH.oM.OpenStreetMap
         /***************************************************/
 
         public double Latitude { get; set; } = 0;
-
         public double Longitude { get; set; } = 0;
-
         public long OsmID { get; set; } = 0;
-
         public Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
 
     }
