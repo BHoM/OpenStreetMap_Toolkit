@@ -31,7 +31,6 @@ namespace BH.oM.OpenStreetMap
         /***************************************************/
 
         public List<Node> Nodes { get; set; } = new List<Node>();
-
         public List<Way> Ways { get; set; } = new List<Way>();
 
         /***************************************************/

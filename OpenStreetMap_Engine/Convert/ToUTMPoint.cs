@@ -37,13 +37,9 @@ namespace BH.Engine.OpenStreetMap
         [Output("utmPoint", "Converted Way as a Point")]
         public static Point ToUTMPoint(this Node node)
         {
-
             double[] eastingNorthing = LatLonToUTM(node.Latitude, node.Longitude);
-
             Point utmPoint = Geometry.Create.Point(eastingNorthing[0], eastingNorthing[1], 0);
-
             return utmPoint;
-
         }
     }
 }

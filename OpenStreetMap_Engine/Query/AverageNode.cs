@@ -35,14 +35,15 @@ namespace BH.Engine.OpenStreetMap
         [Description("Calculate the average node in an of an OpenStreetMap ElementContainer")]
         [Input("container", "OpenStreetMap ElementContainer")]
         [Output("node", "Single average node")]
-
         public static Node AverageNode(this ElementContainer container)
         {
             double lat = container.Nodes.Sum(x => x.Latitude) / container.Nodes.Count;
-
             double lon = container.Nodes.Sum(x => x.Longitude) / container.Nodes.Count;
-
-            return Create.Node(lat, lon);
+            return new Node()
+            {
+                Latitude = lat,
+                Longitude = lon
+            };
         }
         /***************************************************/
     }

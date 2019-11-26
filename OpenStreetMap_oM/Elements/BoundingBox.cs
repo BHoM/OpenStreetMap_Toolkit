@@ -32,11 +32,8 @@ namespace BH.oM.OpenStreetMap
         /***************************************************/
 
         public double North { get; set; } = 0.0;
-
         public double South { get; set; } = 0.0;
-
         public double East { get; set; } = 0.0;
-
         public double West { get; set; } = 0.0;
 
     }

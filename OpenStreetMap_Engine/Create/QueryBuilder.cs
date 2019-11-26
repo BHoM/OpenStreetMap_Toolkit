@@ -36,15 +36,10 @@ namespace BH.Engine.OpenStreetMap
         public static QueryBuilder QueryBuilder(IOpenStreetMapRegion region, List<IOpenStreetMapElement> elements)
         {
             StringBuilder q = new StringBuilder();
-
             q.Append(jsonBaseUri);
-
             if (region is TaggedArea) q.Append(region.RegionToQLString());
-
             q.Append("(");
-
             q.Append(GetElementAndRegion(elements, region));
-
             q.Append(");");
             q.Append("(._;");
             q.Append(">;");
@@ -70,25 +65,17 @@ namespace BH.Engine.OpenStreetMap
         private static string GetElementAndRegion(List<IOpenStreetMapElement> elements, IOpenStreetMapRegion region)
         {
             if (elements == null) return "";
-
             string elementQuery = "";
-
             string regionQuery = "";
-
             if (region is TaggedArea) regionQuery = "(area);";
-
             else regionQuery = region.RegionToQLString();
-
             foreach (IOpenStreetMapElement element in elements)
             {
                 elementQuery += element.ToQLString() + regionQuery;
             }
-
             return elementQuery;
         }
 
         /***************************************************/
-
-        
     }
 }

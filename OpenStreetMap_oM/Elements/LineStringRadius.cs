@@ -32,7 +32,6 @@ namespace BH.oM.OpenStreetMap
         /***************************************************/
 
         public double Radius { get; set; } = 0;
-
         public Polygon Polygon { get; set; } = new Polygon();
 
     }

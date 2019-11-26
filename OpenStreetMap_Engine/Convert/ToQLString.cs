@@ -34,15 +34,10 @@ namespace BH.Engine.OpenStreetMap
         public static string ToQLString(this IOpenStreetMapElement element)
         {
             if (element == null) return "";
-
             string tagFilter = KeyValuesToQLString(element.KeyValues);
-
             if (element is Node) return "node" + tagFilter;
-
             if (element is Way) return "way" + tagFilter;
-
             if (element is Relation) return "rel" + tagFilter;
-
             return "";
         }
 
@@ -50,80 +45,51 @@ namespace BH.Engine.OpenStreetMap
 
         public static string KeyValuesToQLString(Dictionary<string, string> keyValues)
         {
-
             //other tagFilters to be implmented see: https://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide#Tag_request_clauses_.28or_.22tag_filters.22.29
-
             StringBuilder tagFilter = new StringBuilder();
-
             foreach (KeyValuePair<string, string> kvp in keyValues)
             {
                 if (kvp.Key == "") continue;
-
                 if (kvp.Value == "")
                 {
-
                     tagFilter.Append(string.Format("[{0}]", kvp.Key));
-
                 }
                 else
                 {
-
                     tagFilter.Append(string.Format("[{0}={1}]", kvp.Key, kvp.Value));
-
                 }
-
             }
-
             return tagFilter.ToString();
-
         }
         public static string RegionToQLString(this IOpenStreetMapRegion region)
         {
             if (region is BoundingBox)
             {
-
                 BoundingBox box = region as BoundingBox;
-
                 return string.Format("({0},{1},{2},{3});", box.South, box.West, box.North, box.East);
-
             }
             if (region is Polygon)
             {
-
                 Polygon polygon = region as Polygon;
-
                 return string.Format("(poly:{0});", polygon.PolygonToLatLonStringNoComma());
-
             }
             if (region is CentreRadius)
             {
-
                 //https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL#Relative_to_other_elements_.28around.29
-
                 CentreRadius circle = region as CentreRadius;
-
                 return string.Format("(around:{0},{1},{2});", circle.Radius, circle.Centre.Latitude, circle.Centre.Longitude);
-
             }
             if (region is LineStringRadius)
             {
-
                 //https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL#Relative_to_other_elements_.28around.29
-
                 LineStringRadius lineRad = region as LineStringRadius;
-
                 return string.Format("(around:{0},{1});", lineRad.Radius, lineRad.Polygon.PolygonToLatLonString());
-
             }
             if (region is TaggedArea)
             {
-
                 TaggedArea taggedArea = region as TaggedArea;
-
                 string keyValues = KeyValuesToQLString(taggedArea.KeyValues);
-
                 return string.Format("area{0};", keyValues);
-
             }
             return "";
         }
@@ -135,14 +101,10 @@ namespace BH.Engine.OpenStreetMap
         private static string PolygonToLatLonString(this Polygon polygon)
         {
             string latLonString = "";
-
             foreach (Node n in polygon.Nodes)
             {
-
                 latLonString += string.Format("{0}, {1},", n.Latitude, n.Longitude);
-
             }
-
             return latLonString.Remove(latLonString.Length - 1);
         }
 
@@ -151,19 +113,13 @@ namespace BH.Engine.OpenStreetMap
         private static string PolygonToLatLonStringNoComma(this Polygon polygon)
         {
             string latLonString = "'";
-
             foreach (Node n in polygon.Nodes)
             {
-
                 latLonString += string.Format("{0} {1} ", n.Latitude, n.Longitude);
-
             }
-
             //remove space
             latLonString = latLonString.Trim();
-
             latLonString += "'";
-
             return latLonString;
         }
 
