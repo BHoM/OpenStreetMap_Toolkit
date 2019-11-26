@@ -19,14 +19,8 @@
  * You should have received a copy of the GNU Lesser General Public License     
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
-using BH.oM.Geometry;
 using BH.oM.OpenStreetMap;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
@@ -78,89 +72,5 @@ namespace BH.Engine.OpenStreetMap
 
         }
 
-        /***************************************************/
-        [Description("Create an OpenStreetMap_oM ElementContainer from JSON formatted query result")]
-        [Input("OSMQueryJSONResult", "string formatted as JSON")] 
-        [Output("ElementContainer", "ElementContainer containing the objects defined in the JSON formatted query result")]
-        public static ElementContainer ElementContainer(string OSMQueryJSONResult)
-        {
-            List<Way> ways = new List<Way>();
-
-            List<Node> nodes = new List<Node>();
-
-            if (OSMQueryJSONResult == null) return new ElementContainer();
-
-            JObject data;
-
-            using (JsonTextReader reader = new JsonTextReader(new StringReader(OSMQueryJSONResult)))
-            {
-                data = (JObject)JToken.ReadFrom(reader);
-            }
-
-            var ele = data.SelectToken("elements");
-
-            if (ele is JArray)
-            {
-                foreach (JObject g in ele)
-                {
-                    if ((string)g.SelectToken("type") == "node")
-                    {
-
-                        Node node = Create.Node((double)g.SelectToken("lat"), (double)g.SelectToken("lon"), (long)g.SelectToken("id"));
-                        
-                        //add key values to node
-                        var tags = g.SelectToken("tags");
-
-                        if (tags != null)
-                        {
-                            foreach (JProperty jp in tags)
-                            {
-                                node.KeyValues.Add(jp.Name, (string)jp.Value);
-
-                            }
-                        }
-
-                        nodes.Add(node);
-                    }
-
-                    if ((string)g.SelectToken("type") == "way")
-                    {
-                        List<Int64> ids = new List<Int64>();
-                        
-                        Way way = Create.Way(ids, (long)g.SelectToken("id"));
-                        var n = g.SelectToken("nodes");
-                        if (n is JArray)
-                        {
-                            for (int i = 0; i < n.Count(); i++)
-                            {
-                                ids.Add((long)n[i]);
-                            }
-                        }
-                        var tags = g.SelectToken("tags");
-                        if (tags != null)
-                        {
-                            foreach (JProperty jp in tags)
-                            {
-                                way.KeyValues.Add(jp.Name, (string)jp.Value);
-
-                            }
-                            
-                        }
-                        ways.Add(way);
-                    }
-                    
-                }
-            }
-            foreach (Way way in ways)
-            {
-                List<Node> waynodes = new List<Node>();
-                foreach (Int64 id in way.NodeOsmIds) waynodes.Add(nodes.Find(x => x.OsmID == id));
-                way.Nodes = waynodes;
-                
-            }
-            return Create.ElementContainer(nodes, ways);
-
-
-        }
     }
 }

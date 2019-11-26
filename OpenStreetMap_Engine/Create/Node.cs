@@ -36,9 +36,9 @@ namespace BH.Engine.OpenStreetMap
         [Description("Create a Node from latitude, longitude and OpenStreetMap id")]
         [Input("latitude", "Latitude in decimal degrees")]
         [Input("longitude", "Longitude in decimal degrees")]
-        [Input("osmid", "OpenStreetMap id")]
-        [Output("Node", "Node")]
-        public static Node Node(double latitude =0.0, double longitude =0.0, long osmId =0)
+        [Input("osmId", "OpenStreetMap id")]
+        [Output("node", "Node")]
+        public static Node Node(double latitude = 0.0, double longitude = 0.0, long osmId = 0)
         {
             Node n = new Node()
             {
@@ -47,7 +47,6 @@ namespace BH.Engine.OpenStreetMap
                 Longitude = longitude,
 
                 OsmID = osmId
-
             };
 
             return n;
@@ -56,35 +55,30 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
 
         [Description("Create a Node from key values")]
-        [Input("keyvalues", "OpenStreetMap tags associated with the Node")]
-        [Output("Node", "Node")]
-        public static Node Node(Dictionary<string, string> keyvalues)
+        [Input("keyValues", "OpenStreetMap tags associated with the Node")]
+        [Output("node", "Node")]
+        public static Node Node(Dictionary<string, string> keyValues)
         {
-            Node n = new Node()
+            Node node = new Node()
             {
-
-                KeyValues = keyvalues
-
+                KeyValues = keyValues
             };
-
-            return n;
+            return node;
         }
 
         [Description("Create a Node from latitude and longitude")]
         [Input("latitude", "Latitude in decimal degrees")]
         [Input("longitude", "Longitude in decimal degrees")]
-        [Output("Node", "Node")]
+        [Output("node", "Node")]
         public static Node Node(double latitude = 0.0, double longitude = 0.0)
         {
-            Node n = new Node()
+            Node node = new Node()
             {
                 Latitude = latitude,
 
                 Longitude = longitude,
-
             };
-
-            return n;
+            return node;
         }
 
         /***************************************************/

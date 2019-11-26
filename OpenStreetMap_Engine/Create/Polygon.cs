@@ -32,9 +32,9 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Create an OSM Polygon Region from nodes")]
+        [Description("Create an OpenStreetMap Polygon Region from nodes")]
         [Input("nodes", "List of OpenStreetMap Nodes associated with the Polygon")]
-        [Output("Polygon", "OSM Polygon")]
+        [Output("polygon", "OpenStreetMap Polygon")]
         public static Polygon Polygon(List<Node> nodes)
         {
             return new Polygon()

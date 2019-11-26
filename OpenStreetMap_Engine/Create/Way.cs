@@ -32,14 +32,14 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Create an OSM Way from nodes and id")]
-        [Input("latlonnodes", "List of OSM Nodes")]
-        [Output("Way", "OSM Way")]
-        public static Way Way(List<Node>latlonnodes, long osmId)
+        [Description("Create an OpenStreetMap Way from nodes and id")]
+        [Input("latLonNodes", "List of OpenStreetMap Nodes")]
+        [Output("way", "OpenStreetMap Way")]
+        public static Way Way(List<Node>latLonNodes, long osmId)
         {
             return new Way()
             {
-                Nodes = latlonnodes,
+                Nodes = latLonNodes,
 
                 OsmID = osmId
 
@@ -47,9 +47,9 @@ namespace BH.Engine.OpenStreetMap
         }
 
         /***************************************************/
-        [Description("Create an OSM Way from Nodes ids and id")]
-        [Input("pointIds", "List of OSM Nodes ids")]
-        [Output("Way", "OSM Way")]
+        [Description("Create an OpenStreetMap Way from Nodes ids and id")]
+        [Input("pointIds", "List of OpenStreetMap Nodes ids")]
+        [Output("way", "OpenStreetMap Way")]
         public static Way Way(List<Int64> pointIds, long osmId)
         {
             return new Way()
@@ -62,14 +62,14 @@ namespace BH.Engine.OpenStreetMap
         }
         /***************************************************/
 
-        [Description("Create an OSM Way from key values")]
-        [Input("keyvalues", "OpenStreetMap tags associated with the Way")]
-        [Output("Way", "OSM Way")]
-        public static Way Way(Dictionary<string,string> keyvalues)
+        [Description("Create an OpenStreetMap Way from key values")]
+        [Input("keyValues", "OpenStreetMap tags associated with the Way")]
+        [Output("way", "OpenStreetMap Way")]
+        public static Way Way(Dictionary<string,string> keyValues)
         {
             return new Way()
             {
-                KeyValues = keyvalues
+                KeyValues = keyValues
             };
             
         }

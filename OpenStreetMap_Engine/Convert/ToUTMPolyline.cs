@@ -19,9 +19,11 @@
  * You should have received a copy of the GNU Lesser General Public License     
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
+using BH.oM.Geometry;
 using BH.oM.OpenStreetMap;
 using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel;
+using BH.oM.Reflection.Attributes;
 
 namespace BH.Engine.OpenStreetMap
 {
@@ -30,32 +32,25 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-
-        public static string ElementToQLString(this IOpenStreetMapElement element)
+        [Description("Convert an OpenStreetMap Way to a UTM Polyline")]
+        [Input("way", "OpenStreetMap Way to convert")]
+        [Output("polyline", "Converted Way as a Polyline")]
+        public static Polyline WayToUTMPolyline(this Way way)
         {
-            if (element == null) return "";
+            List<Point> points = new List<Point>();
 
-            string tagfilter = KeyValuesToQLString(element.KeyValues);
+            foreach (Node n in way.Nodes)
+            {
+                double[] eastingNorthing = LatLonToUTM(n.Latitude, n.Longitude);
 
-            if (element is Node)
-            {
-                return "node" + tagfilter;
+                Point utmPoint = Geometry.Create.Point(eastingNorthing[0], eastingNorthing[1], 0);
+
+                points.Add(utmPoint);
             }
-            if (element is Way)
-            {
-                return "way" + tagfilter;
-            }
-            if (element is Relation)
-            {
-                return "rel" + tagfilter;
-            }
-            return "";
+
+            Polyline polyline = Geometry.Create.Polyline(points);
+
+            return polyline;
         }
-
-        /***************************************************/
-        /****           Private Methods                 ****/
-        /***************************************************/
-
-        
     }
 }
