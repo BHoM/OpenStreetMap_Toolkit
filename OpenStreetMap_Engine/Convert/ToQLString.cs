@@ -61,6 +61,9 @@ namespace BH.Engine.OpenStreetMap
             }
             return tagFilter.ToString();
         }
+
+        /***************************************************/
+
         public static string RegionToQLString(this IOpenStreetMapRegion region)
         {
             if (region is BoundingBox)
@@ -71,7 +74,7 @@ namespace BH.Engine.OpenStreetMap
             if (region is Polygon)
             {
                 Polygon polygon = region as Polygon;
-                return string.Format("(poly:{0});", polygon.PolygonToLatLonStringNoComma());
+                return string.Format("(poly:{0});", polygon.ToLatLonString(" ", "'"));
             }
             if (region is CentreRadius)
             {
@@ -83,7 +86,7 @@ namespace BH.Engine.OpenStreetMap
             {
                 //https://wiki.openstreetmap.org/wiki/Overpass_API/Overpass_QL#Relative_to_other_elements_.28around.29
                 LineStringRadius lineRad = region as LineStringRadius;
-                return string.Format("(around:{0},{1});", lineRad.Radius, lineRad.Polygon.PolygonToLatLonString());
+                return string.Format("(around:{0},{1});", lineRad.Radius, lineRad.Polygon.ToLatLonString(",",""));
             }
             if (region is TaggedArea)
             {
@@ -98,30 +101,20 @@ namespace BH.Engine.OpenStreetMap
         /****           Private Methods                 ****/
         /***************************************************/
 
-        private static string PolygonToLatLonString(this Polygon polygon)
+        private static string ToLatLonString(this Polygon polygon,string separator,string startEndChar)
         {
             string latLonString = "";
+            latLonString += startEndChar;
             foreach (Node n in polygon.Nodes)
             {
-                latLonString += string.Format("{0}, {1},", n.Latitude, n.Longitude);
+                latLonString += string.Format("{0}{1}{2}{1}", n.Latitude, separator, n.Longitude);
             }
-            return latLonString.Remove(latLonString.Length - 1);
+            latLonString = latLonString.Remove(latLonString.Length - 1);
+            latLonString += startEndChar;
+            return latLonString;
         }
 
         /***************************************************/
-
-        private static string PolygonToLatLonStringNoComma(this Polygon polygon)
-        {
-            string latLonString = "'";
-            foreach (Node n in polygon.Nodes)
-            {
-                latLonString += string.Format("{0} {1} ", n.Latitude, n.Longitude);
-            }
-            //remove space
-            latLonString = latLonString.Trim();
-            latLonString += "'";
-            return latLonString;
-        }
 
     }
 }

@@ -38,15 +38,15 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /***************************************************/
         [Description("Create an OpenStreetMap_oM ElementContainer from JSON formatted query result")]
-        [Input("OpenStreetMapQueryJSONResult", "string formatted as JSON")]
-        [Output("ElementContainer", "ElementContainer containing the objects defined in the JSON formatted query result")]
-        public static ElementContainer ToElementContainer(string OpenStreetMapQueryJSONResult)
+        [Input("openStreetMapQueryJSONResult", "string formatted as JSON")]
+        [Output("elementContainer", "ElementContainer containing the objects defined in the JSON formatted query result")]
+        public static ElementContainer ToElementContainer(string openStreetMapQueryJSONResult)
         {
             List<Way> ways = new List<Way>();
             List<Node> nodes = new List<Node>();
-            if (OpenStreetMapQueryJSONResult == null) return new ElementContainer();
+            if (openStreetMapQueryJSONResult == null) return new ElementContainer();
             JObject data;
-            using (JsonTextReader reader = new JsonTextReader(new StringReader(OpenStreetMapQueryJSONResult)))
+            using (JsonTextReader reader = new JsonTextReader(new StringReader(openStreetMapQueryJSONResult)))
             {
                 data = (JObject)JToken.ReadFrom(reader);
             }
