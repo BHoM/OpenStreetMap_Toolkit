@@ -36,7 +36,7 @@ namespace BH.Engine.OpenStreetMap
         [Output("double []", "Array of two doubles as easting and northing (x,y)")]
         public static double[] LatLonToUTM(double lat, double lon)
         {
-            Coordinate c = new Coordinate(lat,lon);
+            Coordinate c = new Coordinate(lat, lon);
             double[] eastingNorthing = new double[] { c.UTM.Easting, c.UTM.Northing };
             return eastingNorthing;
         }
