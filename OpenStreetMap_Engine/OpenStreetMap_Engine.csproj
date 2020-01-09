@@ -68,6 +68,7 @@
     <Compile Include="Convert\ToElementContainer.cs" />
     <Compile Include="Convert\ToQLString.cs" />
     <Compile Include="Convert\ToUTMPoint.cs" />
+    <Compile Include="Create\Node.cs" />
     <Compile Include="Create\QueryBuilder.cs" />
     <Compile Include="Create\QueryString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
