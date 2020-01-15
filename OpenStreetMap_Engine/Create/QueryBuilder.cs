@@ -50,7 +50,23 @@ namespace BH.Engine.OpenStreetMap
                 QueryString = q.ToString()
             };
         }
-
+        /***************************************************/
+        public static QueryBuilder QueryBuilder(int osmID, IOpenStreetMapElement element)
+        {
+            StringBuilder q = new StringBuilder();
+            q.Append(jsonBaseUri);
+            q.Append("(");
+            q.Append(ElementAndId(element, osmID));
+            q.Append(");");
+            q.Append("(._;");
+            q.Append(">;");
+            q.Append(");");
+            q.Append("out body;");
+            return new QueryBuilder()
+            {
+                QueryString = q.ToString()
+            };
+        }
         /***************************************************/
         /****           Private Methods                 ****/
         /***************************************************/
@@ -61,7 +77,13 @@ namespace BH.Engine.OpenStreetMap
         }
 
         /***************************************************/
-
+        private static string ElementAndId(IOpenStreetMapElement element, int id)
+        {
+            if (element is Node) return string.Format("node(id:{0});", id);
+            if (element is Way) return string.Format("way(id:{0});", id);
+            if (element is Relation) return string.Format("relation(id:{0});", id);
+            else return "";
+        }
         private static string GetElementAndRegion(List<IOpenStreetMapElement> elements, IOpenStreetMapRegion region)
         {
             if (elements == null) return "";
