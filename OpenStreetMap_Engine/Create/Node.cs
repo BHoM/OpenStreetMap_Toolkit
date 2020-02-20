@@ -19,25 +19,32 @@
  * You should have received a copy of the GNU Lesser General Public License     
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
-using System;
-using System.ComponentModel;
-using BH.oM.Reflection.Attributes;
-using CoordinateSharp;
+using BH.oM.OpenStreetMap;
+using System.Collections.Generic;
 
 namespace BH.Engine.OpenStreetMap
 {
-    public static partial class Convert
+    public static partial class Create
     {
         /***************************************************/
-        /****           Public Constructors             ****/
+        /****           Public Methods                  ****/
         /***************************************************/
-        public static double[] UTMtoLatLon(double easting, double northing, int zone, bool southernHemi)
+        public static Node Node(double latitude, double longitude)
         {
-            string northSouth = "N";
-            if (southernHemi) northSouth = "S";
-            UniversalTransverseMercator utm = new UniversalTransverseMercator(northSouth, zone, easting, northing);
-            Coordinate c = UniversalTransverseMercator.ConvertUTMtoLatLong(utm);
-            return new double[] { c.Latitude.ToDouble(), c.Longitude.ToDouble() };
+            return new Node()
+            {
+                Latitude = latitude,
+                Longitude = longitude
+            };
+
+        }
+        /***************************************************/
+        public static Node Node(Dictionary<string, string> keyvalues)
+        {
+            return new Node()
+            {
+                KeyValues = keyvalues
+            };
         }
     }
 }
