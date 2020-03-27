@@ -38,8 +38,8 @@
     <Reference Include="BHoM_Engine">
       <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
     </Reference>
-    <Reference Include="CoordinateSharp">
-      <HintPath>..\packages\CoordinateSharp.2.3.1.1\lib\net40\CoordinateSharp.dll</HintPath>
+    <Reference Include="CoordinateSharp, Version=2.4.3.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CoordinateSharp.2.4.3.1\lib\net40\CoordinateSharp.dll</HintPath>
     </Reference>
     <Reference Include="Geometry_Engine">
       <HintPath>..\..\BHoM_Engine\Build\Geometry_Engine.dll</HintPath>
@@ -65,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Convert\LatLonToUTM.cs" />
-    <Compile Include="Convert\LongitudeToUTMZone.cs" />
+    <Compile Include="Convert\ToUTMZone.cs" />
     <Compile Include="Convert\ToElementContainer.cs" />
     <Compile Include="Convert\ToQLString.cs" />
     <Compile Include="Convert\ToUTMPoint.cs" />
@@ -83,6 +83,9 @@
       <Project>{743d0de2-40c7-4229-af19-c7a656894242}</Project>
       <Name>OpenStreetMap_oM</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

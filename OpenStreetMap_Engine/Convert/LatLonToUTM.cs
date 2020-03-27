@@ -34,13 +34,14 @@ namespace BH.Engine.OpenStreetMap
         [Input("lat", "Decimal latitude")]
         [Input("lon", "Decimal longitude")]
         [Output("double []", "Array of two doubles as easting and northing (x,y)")]
-        public static double[] LatLonToUTM(double lat, double lon)
+        public static double[] LatLonToUTM(double lat, double lon, int gridZone = 0)
         {
             Coordinate c = new Coordinate(lat, lon);
+            if (gridZone >= 1 && gridZone <= 60)
+                c.Lock_UTM_MGRS_Zone(gridZone);
             double[] eastingNorthing = new double[] { c.UTM.Easting, c.UTM.Northing };
             return eastingNorthing;
         }
-
         /***************************************************/
     }
 }
