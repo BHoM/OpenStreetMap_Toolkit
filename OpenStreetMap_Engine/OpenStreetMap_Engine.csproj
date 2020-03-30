@@ -64,7 +64,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Convert\LatLonToUTM.cs" />
     <Compile Include="Convert\ToUTMZone.cs" />
     <Compile Include="Convert\ToElementContainer.cs" />
     <Compile Include="Convert\ToQLString.cs" />
@@ -73,7 +72,7 @@
     <Compile Include="Create\QueryBuilder.cs" />
     <Compile Include="Create\QueryString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Convert\UTMtoLatLon.cs" />
+    <Compile Include="Convert\ToLatLonPoint.cs" />
     <Compile Include="Convert\ToUTMPolyline.cs" />
     <Compile Include="Query\AverageNode.cs" />
     <Compile Include="Query\WayArea.cs" />

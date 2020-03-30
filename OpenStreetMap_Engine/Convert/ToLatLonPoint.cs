@@ -19,30 +19,28 @@
  * You should have received a copy of the GNU Lesser General Public License     
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
+using BH.oM.Geometry;
+using BH.oM.OpenStreetMap;
 using CoordinateSharp;
-using System.ComponentModel;
-using BH.oM.Reflection.Attributes;
 
 namespace BH.Engine.OpenStreetMap
 {
     public static partial class Convert
     {
         /***************************************************/
-        /****           Public Methods                  ****/
+        /****           Public Constructors             ****/
         /***************************************************/
-        [Description("Convert latitude and longitude to universal transvers mercator")]
-        [Input("lat", "Decimal latitude")]
-        [Input("lon", "Decimal longitude")]
-        [Output("double []", "Array of two doubles as easting and northing (x,y)")]
-        public static double[] LatLonToUTM(double lat, double lon, int gridZone = 0)
+        public static Node ToLatLonNode(Point utmpoint, int zone, bool southernHemi)
         {
-            Coordinate c = new Coordinate(lat, lon);
-            if (gridZone >= 1 && gridZone <= 60)
-                c.Lock_UTM_MGRS_Zone(gridZone);
-            double[] eastingNorthing = new double[] { c.UTM.Easting, c.UTM.Northing };
-            return eastingNorthing;
+            string northSouth = "N";
+            if (southernHemi) northSouth = "S";
+            UniversalTransverseMercator utm = new UniversalTransverseMercator(northSouth, zone, utmpoint.X, utmpoint.Y);
+            Coordinate c = UniversalTransverseMercator.ConvertUTMtoLatLong(utm);
+            return new Node() 
+            {
+                Latitude = c.Latitude.ToDouble(),
+                Longitude = c.Longitude.ToDouble()
+            };
         }
-        /***************************************************/
     }
 }
-

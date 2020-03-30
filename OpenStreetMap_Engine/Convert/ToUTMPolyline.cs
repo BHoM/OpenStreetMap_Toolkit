@@ -42,8 +42,7 @@ namespace BH.Engine.OpenStreetMap
             List<Point> points = new List<Point>();
             foreach (Node n in way.Nodes)
             {
-                double[] eastingNorthing = LatLonToUTM(n.Latitude, n.Longitude, gridZone);
-                Point utmPoint = Geometry.Create.Point(eastingNorthing[0], eastingNorthing[1], 0);
+                Point utmPoint = ToUTMPoint(n.Latitude, n.Longitude, gridZone);
                 points.Add(utmPoint);
             }
             Polyline utmPolyline = Geometry.Create.Polyline(points);
