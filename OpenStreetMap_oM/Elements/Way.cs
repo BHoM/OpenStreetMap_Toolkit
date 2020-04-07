@@ -30,10 +30,10 @@ namespace BH.oM.OpenStreetMap
         /****            Public Properties              ****/
         /***************************************************/
 
-        public List<Node>Nodes { get; set; } = new List<Node>();
-        public long OsmID { get; set; }
-        public List<long> NodeOsmIds { get; set; } = new List<long>();
-        public Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
+        public virtual List<Node>Nodes { get; set; } = new List<Node>();
+        public virtual long OsmID { get; set; }
+        public virtual List<long> NodeOsmIds { get; set; } = new List<long>();
+        public virtual Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
 
         /***************************************************/
     }

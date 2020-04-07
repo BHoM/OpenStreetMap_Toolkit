@@ -31,8 +31,8 @@ namespace BH.oM.OpenStreetMap
         /****            Public Properties              ****/
         /***************************************************/
 
-        public Node Centre { get; set; } = new Node();
-        public double Radius { get; set; } = 0.0;
+        public virtual Node Centre { get; set; } = new Node();
+        public virtual double Radius { get; set; } = 0.0;
 
     }
 }

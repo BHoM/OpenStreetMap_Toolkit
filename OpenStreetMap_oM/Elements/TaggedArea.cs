@@ -31,7 +31,7 @@ namespace BH.oM.OpenStreetMap
         /****            Public Properties              ****/
         /***************************************************/
 
-        public Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
+        public virtual Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
 
     }
 }
