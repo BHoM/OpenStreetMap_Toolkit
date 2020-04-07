@@ -31,10 +31,10 @@ namespace BH.oM.OpenStreetMap
         /****            Public Properties              ****/
         /***************************************************/
 
-        public double North { get; set; } = 0.0;
-        public double South { get; set; } = 0.0;
-        public double East { get; set; } = 0.0;
-        public double West { get; set; } = 0.0;
+        public virtual double North { get; set; } = 0.0;
+        public virtual double South { get; set; } = 0.0;
+        public virtual double East { get; set; } = 0.0;
+        public virtual double West { get; set; } = 0.0;
 
     }
 }

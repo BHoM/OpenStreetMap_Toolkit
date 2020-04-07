@@ -31,8 +31,8 @@ namespace BH.oM.OpenStreetMap
         /****            Public Properties              ****/
         /***************************************************/
 
-        public double Radius { get; set; } = 0;
-        public Polygon Polygon { get; set; } = new Polygon();
+        public virtual double Radius { get; set; } = 0;
+        public virtual Polygon Polygon { get; set; } = new Polygon();
 
     }
 }

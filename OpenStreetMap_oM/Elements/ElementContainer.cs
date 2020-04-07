@@ -30,8 +30,8 @@ namespace BH.oM.OpenStreetMap
         /****            Public Properties              ****/
         /***************************************************/
 
-        public List<Node> Nodes { get; set; } = new List<Node>();
-        public List<Way> Ways { get; set; } = new List<Way>();
+        public virtual List<Node> Nodes { get; set; } = new List<Node>();
+        public virtual List<Way> Ways { get; set; } = new List<Way>();
 
         /***************************************************/
     }

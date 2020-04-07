@@ -31,7 +31,7 @@ namespace BH.oM.OpenStreetMap
         /****            Public Properties              ****/
         /***************************************************/
 
-        public List<Node> Nodes { get; set; } = new List<Node>();
+        public virtual List<Node> Nodes { get; set; } = new List<Node>();
 
     }
 }
