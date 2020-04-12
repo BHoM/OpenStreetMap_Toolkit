@@ -30,7 +30,7 @@ namespace BH.oM.OpenStreetMap
         /****            Public Properties              ****/
         /***************************************************/
 
-        public string QueryString { get; set; }
+        public virtual string QueryString { get; set; }
 
         /***************************************************/
     }

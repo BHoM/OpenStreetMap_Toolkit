@@ -31,8 +31,8 @@ namespace BH.oM.OpenStreetMap
         /****            Public Properties              ****/
         /***************************************************/
 
-        public long OsmID { get; set; }
-        public Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
+        public virtual long OsmID { get; set; }
+        public virtual Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
 
     }
 }

@@ -31,10 +31,10 @@ namespace BH.oM.OpenStreetMap
         /****            Public Properties              ****/
         /***************************************************/
 
-        public double Latitude { get; set; } = 0;
-        public double Longitude { get; set; } = 0;
-        public long OsmID { get; set; } = 0;
-        public Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
+        public virtual double Latitude { get; set; } = 0;
+        public virtual double Longitude { get; set; } = 0;
+        public virtual long OsmID { get; set; } = 0;
+        public virtual Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
 
     }
 }
