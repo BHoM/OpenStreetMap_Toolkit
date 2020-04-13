@@ -24,6 +24,7 @@ using BH.oM.OpenStreetMap;
 using System.Collections.Generic;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
+using CoordinateSharp;
 
 namespace BH.Engine.OpenStreetMap
 {
@@ -32,15 +33,30 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
+        /***************************************************/
+        /****           Public Methods                  ****/
+        /***************************************************/
         [Description("Convert an OpenStreetMap Node to a UTM Point")]
         [Input("node", "OpenStreetMap Node to convert")]
-        [Output("utmPoint", "Converted Way as a Point")]
+        [Output("utmPoint", "Converted Node as a Point")]
         public static Point ToUTMPoint(this Node node)
         {
-            double[] eastingNorthing = LatLonToUTM(node.Latitude, node.Longitude);
-            Point utmPoint = Geometry.Create.Point(eastingNorthing[0], eastingNorthing[1], 0);
+            return ToUTMPoint(node.Latitude, node.Longitude);
+        }
+        /***************************************************/
+        [Description("Convert latitude and longitude to universal transvers mercator")]
+        [Input("lat", "Decimal latitude")]
+        [Input("lon", "Decimal longitude")]
+        [Output("double []", "Array of two doubles as easting and northing (x,y)")]
+        public static Point ToUTMPoint(double lat, double lon, int gridZone = 0)
+        {
+            Coordinate c = new Coordinate(lat, lon);
+            if (gridZone >= 1 && gridZone <= 60)
+                c.Lock_UTM_MGRS_Zone(gridZone);
+            Point utmPoint = Geometry.Create.Point(c.UTM.Easting, c.UTM.Northing, 0);
             return utmPoint;
         }
+        /***************************************************/
     }
 }
 
