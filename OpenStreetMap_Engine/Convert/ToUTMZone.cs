@@ -1,6 +1,6 @@
 ﻿/*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2019, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -30,21 +30,16 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-
         public static int ToUTMZone(double longitude)
         {
             return (int)Math.Ceiling((longitude + 180) / 6);
         }
-
         /***************************************************/
-
         public static int ToUTMZone(this Node node)
         {
             return (int)Math.Ceiling((node.Longitude + 180) / 6);
         }
-
         /***************************************************/
-
         public static int ToUTMZone(this Way way)
         {
             double averageUTM = 0;
@@ -52,9 +47,7 @@ namespace BH.Engine.OpenStreetMap
                 averageUTM += n.ToUTMZone();
             return (int)averageUTM / way.Nodes.Count;
         }
-
         /***************************************************/
-
         public static int ToUTMZone(List<Way> ways)
         {
             double averageUTM = 0;
