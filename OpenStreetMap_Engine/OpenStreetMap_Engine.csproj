@@ -34,25 +34,32 @@
   <ItemGroup>
     <Reference Include="BHoM">
       <HintPath>..\..\..\BHoM\Build\BHoM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="BHoM_Engine">
       <HintPath>..\..\BHoM_Engine\Build\BHoM_Engine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="CoordinateSharp, Version=2.5.1.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CoordinateSharp.2.5.1.1\lib\net40\CoordinateSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Geometry_Engine">
       <HintPath>..\..\BHoM_Engine\Build\Geometry_Engine.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Geometry_oM">
       <HintPath>..\..\..\BHoM\Build\Geometry_oM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Buildings_Toolkit\Build\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Reflection_oM">
       <HintPath>..\..\..\BHoM\Build\Reflection_oM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -82,6 +89,7 @@
     <ProjectReference Include="..\OpenStreetMap_oM\OpenStreetMap_oM.csproj">
       <Project>{743d0de2-40c7-4229-af19-c7a656894242}</Project>
       <Name>OpenStreetMap_oM</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
