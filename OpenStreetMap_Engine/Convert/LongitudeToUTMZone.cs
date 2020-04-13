@@ -19,9 +19,7 @@
  * You should have received a copy of the GNU Lesser General Public License     
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
-using BH.oM.OpenStreetMap;
 using System;
-using System.Collections.Generic;
 
 namespace BH.Engine.OpenStreetMap
 {
@@ -30,30 +28,9 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        public static int ToUTMZone(double longitude)
+        public static int LongitudeToUTMZone(double longitude)
         {
             return (int)Math.Ceiling((longitude + 180) / 6);
-        }
-        /***************************************************/
-        public static int ToUTMZone(this Node node)
-        {
-            return (int)Math.Ceiling((node.Longitude + 180) / 6);
-        }
-        /***************************************************/
-        public static int ToUTMZone(this Way way)
-        {
-            double averageUTM = 0;
-            foreach (Node n in way.Nodes)
-                averageUTM += n.ToUTMZone();
-            return (int)averageUTM / way.Nodes.Count;
-        }
-        /***************************************************/
-        public static int ToUTMZone(List<Way> ways)
-        {
-            double averageUTM = 0;
-            foreach (Way w in ways)
-                averageUTM += w.ToUTMZone();
-            return (int)averageUTM / ways.Count;
         }
     }
 }
