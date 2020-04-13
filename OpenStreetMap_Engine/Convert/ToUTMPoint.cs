@@ -33,9 +33,6 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        /***************************************************/
-        /****           Public Methods                  ****/
-        /***************************************************/
         [Description("Convert an OpenStreetMap Node to a UTM Point")]
         [Input("node", "OpenStreetMap Node to convert")]
         [Output("utmPoint", "Converted Node as a Point")]
