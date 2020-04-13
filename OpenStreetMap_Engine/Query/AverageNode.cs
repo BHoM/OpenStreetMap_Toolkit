@@ -46,20 +46,6 @@ namespace BH.Engine.OpenStreetMap
             };
         }
         /***************************************************/
-        [Description("Calculate the average node an OpenStreetMap Way")]
-        [Input("way", "OpenStreetMap Way")]
-        [Output("node", "Single average node")]
-        public static Node AverageNode(this Way way)
-        {
-            double lat = way.Nodes.Sum(x => x.Latitude) / way.Nodes.Count;
-            double lon = way.Nodes.Sum(x => x.Longitude) / way.Nodes.Count;
-            return new Node()
-            {
-                Latitude = lat,
-                Longitude = lon
-            };
-        }
-        /***************************************************/
     }
 }
 
