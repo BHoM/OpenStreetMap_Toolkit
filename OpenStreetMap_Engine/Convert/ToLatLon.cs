@@ -36,7 +36,7 @@ namespace BH.Engine.OpenStreetMap
         [Input("zone", "int, time zone")]
         [Input("southhemi", "Bool, is the location in the southern hemisphere")]
         [Output("latitude and longitude", "a double[] containing latitude and longitude")]
-        public static double[] UTMToLatLon(double x, double y, int zone, bool southhemi)
+        public static double[] ToLatLon(double x, double y, int zone, bool southhemi)
         {
             double UTMScaleFactor = 0.9996;
 
