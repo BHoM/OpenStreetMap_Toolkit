@@ -32,17 +32,16 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-
         [Description("Convert an OpenStreetMap Way to a UTM Polyline")]
         [Input("way", "OpenStreetMap Way to convert")]
+        [Input("gridZone", "Locks conversion to specifcied UTM zone")]
         [Output("utmPolyline", "Converted Way as a Polyline")]
         public static Polyline ToUTMPolyline(this Way way, int gridZone = 0)
         {
             List<Point> points = new List<Point>();
             foreach (Node n in way.Nodes)
             {
-                double[] eastingNorthing = ToUTM(n.Latitude, n.Longitude, gridZone);
-                Point utmPoint = Geometry.Create.Point(eastingNorthing[0], eastingNorthing[1], 0);
+                Point utmPoint = ToUTMPoint(n.Latitude, n.Longitude, gridZone);
                 points.Add(utmPoint);
             }
             Polyline utmPolyline = Geometry.Create.Polyline(points);
