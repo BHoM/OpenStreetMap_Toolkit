@@ -33,6 +33,7 @@ namespace BH.oM.OpenStreetMap
 
         public virtual long OsmID { get; set; }
         public virtual Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
+        public List<IOpenStreetMapElement> Members { get; set; } = new List<IOpenStreetMapElement>();
 
     }
 }
