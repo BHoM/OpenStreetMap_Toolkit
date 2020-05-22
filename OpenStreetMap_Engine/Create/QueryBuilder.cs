@@ -36,8 +36,8 @@ namespace BH.Engine.OpenStreetMap
         public static QueryBuilder QueryBuilder(IOpenStreetMapRegion region, List<IOpenStreetMapElement> elements)
         {
             StringBuilder q = new StringBuilder();
-            q.Append(jsonBaseUri);
-            if (region is TaggedArea) q.Append(region.RegionToQLString());
+            q.Append(BaseUri());
+            if (region is TaggedArea) q.Append(region.ToQLString());
             q.Append("(");
             q.Append(GetElementAndRegion(elements, region));
             q.Append(");");
@@ -68,7 +68,7 @@ namespace BH.Engine.OpenStreetMap
             string elementQuery = "";
             string regionQuery = "";
             if (region is TaggedArea) regionQuery = "(area);";
-            else regionQuery = region.RegionToQLString();
+            else regionQuery = region.ToQLString();
             foreach (IOpenStreetMapElement element in elements)
             {
                 elementQuery += element.ToQLString() + regionQuery;

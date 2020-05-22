@@ -37,7 +37,7 @@ namespace BH.Engine.OpenStreetMap
         [Description("Create an OpenStreetMap_oM ElementContainer from JSON formatted query result")]
         [Input("openStreetMapQueryJSONResult", "string formatted as JSON")]
         [Output("elementContainer", "ElementContainer containing the objects defined in the JSON formatted query result")]
-        public static ElementContainer ToElementContainer(string openStreetMapQueryJSONResult)
+        public static ElementContainer ToElementContainer(this string openStreetMapQueryJSONResult)
         {
             return ToElementContainer(new List<CustomObject> { (CustomObject)Serialiser.Convert.FromJson(openStreetMapQueryJSONResult) });
         }
@@ -45,7 +45,7 @@ namespace BH.Engine.OpenStreetMap
         [Description("Create an OpenStreetMap_oM ElementContainer from HTTP Pull results")]
         [Input("queryResults", "results from the HTTP_Adapter")]
         [Output("elementContainer", "ElementContainer containing the objects defined in the results from the HTTP_Adapter")]
-        public static ElementContainer ToElementContainer(List<CustomObject> queryResults)
+        public static ElementContainer ToElementContainer(this List<CustomObject> queryResults)
         {
             List<Way> ways = new List<Way>();
             List<Node> nodes = new List<Node>();

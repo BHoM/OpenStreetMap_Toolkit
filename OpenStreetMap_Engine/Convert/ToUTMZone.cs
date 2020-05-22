@@ -31,7 +31,7 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        public static int ToUTMZone(double longitude)
+        public static int ToUTMZone(this double longitude)
         {
             return (int)Math.Ceiling((longitude + 180) / 6);
         }
@@ -49,7 +49,7 @@ namespace BH.Engine.OpenStreetMap
             return (int)averageUTM / way.Nodes.Count;
         }
         /***************************************************/
-        public static int ToUTMZone(List<Way> ways)
+        public static int ToUTMZone(this List<Way> ways)
         {
             double averageUTM = 0;
             foreach (Way w in ways)

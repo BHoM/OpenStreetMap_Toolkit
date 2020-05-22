@@ -30,7 +30,7 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Constructors             ****/
         /***************************************************/
-        public static Node ToLatLonNode(Point utmpoint, int zone, bool southernHemi)
+        public static Node ToLatLonNode(this Point utmpoint, int zone, bool southernHemi)
         {
             string northSouth = "N";
             if (southernHemi) northSouth = "S";
