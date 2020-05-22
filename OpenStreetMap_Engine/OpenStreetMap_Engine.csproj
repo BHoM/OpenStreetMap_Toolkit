@@ -26,7 +26,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\Build\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -83,13 +83,12 @@
     <Compile Include="Convert\ToUTMZone.cs" />
     <Compile Include="Create\Node.cs" />
     <Compile Include="Create\QueryBuilder.cs" />
-    <Compile Include="Create\QueryString.cs" />
     <Compile Include="Create\Relation.cs" />
     <Compile Include="Create\Way.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Convert\ToUTMPolyline.cs" />
     <Compile Include="Query\AverageNode.cs" />
-    <Compile Include="Query\WayArea.cs" />
+    <Compile Include="Query\Area.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenStreetMap_oM\OpenStreetMap_oM.csproj">

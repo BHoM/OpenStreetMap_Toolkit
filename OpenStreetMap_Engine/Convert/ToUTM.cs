@@ -30,11 +30,11 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Convert latitude and longitude to universal transvers mercator")]
+        [Description("Convert latitude and longitude to universal transverse mercator")]
         [Input("lat", "Decimal latitude")]
         [Input("lon", "Decimal longitude")]
         [Output("double []", "Array of two doubles as easting and northing (x,y)")]
-        public static double[] ToUTM(double lat, double lon, int gridZone = 0)
+        public static double[] ToUTM(this double lat, double lon, int gridZone = 0)
         {
             Coordinate c = new Coordinate(lat, lon);
             if (gridZone >= 1 && gridZone <= 60)

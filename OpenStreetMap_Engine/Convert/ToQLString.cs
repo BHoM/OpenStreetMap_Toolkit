@@ -34,7 +34,7 @@ namespace BH.Engine.OpenStreetMap
         public static string ToQLString(this IOpenStreetMapElement element)
         {
             if (element == null) return "";
-            string tagFilter = KeyValuesToQLString(element.KeyValues);
+            string tagFilter = ToQLString(element.KeyValues);
             if (element is Node) return "node" + tagFilter;
             if (element is Way) return "way" + tagFilter;
             if (element is Relation) return "rel" + tagFilter;
@@ -43,9 +43,9 @@ namespace BH.Engine.OpenStreetMap
 
         /***************************************************/
 
-        public static string KeyValuesToQLString(Dictionary<string, string> keyValues)
+        public static string ToQLString(this Dictionary<string, string> keyValues)
         {
-            //other tagFilters to be implmented see: https://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide#Tag_request_clauses_.28or_.22tag_filters.22.29
+            //other tagFilters to be implemented see: https://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide#Tag_request_clauses_.28or_.22tag_filters.22.29
             StringBuilder tagFilter = new StringBuilder();
             foreach (KeyValuePair<string, string> kvp in keyValues)
             {
@@ -64,7 +64,7 @@ namespace BH.Engine.OpenStreetMap
 
         /***************************************************/
 
-        public static string RegionToQLString(this IOpenStreetMapRegion region)
+        public static string ToQLString(this IOpenStreetMapRegion region)
         {
             if (region is BoundingBox)
             {
@@ -91,7 +91,7 @@ namespace BH.Engine.OpenStreetMap
             if (region is TaggedArea)
             {
                 TaggedArea taggedArea = region as TaggedArea;
-                string keyValues = KeyValuesToQLString(taggedArea.KeyValues);
+                string keyValues = ToQLString(taggedArea.KeyValues);
                 return string.Format("area{0};", keyValues);
             }
             return "";
