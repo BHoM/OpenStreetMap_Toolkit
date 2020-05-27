@@ -21,4 +21,8 @@
   - Paste the remaining part in https://overpass-turbo.eu/. 
   - For example copy:
 `(way[building](around:150,53.3352318,-6.228456);rel[building](around:150,53.3352318,-6.228456););(._;>;);out body;`
+  - Click run 
+  - ![overpass search](examples/Images/overpasssearch.jpg)
+  - To view the result on a map, click the magnifiying glass to zoom to the data returned on the map
+  - ![overpass search](examples/Images/overpassresult.jpg)
 - [Geographic_coordinate_system](https://en.wikipedia.org/wiki/Geographic_coordinate_system)
