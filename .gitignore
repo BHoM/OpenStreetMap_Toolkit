@@ -6,6 +6,7 @@
 *.o
 *.so
 *.dll
+*.pdb
 
 # Packages #
 ############
@@ -19,6 +20,7 @@
 *.rar
 *.tar
 *.zip
+*.nupkg
 
 # Logs and databases #
 ######################
@@ -51,7 +53,6 @@ bld/
 [Ll]og/
 [Bb]uild/
 [Pp]ackages/
-node_modules/
 
 # Visual Studio User File #
 ###########################
