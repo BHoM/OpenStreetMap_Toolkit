@@ -2,16 +2,16 @@
 ## Getting started
 ### See the example files in the examples folder of this toolkit:
 - Search in a bounding box
-![bounding box search](https://github.com/BHoM/OpenStreetMap_Toolkit/blob/Update_templates_and_readme/examples/boundingbox.jpg)
+![bounding box search](examples/Images/boundingbox.jpg)
 - Search by centre radius
-![centre radius search](https://github.com/BHoM/OpenStreetMap_Toolkit/blob/Update_templates_and_readme/examples/radius.jpg)
+![centre radius search](examples/Images/radius.jpg)
 - Search in a polygon
-![polygon search](https://github.com/BHoM/OpenStreetMap_Toolkit/blob/Update_templates_and_readme/examples/polygon.jpg)
+![polygon search](examples/Images/polygon.jpg)
 - Search along a line string
-![line string search](https://github.com/BHoM/OpenStreetMap_Toolkit/blob/Update_templates_and_readme/examples/linestring.jpg)
+![line string search](examples/Images/linestring.jpg)
 ### Download a building massing example
 - [Building massing](https://burohappold.sharepoint.com/:f:/r/sites/Direction/designtechnology/Script%20Library/00348_OpenStreetMap%20Scripts?csf=1&web=1&e=SLhE1T)
-![building massing](https://github.com/BHoM/OpenStreetMap_Toolkit/blob/Update_templates_and_readme/examples/osm.gif)
+![building massing](examples/Images/osm.gif)
 ## Resources + background
 - https://www.openstreetmap.org/
 - [Features mapped in OpenStreetMap](https://wiki.openstreetmap.org/wiki/Map_Features)
