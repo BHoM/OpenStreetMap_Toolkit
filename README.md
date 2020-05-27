@@ -16,11 +16,10 @@
   - Copy the remaining part. For example:
 `(way[building](around:150,53.3352318,-6.228456);rel[building](around:150,53.3352318,-6.228456););(._;>;);out body;`
   - Paste into the text box in https://overpass-turbo.eu/.
-  - ![overpass search](examples/Images/overpasssearch.jpg)
+![overpass search](examples/Images/overpasssearch.jpg)
   - Click run 
   - To view the result on a map, click the magnifying glass to zoom to the data returned on the map
-  - ![overpass search](examples/Images/overpassresult.jpg)
-![building massing](examples/Images/osm.gif)
+![overpass search](examples/Images/overpassresult.jpg)
 ## Resources + background
 - https://www.openstreetmap.org/
 - [Features mapped in OpenStreetMap](https://wiki.openstreetmap.org/wiki/Map_Features)
