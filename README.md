@@ -1,28 +1,41 @@
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0) [![Build status](https://ci.appveyor.com/api/projects/status/brvfbdiwwa4yxh5w/branch/master?svg=true)](https://ci.appveyor.com/project/BHoMBot/openstreetmap-toolkit/branch/master) [![Build Status](https://dev.azure.com/BHoMBot/BHoM/_apis/build/status/OpenStreetMap_Toolkit/OpenStreetMap_Toolkit.CheckCore?branchName=master)](https://dev.azure.com/BHoMBot/BHoM/_build/latest?definitionId=228&branchName=master)
+
+
+
 # OpenStreetMap_Toolkit
-## Getting started
-### See the example files in the examples folder of this toolkit:
-- Search in a bounding box
-![bounding box search](examples/Images/boundingbox.jpg)
-- Search by centre radius
-![centre radius search](examples/Images/radius.jpg)
-- Search in a polygon
-![polygon search](examples/Images/polygon.jpg)
-- Search along a line string
-![line string search](examples/Images/linestring.jpg)
-### Download a building massing example
-- [Building massing](https://burohappold.sharepoint.com/:f:/r/sites/Direction/designtechnology/Script%20Library/00348_OpenStreetMap%20Scripts?csf=1&web=1&e=SLhE1T)
-![overpass search](examples/Images/osm.gif)
-## [Test OpenStreetMap queries online](https://overpass-turbo.eu/)
-  - Remove `https://www.overpass-api.de/api/interpreter?data=[out:json];` from the `QueryBuilder.QueryString`
-  - Copy the remaining part. For example:
-`(way[building](around:150,53.3352318,-6.228456);rel[building](around:150,53.3352318,-6.228456););(._;>;);out body;`
-  - Paste into the text box in https://overpass-turbo.eu/.
-![overpass search](examples/Images/overpasssearch.jpg)
-  - Click run 
-  - To view the result on a map, click the magnifying glass to zoom to the data returned on the map
-![overpass search](examples/Images/overpassresult.jpg)
-## Resources + background
-- https://www.openstreetmap.org/
-- [Features mapped in OpenStreetMap](https://wiki.openstreetmap.org/wiki/Map_Features)
-- [OpenStreetMap Elements used by this toolkit](https://wiki.openstreetmap.org/wiki/Elements)
-- [Geographic_coordinate_system](https://en.wikipedia.org/wiki/Geographic_coordinate_system)
+
+This toolkit allows interoperability between the BHoM and OpenStreetMap.
+
+...
+
+https://www.openstreetmap.org/
+
+### Documentation
+For more information about functionality see the [wiki](https://github.com/BHoM/OpenStreetMap_Toolkit/wiki)
+
+---
+This toolkit is part of the Buildings and Habitats object Model. Find out more on our [wiki](https://github.com/BHoM/documentation/wiki) or at [https://bhom.xyz](https://bhom.xyz/)
+
+## Quick Start 🚀 
+
+Grab the [latest installer](https://bhom.xyz/) and a selection of [sample scripts](https://github.com/BHoM/samples).
+
+
+## Getting Started for Developers 🤖 
+
+If you want to build the BHoM and the Toolkits from source, it's hopefully easy! 😄 
+Do take a look at our specific wiki pages here: [Getting Started for Developers](https://github.com/BHoM/documentation/wiki/Getting-started-for-developers)
+
+
+## Want to Contribute? ##
+
+BHoM is an open-source project and would be nothing without its community. Take a look at our contributing guidelines and tips [here](https://github.com/BHoM/BHoM/blob/master/CONTRIBUTING.md).
+
+
+## Licence ##
+
+BHoM is free software licenced under GNU Lesser General Public Licence - [https://www.gnu.org/licenses/lgpl-3.0.html](https://www.gnu.org/licenses/lgpl-3.0.html)  
+Each contributor holds copyright over their respective contributions.
+The project versioning (Git) records all such contribution source information.
+See [LICENSE](https://github.com/BHoM/BHoM/blob/master/LICENSE) and [COPYRIGHT_HEADER](https://github.com/BHoM/BHoM/blob/master/COPYRIGHT_HEADER.txt).
+
