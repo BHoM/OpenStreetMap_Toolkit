@@ -11,6 +11,7 @@
 ![line string search](examples/Images/linestring.jpg)
 ### Download a building massing example
 - [Building massing](https://burohappold.sharepoint.com/:f:/r/sites/Direction/designtechnology/Script%20Library/00348_OpenStreetMap%20Scripts?csf=1&web=1&e=SLhE1T)
+![overpass search](examples/Images/osm.gif)
 ## [Test OpenStreetMap queries online](https://overpass-turbo.eu/)
   - Remove `https://www.overpass-api.de/api/interpreter?data=[out:json];` from the `QueryBuilder.QueryString`
   - Copy the remaining part. For example:
