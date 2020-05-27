@@ -1,5 +1,7 @@
 # OpenStreetMap_Toolkit
-## Resources
+## Getting started
+See the example files in the examples folder of this toolkit
+## Resources + background
 - https://wiki.openstreetmap.org/wiki/Map_Features
 - https://wiki.openstreetmap.org/wiki/Elements
 - https://overpass-turbo.eu/
