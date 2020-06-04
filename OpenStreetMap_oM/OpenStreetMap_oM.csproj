@@ -33,23 +33,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BHoM">
-      <HintPath>..\..\BHoM\Build\BHoM.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Common_oM">
-      <HintPath>..\..\BHoM\Build\Common_oM.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="CoordinateSharp, Version=2.3.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CoordinateSharp.2.3.1.1\lib\net40\CoordinateSharp.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Common_oM.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Geometry_oM">
-      <HintPath>..\..\BHoM\Build\Geometry_oM.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Geometry_oM.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -81,4 +73,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+xcopy "$(TargetDir)$(TargetFileName)"  "C:\ProgramData\BHoM\Assemblies" /Y
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>
