@@ -32,9 +32,9 @@ namespace BH.Engine.OpenStreetMap
         /****           Public Methods                  ****/
         /***************************************************/
 
-        [Description("Calculate the average node an OpenStreetMap Way")]
-        [Input("way", "OpenStreetMap Way")]
-        [Output("node", "Single average node")]
+        [Description("Calculate the average node an OpenStreetMap Way.")]
+        [Input("way", "OpenStreetMap Way.")]
+        [Output("node", "Single average node.")]
         public static Node AverageNode(this Way way)
         {
             double lat = way.Nodes.Sum(x => x.Latitude) / way.Nodes.Count;

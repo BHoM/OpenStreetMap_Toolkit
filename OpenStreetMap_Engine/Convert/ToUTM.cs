@@ -30,10 +30,10 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Convert latitude and longitude to universal transverse Mercator coordinates")]
+        [Description("Convert latitude and longitude to Universal Transverse Mercator coordinates")]
         [Input("lat", "The latitude, in the range -90.0 to 90.0 with up to 7 decimal places.")]
         [Input("lon", "The longitude, in the range -180.0 to 180.0 with up to 7 decimal places.")]
-        [Input("gridZone", "Optional UTM zone.")]
+        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
         [Output("eastingNorthing", "Array of two doubles as easting and northing (x,y)")]
         public static double[] ToUTM(this double lat, double lon, int gridZone = 0)
         {

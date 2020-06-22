@@ -31,16 +31,16 @@ namespace BH.oM.OpenStreetMap
         /***************************************************/
         /****            Public Properties              ****/
         /***************************************************/
-        [Description("The list of nodes that define this Way")]
+        [Description("The list of nodes that define this Way.")]
         public virtual List<Node>Nodes { get; set; } = new List<Node>();
 
-        [Description("The unique OpenStreetMap id for the Way")]
+        [Description("The unique OpenStreetMap id for the Way.")]
         public virtual long OsmID { get; set; }
 
-        [Description("The unique OpenStreetMap ids for the Nodes")]
+        [Description("The unique OpenStreetMap ids for the Nodes.")]
         public virtual List<long> NodeOsmIds { get; set; } = new List<long>();
 
-        [Description("The KeyValue tags describing the geographic attributes of this Way")]
+        [Description("The KeyValue tags describing the geographic attributes of this Way.")]
         public virtual Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
 
         /***************************************************/

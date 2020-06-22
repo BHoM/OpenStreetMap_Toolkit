@@ -34,10 +34,10 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Convert an OpenStreetMap Way to a UTM Polyline")]
-        [Input("way", "OpenStreetMap Way to convert")]
-        [Input("gridZone", "Locks conversion to specified UTM zone")]
-        [Output("utmPolyline", "Converted Way as a Polyline")]
+        [Description("Convert an OpenStreetMap Way to a Polyline in Universal Transverse Mercator coordinates.")]
+        [Input("way", "OpenStreetMap Way to convert.")]
+        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
+        [Output("utmPolyline", "Converted Way as a Polyline.")]
         public static Polyline ToUTMPolyline(this Way way, int gridZone = 0)
         {
             List<Point> points = new List<Point>();

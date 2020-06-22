@@ -33,16 +33,16 @@ namespace BH.oM.OpenStreetMap
         /****            Public Properties              ****/
         /***************************************************/
 
-        [Description("The Latitude of the Node, in the range -90.0 to 90.0 with up to 7 decimal places")]
+        [Description("The Latitude of the Node, in the range -90.0 to 90.0 with up to 7 decimal places.")]
         public virtual double Latitude { get; set; } = 0;
 
-        [Description("The Longitude of the Node, in the range -180.0 to 180.0 with up to 7 decimal places")]
+        [Description("The Longitude of the Node, in the range -180.0 to 180.0 with up to 7 decimal places.")]
         public virtual double Longitude { get; set; } = 0;
 
-        [Description("The unique OpenStreetMap id for the Node")]
+        [Description("The unique OpenStreetMap id for the Node.")]
         public virtual long OsmID { get; set; } = 0;
 
-        [Description("The KeyValue tags describing the geographic attributes of this Node")]
+        [Description("The KeyValue tags describing the geographic attributes of this Node.")]
         public virtual Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
 
     }

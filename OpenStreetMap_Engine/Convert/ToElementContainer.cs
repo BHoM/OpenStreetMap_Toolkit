@@ -34,17 +34,17 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Create an OpenStreetMap_oM ElementContainer from JSON formatted query result")]
-        [Input("openStreetMapQueryJSONResult", "string formatted as JSON")]
-        [Output("elementContainer", "ElementContainer containing the objects defined in the JSON formatted query result")]
+        [Description("Create an OpenStreetMap_oM ElementContainer from JSON formatted query result.")]
+        [Input("openStreetMapQueryJSONResult", "string formatted as JSON.")]
+        [Output("elementContainer", "ElementContainer containing the objects defined in the JSON formatted query result.")]
         public static ElementContainer ToElementContainer(this string openStreetMapQueryJSONResult)
         {
             return ToElementContainer(new List<CustomObject> { (CustomObject)Serialiser.Convert.FromJson(openStreetMapQueryJSONResult) });
         }
         /***************************************************/
-        [Description("Create an OpenStreetMap_oM ElementContainer from HTTP Pull results")]
-        [Input("queryResults", "results from the HTTP_Adapter")]
-        [Output("elementContainer", "ElementContainer containing the objects defined in the results from the HTTP_Adapter")]
+        [Description("Create an OpenStreetMap_oM ElementContainer from HTTP Pull results.")]
+        [Input("queryResults", "results from the HTTP_Adapter.")]
+        [Output("elementContainer", "ElementContainer containing the objects defined in the results from the HTTP_Adapter.")]
         public static ElementContainer ToElementContainer(this List<CustomObject> queryResults)
         {
             List<Way> ways = new List<Way>();

@@ -33,7 +33,7 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Convert longitude to UTM zone.")]
+        [Description("Convert longitude to Universal Transverse Mercator zone.")]
         [Input("longitude", "The longitude to convert, in the range -180.0 to 180.0 with up to 7 decimal places.")]
         [Output("utmZone","Universal transverse Mercator zone.")]
         public static int ToUTMZone(this double longitude)
@@ -41,7 +41,7 @@ namespace BH.Engine.OpenStreetMap
             return (int)Math.Ceiling((longitude + 180) / 6);
         }
         /***************************************************/
-        [Description("Convert longitude of a Node to UTM zone.")]
+        [Description("Convert longitude of a Node to Universal Transverse Mercator zone.")]
         [Input("node", "The node to convert.")]
         [Output("utmZone", "Universal transverse Mercator zone.")]
         public static int ToUTMZone(this Node node)
@@ -49,7 +49,7 @@ namespace BH.Engine.OpenStreetMap
             return (int)Math.Ceiling((node.Longitude + 180) / 6);
         }
         /***************************************************/
-        [Description("Convert all nodes in a Way to single, averaged UTM zone.")]
+        [Description("Convert all nodes in a Way to single, averaged Universal Transverse Mercator zone.")]
         [Input("way", "The way to convert.")]
         [Output("utmZone", "Universal transverse Mercator zone.")]
         public static int ToUTMZone(this Way way)
@@ -60,9 +60,9 @@ namespace BH.Engine.OpenStreetMap
             return (int)averageUTM / way.Nodes.Count;
         }
         /***************************************************/
-        [Description("Convert all nodes in a collection of Ways to single, averaged UTM zone.")]
+        [Description("Convert all nodes in a collection of Ways to single, averaged Universal Transverse Mercator zone.")]
         [Input("ways", "The ways to convert.")]
-        [Output("utmZone", "Universal transverse Mercator zone.")]
+        [Output("utmZone", "Universal Transverse Mercator zone.")]
         public static int ToUTMZone(this List<Way> ways)
         {
             double averageUTM = 0;

@@ -26,7 +26,7 @@ using System.ComponentModel;
 
 namespace BH.oM.OpenStreetMap
 {
-    [Description("A Polygon is collection of Nodes that can be used as a region for searches")]
+    [Description("A Polygon defines a region for searches based on a collection of nodes.")]
     public class Polygon : BHoMObject, IOpenStreetMapRegion
     {
         /***************************************************/

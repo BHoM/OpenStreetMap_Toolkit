@@ -33,7 +33,7 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Convert an OpenStreetMap Node to a UTM Point.")]
+        [Description("Convert an OpenStreetMap Node to a Point in Universal Transverse Mercator coordinates.")]
         [Input("node", "OpenStreetMap Node to convert.")]
         [Output("utmPoint", "Converted Node as a Point.")]
         public static Point ToUTMPoint(this Node node)
@@ -41,10 +41,10 @@ namespace BH.Engine.OpenStreetMap
             return ToUTMPoint(node.Latitude, node.Longitude);
         }
         /***************************************************/
-        [Description("Convert latitude and longitude to a Point in universal transverse Mercator coordinates.")]
+        [Description("Convert latitude and longitude to a Point in Universal Transverse Mercator coordinates.")]
         [Input("lat", "The latitude, in the range -90.0 to 90.0 with up to 7 decimal places.")]
         [Input("lon", "The longitude, in the range -180.0 to 180.0 with up to 7 decimal places.")]
-        [Input("gridZone", "Optional UTM zone.")]
+        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
         [Output("utmPoint", "Converted Node as a Point.")]
         public static Point ToUTMPoint(this double lat, double lon, int gridZone = 0)
         {

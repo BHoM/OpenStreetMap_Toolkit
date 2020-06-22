@@ -26,17 +26,17 @@ using System.ComponentModel;
 
 namespace BH.oM.OpenStreetMap
 {
-    [Description("A CentreRadius defines a region for searches within a radius around Node")]
+    [Description("A CentreRadius defines a region for searches within a radius around Node.")]
     public class CentreRadius : BHoMObject, IOpenStreetMapRegion
     {
         /***************************************************/
         /****            Public Properties              ****/
         /***************************************************/
 
-        [Description("The Node to search around")]
+        [Description("The Node to search around.")]
         public virtual Node Centre { get; set; } = new Node();
 
-        [Description("The radius to search")]
+        [Description("The radius to search.")]
         public virtual double Radius { get; set; } = 0.0;
 
     }

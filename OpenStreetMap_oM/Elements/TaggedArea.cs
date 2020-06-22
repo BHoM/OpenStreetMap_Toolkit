@@ -26,13 +26,13 @@ using System.ComponentModel;
 
 namespace BH.oM.OpenStreetMap
 {
-    [Description("A TaggedArea is a closed Way with a set of geographic attributes that can be used as a region for searches")]
+    [Description("A TaggedArea defines a region for searches with a set of geographic attributes.")]
     public class TaggedArea : BHoMObject, IOpenStreetMapRegion
     {
         /***************************************************/
         /****            Public Properties              ****/
         /***************************************************/
-        [Description("The KeyValue tags describing the geographic attributes of this Area")]
+        [Description("The KeyValue tags describing the geographic attributes of this TaggedArea.")]
         public virtual Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
 
     }
