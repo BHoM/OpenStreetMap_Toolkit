@@ -33,8 +33,8 @@ namespace BH.Engine.OpenStreetMap
         /****           Public Methods                  ****/
         /***************************************************/
         [Description("Create an OpenStreetMap Node from geographic coordinates.")]
-        [Input("latitude", "The latitude of the Node, in the range -90.0 to 90.0 with up to 7 decimal places")]
-        [Input("longitude", "The longitude of the Node, in the range -180.0 to 180.0 with up to 7 decimal places")]
+        [Input("latitude", "The latitude of the Node, in the range -90.0 to 90.0 with up to 7 decimal places.")]
+        [Input("longitude", "The longitude of the Node, in the range -180.0 to 180.0 with up to 7 decimal places.")]
         [Output("node", "OpenStreetMap Node.")]
         public static Node Node(double latitude, double longitude)
         {

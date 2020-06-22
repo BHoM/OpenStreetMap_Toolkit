@@ -26,16 +26,16 @@ using System.ComponentModel;
 
 namespace BH.oM.OpenStreetMap
 {
-    [Description("A LineStringRadius defines a region for searches within a radius around polygon")]
+    [Description("A LineStringRadius defines a region for searches within a radius around polygon.")]
     public class LineStringRadius : BHoMObject, IOpenStreetMapRegion
     {
         /***************************************************/
         /****            Public Properties              ****/
         /***************************************************/
-        [Description("The search radius")]
+        [Description("The search radius.")]
         public virtual double Radius { get; set; } = 0;
 
-        [Description("The polygon to search around")]
+        [Description("The polygon to search around.")]
         public virtual Polygon Polygon { get; set; } = new Polygon();
 
     }

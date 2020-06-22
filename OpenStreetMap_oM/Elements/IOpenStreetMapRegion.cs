@@ -24,7 +24,7 @@ using System.ComponentModel;
 
 namespace BH.oM.OpenStreetMap
 {
-    [Description("Interface for all search regions")]
+    [Description("Interface for all search regions.")]
     public interface IOpenStreetMapRegion : IBHoMObject
     {
         /***************************************************/

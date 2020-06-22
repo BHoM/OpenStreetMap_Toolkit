@@ -24,13 +24,13 @@ using System.ComponentModel;
 
 namespace BH.oM.OpenStreetMap
 {
-    [Description("The OpenStreetMap Overpass API query statement in Overpass QL format")]
+    [Description("The OpenStreetMap Overpass API query statement in Overpass QL format.")]
     public class QueryString : BHoMObject
     {
         /***************************************************/
         /****            Public Properties              ****/
         /***************************************************/
-        [Description("Query statement as a string")]
+        [Description("Query statement as a string.")]
         public virtual string Query { get; set; }
 
         /***************************************************/

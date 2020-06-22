@@ -33,10 +33,10 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Create the OpenStreetMap query from a region to search within and elements to search for.")]
-        [Input("region", "The region to search")]
-        [Input("elements", "The elements to search for")]
-        [Output("queryBuilder", "The QueryBuilder")]
+        [Description("Create the OpenStreetMap query from a region to search within and the elements to search for.")]
+        [Input("region", "The region to search.")]
+        [Input("elements", "The elements to search for.")]
+        [Output("queryBuilder", "The QueryBuilder.")]
         public static QueryBuilder QueryBuilder(IOpenStreetMapRegion region, List<IOpenStreetMapElement> elements)
         {
             StringBuilder q = new StringBuilder();

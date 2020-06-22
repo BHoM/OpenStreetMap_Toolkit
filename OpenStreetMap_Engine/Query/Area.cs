@@ -31,9 +31,9 @@ namespace BH.Engine.OpenStreetMap
         /****           Public Methods                  ****/
         /***************************************************/
 
-        [Description("Calculate the area of an OpenStreetMap way in metres")]
-        [Input("way", "OpenStreetMap Way for area query ")]
-        [Output("double", "Area of the way in metres")]
+        [Description("Calculate the area of an OpenStreetMap way in metres.")]
+        [Input("way", "OpenStreetMap Way for area query.")]
+        [Output("double", "Area of the way in metres.")]
         public static double Area(this Way way)
         {
             //is the way closed? maybe a warning is needed

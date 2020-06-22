@@ -26,19 +26,19 @@ using System.ComponentModel;
 
 namespace BH.oM.OpenStreetMap
 {
-    [Description("A relation is a group of elements (Members) used to model logical (and usually local) or geographic relationships between objects")]
+    [Description("A relation is a group of elements (Members) used to model logical (and usually local) or geographic relationships between objects.")]
     public class Relation : BHoMObject, IOpenStreetMapElement
     {
         /***************************************************/
         /****            Public Properties              ****/
         /***************************************************/
-        [Description("The unique OpenStreetMap id for the Relation")]
+        [Description("The unique OpenStreetMap id for the Relation.")]
         public virtual long OsmID { get; set; }
 
-        [Description("The KeyValue tags describing the geographic attributes of this Relation")]
+        [Description("The KeyValue tags describing the geographic attributes of this Relation.")]
         public virtual Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
 
-        [Description("The IOpenStreetMapElement that define this Relation")]
+        [Description("The IOpenStreetMapElement that define this Relation.")]
         public virtual List<IOpenStreetMapElement> Members { get; set; } = new List<IOpenStreetMapElement>();
 
     }
