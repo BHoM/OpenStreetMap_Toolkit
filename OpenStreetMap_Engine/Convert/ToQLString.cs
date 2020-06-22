@@ -20,7 +20,9 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 using BH.oM.OpenStreetMap;
+using BH.oM.Reflection.Attributes;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace BH.Engine.OpenStreetMap
@@ -30,7 +32,9 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-
+        [Description("Convert an element to an Overpass API Overpass QL string.")]
+        [Input("element", "The element to convert.")]
+        [Output("qlString", "Overpass QL string.")]
         public static string ToQLString(this IOpenStreetMapElement element)
         {
             if (element == null) return "";
@@ -42,7 +46,9 @@ namespace BH.Engine.OpenStreetMap
         }
 
         /***************************************************/
-
+        [Description("Convert a dictionary of keyValues to an Overpass API Overpass QL tag string.")]
+        [Input("keyValues", "The Dictionary to convert.")]
+        [Output("qlString", "Overpass QL string.")]
         public static string ToQLString(this Dictionary<string, string> keyValues)
         {
             //other tagFilters to be implemented see: https://wiki.openstreetmap.org/wiki/Overpass_API/Language_Guide#Tag_request_clauses_.28or_.22tag_filters.22.29
@@ -63,7 +69,9 @@ namespace BH.Engine.OpenStreetMap
         }
 
         /***************************************************/
-
+        [Description("Convert a region to an Overpass API Overpass QL region string.")]
+        [Input("region", "The region to convert.")]
+        [Output("qlString", "Overpass QL string.")]
         public static string ToQLString(this IOpenStreetMapRegion region)
         {
             if (region is BoundingBox)

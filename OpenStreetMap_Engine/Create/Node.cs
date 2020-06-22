@@ -21,7 +21,9 @@
  */
 
 using BH.oM.OpenStreetMap;
+using BH.oM.Reflection.Attributes;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.Engine.OpenStreetMap
 {
@@ -30,6 +32,10 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
+        [Description("Create an OpenStreetMap Node from geographic coordinates.")]
+        [Input("latitude", "The latitude of the Node, in the range -90.0 to 90.0 with up to 7 decimal places")]
+        [Input("longitude", "The longitude of the Node, in the range -180.0 to 180.0 with up to 7 decimal places")]
+        [Output("node", "OpenStreetMap Node.")]
         public static Node Node(double latitude, double longitude)
         {
             return new Node()
@@ -40,6 +46,10 @@ namespace BH.Engine.OpenStreetMap
 
         }
         /***************************************************/
+        [Description("Create an OpenStreetMap Relation for use as a search objective." +
+           "See https://wiki.openstreetmap.org/wiki/Map_Features for documentation of all map features.")]
+        [Input("keyvalues", "The geographic attributes that you are searching for.")]
+        [Output("node", "OpenStreetMap Node.")]
         public static Node Node(Dictionary<string, string> keyvalues)
         {
             return new Node()

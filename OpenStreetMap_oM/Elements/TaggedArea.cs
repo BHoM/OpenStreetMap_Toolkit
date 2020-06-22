@@ -22,15 +22,17 @@
 using BH.oM.Base;
 using BH.oM.Geometry;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.oM.OpenStreetMap
 {
+    [Description("A TaggedArea is a closed Way with a set of geographic attributes that can be used as a region for searches")]
     public class TaggedArea : BHoMObject, IOpenStreetMapRegion
     {
         /***************************************************/
         /****            Public Properties              ****/
         /***************************************************/
-
+        [Description("The KeyValue tags describing the geographic attributes of this Area")]
         public virtual Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
 
     }

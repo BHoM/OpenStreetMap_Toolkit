@@ -22,18 +22,27 @@
 using BH.oM.Base;
 using BH.oM.Geometry;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.oM.OpenStreetMap
 {
+    [Description("A BoundingBox defines a region for searches using the cardinal limits")]
     public class BoundingBox : BHoMObject, IOpenStreetMapRegion
     {
         /***************************************************/
         /****            Public Properties              ****/
         /***************************************************/
 
+        [Description("The maximum Latitude of the BoundingBox, in the range -90.0 to 90.0 with up to 7 decimal places")]
         public virtual double North { get; set; } = 0.0;
+
+        [Description("The minimum Latitude of the BoundingBox, in the range -90.0 to 90.0 with up to 7 decimal places")]
         public virtual double South { get; set; } = 0.0;
+
+        [Description("The maximum Longitude of the BoundingBox, in the range -180.0 to 180.0 with up to 7 decimal places")]
         public virtual double East { get; set; } = 0.0;
+
+        [Description("The minimum Longitude of the BoundingBox, in the range -180.0 to 180.0 with up to 7 decimal places")]
         public virtual double West { get; set; } = 0.0;
 
     }

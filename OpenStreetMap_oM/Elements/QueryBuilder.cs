@@ -21,15 +21,17 @@
  */
 using BH.oM.Base;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.oM.OpenStreetMap
 {
+    [Description("A QueryBuilder constructs the OpenStreetMap query from a set of regions to search within and elements to search for")]
     public class QueryBuilder : BHoMObject
     {
         /***************************************************/
         /****            Public Properties              ****/
         /***************************************************/
-
+        [Description("The OpenStreetMap Overpass API query statement in Overpass QL format")]
         public virtual string QueryString { get; set; }
 
         /***************************************************/

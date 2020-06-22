@@ -21,18 +21,26 @@
  */
 using BH.oM.Base;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.oM.OpenStreetMap
 {
+    [Description("A Way is an ordered list of nodes which normally also has at least one tag or is included within a Relation.")]
     public class Way : BHoMObject, IOpenStreetMapElement
     {
         /***************************************************/
         /****            Public Properties              ****/
         /***************************************************/
-
+        [Description("The list of nodes that define this Way")]
         public virtual List<Node>Nodes { get; set; } = new List<Node>();
+
+        [Description("The unique OpenStreetMap id for the Way")]
         public virtual long OsmID { get; set; }
+
+        [Description("The unique OpenStreetMap ids for the Nodes")]
         public virtual List<long> NodeOsmIds { get; set; } = new List<long>();
+
+        [Description("The KeyValue tags describing the geographic attributes of this Way")]
         public virtual Dictionary<string, string> KeyValues { get; set; } = new Dictionary<string, string>();
 
         /***************************************************/

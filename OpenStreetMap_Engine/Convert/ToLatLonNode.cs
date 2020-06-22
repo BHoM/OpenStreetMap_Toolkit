@@ -21,7 +21,9 @@
  */
 using BH.oM.Geometry;
 using BH.oM.OpenStreetMap;
+using BH.oM.Reflection.Attributes;
 using CoordinateSharp;
+using System.ComponentModel;
 
 namespace BH.Engine.OpenStreetMap
 {
@@ -30,6 +32,11 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Constructors             ****/
         /***************************************************/
+        [Description("Convert a Point in Universal Transverse Mercator coordinates to a Node.")]
+        [Input("utmPoint", "The Point to convert.")]
+        [Input("southernHemi", "Is the Point in the Southern hemisphere?")]
+        [Input("zone", "Universal Transverse Mercator zone.")]
+        [Output("node", "Converted Point as a Node.")]
         public static Node ToLatLonNode(this Point utmpoint, int zone, bool southernHemi)
         {
             string northSouth = "N";

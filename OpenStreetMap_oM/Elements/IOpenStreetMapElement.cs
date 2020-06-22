@@ -21,15 +21,18 @@
  */
 using BH.oM.Base;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.oM.OpenStreetMap
 {
+    [Description("Interface for OpenStreetMap elements")]
     public interface IOpenStreetMapElement : IBHoMObject
     {
         /***************************************************/
         /****            Public Properties              ****/
         /***************************************************/
 
+        [Description("The KeyValue tags describing the geographic attributes of this Element")]
         Dictionary<string,string> KeyValues { get; set; }
 
         /***************************************************/
