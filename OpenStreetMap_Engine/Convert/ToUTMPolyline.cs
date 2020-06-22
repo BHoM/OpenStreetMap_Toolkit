@@ -24,6 +24,8 @@ using BH.oM.OpenStreetMap;
 using System.Collections.Generic;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
+using System.Linq;
+using System.Diagnostics;
 
 namespace BH.Engine.OpenStreetMap
 {
@@ -34,7 +36,7 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         [Description("Convert an OpenStreetMap Way to a UTM Polyline")]
         [Input("way", "OpenStreetMap Way to convert")]
-        [Input("gridZone", "Locks conversion to specifcied UTM zone")]
+        [Input("gridZone", "Locks conversion to specified UTM zone")]
         [Output("utmPolyline", "Converted Way as a Polyline")]
         public static Polyline ToUTMPolyline(this Way way, int gridZone = 0)
         {

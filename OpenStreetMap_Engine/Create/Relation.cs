@@ -21,7 +21,9 @@
  */
 
 using BH.oM.OpenStreetMap;
+using BH.oM.Reflection.Attributes;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.Engine.OpenStreetMap
 {
@@ -30,6 +32,10 @@ namespace BH.Engine.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
+        [Description("Create an OpenStreetMap Relation for use as a search objective." +
+            "See https://wiki.openstreetmap.org/wiki/Map_Features for documentation of all map features.")]
+        [Input("keyvalues", "The geographic attributes that you are searching for.")]
+        [Output("relation", "OpenStreetMap Relation.")]
         public static Relation Relation(Dictionary<string, string> keyvalues)
         {
             return new Relation()

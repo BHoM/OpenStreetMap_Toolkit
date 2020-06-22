@@ -21,17 +21,24 @@
  */
 using BH.oM.Base;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.oM.OpenStreetMap
 {
+    [Description("Container for OpenStreetMap elements returned from a query")]
     public class ElementContainer : BHoMObject
     {
         /***************************************************/
         /****            Public Properties              ****/
         /***************************************************/
 
+        [Description("The Nodes returned from the query")]
         public virtual List<Node> Nodes { get; set; } = new List<Node>();
+
+        [Description("The Ways returned from the query")]
         public virtual List<Way> Ways { get; set; } = new List<Way>();
+
+        [Description("The Relations returned from the query")]
         public virtual List<Relation> Relations { get; set; } = new List<Relation>();
 
 

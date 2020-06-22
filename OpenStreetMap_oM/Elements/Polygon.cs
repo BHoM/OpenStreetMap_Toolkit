@@ -22,15 +22,17 @@
 using BH.oM.Base;
 using BH.oM.Geometry;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BH.oM.OpenStreetMap
 {
+    [Description("A Polygon is collection of Nodes that can be used as a region for searches")]
     public class Polygon : BHoMObject, IOpenStreetMapRegion
     {
         /***************************************************/
         /****            Public Properties              ****/
         /***************************************************/
-
+        [Description("The Nodes that define this Polygon")]
         public virtual List<Node> Nodes { get; set; } = new List<Node>();
 
     }
