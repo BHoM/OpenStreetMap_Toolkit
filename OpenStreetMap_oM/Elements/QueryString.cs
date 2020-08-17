@@ -22,7 +22,7 @@
 using BH.oM.Base;
 using System.ComponentModel;
 
-namespace BH.oM.OpenStreetMap
+namespace BH.oM.Adapters.OpenStreetMap
 {
     [Description("The OpenStreetMap Overpass API query statement in Overpass QL format.")]
     public class QueryString : BHoMObject

@@ -20,12 +20,12 @@
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
 using BH.oM.Geometry;
-using BH.oM.OpenStreetMap;
+using BH.oM.Adapters.OpenStreetMap;
 using BH.oM.Reflection.Attributes;
 using CoordinateSharp;
 using System.ComponentModel;
 
-namespace BH.Engine.OpenStreetMap
+namespace BH.Engine.Adapters.OpenStreetMap
 {
     public static partial class Convert
     {

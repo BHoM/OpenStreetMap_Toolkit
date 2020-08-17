@@ -24,7 +24,7 @@ using BH.oM.Geometry;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.OpenStreetMap
+namespace BH.oM.Adapters.OpenStreetMap
 {
     [Description("A CentreRadius defines a region for searches within a radius around Node.")]
     public class CentreRadius : BHoMObject, IOpenStreetMapRegion

@@ -23,7 +23,7 @@ using BH.oM.Base;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.OpenStreetMap
+namespace BH.oM.Adapters.OpenStreetMap
 {
     [Description("Interface for OpenStreetMap elements.")]
     public interface IOpenStreetMapElement : IBHoMObject

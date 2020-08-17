@@ -23,7 +23,7 @@ using BH.oM.Base;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.OpenStreetMap
+namespace BH.oM.Adapters.OpenStreetMap
 {
     [Description("A Way is an ordered list of nodes which normally also has at least one tag or is included within a Relation.")]
     public class Way : BHoMObject, IOpenStreetMapElement

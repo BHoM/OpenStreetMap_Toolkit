@@ -22,7 +22,7 @@
 using BH.oM.Base;
 using System.ComponentModel;
 
-namespace BH.oM.OpenStreetMap
+namespace BH.oM.Adapters.OpenStreetMap
 {
     [Description("Interface for all search regions.")]
     public interface IOpenStreetMapRegion : IBHoMObject

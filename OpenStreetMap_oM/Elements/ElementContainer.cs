@@ -23,7 +23,7 @@ using BH.oM.Base;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.OpenStreetMap
+namespace BH.oM.Adapters.OpenStreetMap
 {
     [Description("Container for OpenStreetMap elements returned from a query.")]
     public class ElementContainer : BHoMObject
