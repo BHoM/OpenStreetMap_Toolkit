@@ -24,7 +24,7 @@ using BH.oM.Geometry;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.OpenStreetMap
+namespace BH.oM.Adapters.OpenStreetMap
 {
     [Description("A BoundingBox defines a region for searches using the cardinal limits.")]
     public class BoundingBox : BHoMObject, IOpenStreetMapRegion

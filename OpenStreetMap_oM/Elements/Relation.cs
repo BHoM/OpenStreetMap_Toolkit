@@ -24,7 +24,7 @@ using BH.oM.Geometry;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.OpenStreetMap
+namespace BH.oM.Adapters.OpenStreetMap
 {
     [Description("A relation is a group of elements (Members) used to model logical (and usually local) or geographic relationships between objects.")]
     public class Relation : BHoMObject, IOpenStreetMapElement

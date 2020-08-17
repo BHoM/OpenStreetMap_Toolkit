@@ -1,0 +1,22 @@
+{
+  "Namespace": {
+    "ToNew": {
+      "BH.Engine.OpenStreetMap": "BH.Engine.Adapters.OpenStreetMap"
+    },
+    "ToOld": {
+      "BH.Engine.Adapters.OpenStreetMap": "BH.Engine.OpenStreetMap"
+    }
+  },
+  "Type": {
+    "ToNew": {
+    },
+    "ToOld": {
+    }
+  },
+  "Property": {
+    "ToNew": {
+    },
+    "ToOld": {
+    }
+  }
+}

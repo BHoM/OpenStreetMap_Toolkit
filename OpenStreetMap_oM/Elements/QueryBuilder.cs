@@ -23,7 +23,7 @@ using BH.oM.Base;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.OpenStreetMap
+namespace BH.oM.Adapters.OpenStreetMap
 {
     [Description("A QueryBuilder constructs the OpenStreetMap query from a set of regions to search within and elements to search for.")]
     public class QueryBuilder : BHoMObject

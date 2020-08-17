@@ -24,7 +24,7 @@ using BH.oM.Geometry;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.OpenStreetMap
+namespace BH.oM.Adapters.OpenStreetMap
 {
     [Description("A node is one of the core elements in the OpenStreetMap data model. It consists of a single point in space defined by its latitude, longitude and node id.")]
     public class Node : BHoMObject, IOpenStreetMapElement

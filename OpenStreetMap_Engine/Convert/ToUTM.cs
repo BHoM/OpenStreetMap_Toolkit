@@ -23,7 +23,7 @@ using CoordinateSharp;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 
-namespace BH.Engine.OpenStreetMap
+namespace BH.Engine.Adapters.OpenStreetMap
 {
     public static partial class Convert
     {

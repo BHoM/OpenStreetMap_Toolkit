@@ -24,7 +24,7 @@ using BH.oM.Geometry;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace BH.oM.OpenStreetMap
+namespace BH.oM.Adapters.OpenStreetMap
 {
     [Description("A Polygon defines a region for searches based on a collection of nodes.")]
     public class Polygon : BHoMObject, IOpenStreetMapRegion

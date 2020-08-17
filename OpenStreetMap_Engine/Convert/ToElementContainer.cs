@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU Lesser General Public License     
  * along with this code. If not, see <https://www.gnu.org/licenses/lgpl-3.0.html>.      
  */
-using BH.oM.OpenStreetMap;
+using BH.oM.Adapters.OpenStreetMap;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,7 +27,7 @@ using BH.oM.Reflection.Attributes;
 using BH.oM.Base;
 using BH.Engine.Serialiser;
 
-namespace BH.Engine.OpenStreetMap
+namespace BH.Engine.Adapters.OpenStreetMap
 {
     public static partial class Convert
     {
