@@ -26,6 +26,8 @@ using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 using System.Linq;
 using System.Diagnostics;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace BH.Engine.Adapters.OpenStreetMap
 {
@@ -34,18 +36,19 @@ namespace BH.Engine.Adapters.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Convert an OpenStreetMap Way to a Polyline in Universal Transverse Mercator coordinates.")]
+        [Description("Convert an OpenStreetMap Way to a UTM Polyline.")]
         [Input("way", "OpenStreetMap Way to convert.")]
-        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
+        [Input("gridZone", "Locks conversion to specified UTM zone.")]
         [Output("utmPolyline", "Converted Way as a Polyline.")]
         public static Polyline ToUTMPolyline(this Way way, int gridZone = 0)
         {
-            List<Point> points = new List<Point>();
-            foreach (Node n in way.Nodes)
+            ConcurrentBag<Point> points = new ConcurrentBag<Point>();
+            Parallel.ForEach(way.Nodes, n =>
             {
-                Point utmPoint = ToUTMPoint(n.Latitude, n.Longitude, gridZone);
+                Point utmPoint = Convert.ToUTMPoint(n.Latitude, n.Longitude, gridZone);
                 points.Add(utmPoint);
             }
+            );
             Polyline utmPolyline = Geometry.Create.Polyline(points);
             return utmPolyline;
         }
