@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2021, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -25,6 +25,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using BH.oM.Reflection.Attributes;
 using CoordinateSharp;
+using System.Threading.Tasks;
+using System.Collections.Concurrent;
+using System.Linq;
 
 namespace BH.Engine.Adapters.OpenStreetMap
 {
@@ -33,7 +36,7 @@ namespace BH.Engine.Adapters.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Convert an OpenStreetMap Node to a Point in Universal Transverse Mercator coordinates.")]
+        [Description("Convert an OpenStreetMap Node to a UTM Point.")]
         [Input("node", "OpenStreetMap Node to convert.")]
         [Output("utmPoint", "Converted Node as a Point.")]
         public static Point ToUTMPoint(this Node node)
@@ -41,11 +44,23 @@ namespace BH.Engine.Adapters.OpenStreetMap
             return ToUTMPoint(node.Latitude, node.Longitude);
         }
         /***************************************************/
-        [Description("Convert latitude and longitude to a Point in Universal Transverse Mercator coordinates.")]
-        [Input("lat", "The latitude, in the range -90.0 to 90.0 with up to 7 decimal places.")]
-        [Input("lon", "The longitude, in the range -180.0 to 180.0 with up to 7 decimal places.")]
-        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
-        [Output("utmPoint", "Converted Node as a Point.")]
+        [Description("Convert a collection of OpenStreetMap Nodes to UTM Points using parallel processing to improve performance.")]
+        [Input("nodes", "OpenStreetMap Nodes to convert.")]
+        [Output("utmPoints", "Converted Nodes as Points.")]
+        public static List<Point> ToUTMPoint(this List<Node> nodes)
+        {
+            ConcurrentBag<Point> points = new ConcurrentBag<Point>();
+            Parallel.ForEach(nodes, node =>
+            {
+                points.Add(ToUTMPoint(node.Latitude, node.Longitude));
+            });
+            return points.ToList();
+        }
+        /***************************************************/
+        [Description("Convert latitude and longitude to universal transverse mercator.")]
+        [Input("lat", "Decimal latitude.")]
+        [Input("lon", "Decimal longitude.")]
+        [Output("double []", "Array of two doubles as easting and northing (x,y).")]
         public static Point ToUTMPoint(this double lat, double lon, int gridZone = 0)
         {
             Coordinate c = new Coordinate(lat, lon);
@@ -57,5 +72,3 @@ namespace BH.Engine.Adapters.OpenStreetMap
         /***************************************************/
     }
 }
-
-
