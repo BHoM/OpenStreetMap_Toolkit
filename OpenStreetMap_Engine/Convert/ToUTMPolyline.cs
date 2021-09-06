@@ -42,13 +42,15 @@ namespace BH.Engine.Adapters.OpenStreetMap
         [Output("utmPolyline", "Converted Way as a Polyline.")]
         public static Polyline ToUTMPolyline(this Way way, int gridZone = 0)
         {
-            ConcurrentBag<Point> points = new ConcurrentBag<Point>();
-            Parallel.ForEach(way.Nodes, n =>
+            //dictionary to ensure node order is maintained
+            ConcurrentDictionary<int, Point> pointDict = new ConcurrentDictionary<int, Point>();
+            Parallel.For(0, way.Nodes.Count, n =>
             {
-                Point utmPoint = Convert.ToUTMPoint(n.Latitude, n.Longitude, gridZone);
-                points.Add(utmPoint);
+                Point utmPoint = Convert.ToUTMPoint(way.Nodes[n].Latitude, way.Nodes[n].Longitude, gridZone);
+                pointDict.TryAdd(n,utmPoint);
             }
             );
+            List<Point> points = pointDict.OrderBy(kvp => kvp.Key).Select(kvp => kvp.Value).ToList();
             Polyline utmPolyline = Geometry.Create.Polyline(points);
             return utmPolyline;
         }
