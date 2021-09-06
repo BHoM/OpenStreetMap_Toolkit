@@ -49,12 +49,13 @@ namespace BH.Engine.Adapters.OpenStreetMap
         [Output("utmPoints", "Converted Nodes as Points.")]
         public static List<Point> ToUTMPoint(this List<Node> nodes)
         {
-            ConcurrentBag<Point> points = new ConcurrentBag<Point>();
-            Parallel.ForEach(nodes, node =>
+            //dictionary to ensure node order is maintained
+            ConcurrentDictionary<int, Point> pointDict = new ConcurrentDictionary<int, Point>();
+            Parallel.For(0, nodes.Count, n =>
             {
-                points.Add(ToUTMPoint(node.Latitude, node.Longitude));
+                pointDict.TryAdd(n,ToUTMPoint(nodes[n].Latitude, nodes[n].Longitude));
             });
-            return points.ToList();
+            return pointDict.OrderBy(kvp => kvp.Key).Select(kvp => kvp.Value).ToList(); ;
         }
         /***************************************************/
         [Description("Convert latitude and longitude to a Point in Universal Transverse Mercator coordinates.")]
