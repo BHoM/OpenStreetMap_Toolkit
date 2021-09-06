@@ -57,10 +57,11 @@ namespace BH.Engine.Adapters.OpenStreetMap
             return points.ToList();
         }
         /***************************************************/
-        [Description("Convert latitude and longitude to universal transverse mercator.")]
-        [Input("lat", "Decimal latitude.")]
-        [Input("lon", "Decimal longitude.")]
-        [Output("double []", "Array of two doubles as easting and northing (x,y).")]
+        [Description("Convert latitude and longitude to a Point in Universal Transverse Mercator coordinates.")]
+        [Input("lat", "The latitude, in the range -90.0 to 90.0 with up to 7 decimal places.")]
+        [Input("lon", "The longitude, in the range -180.0 to 180.0 with up to 7 decimal places.")]
+        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
+        [Output("utmPoint", "Converted Node as a Point.")]
         public static Point ToUTMPoint(this double lat, double lon, int gridZone = 0)
         {
             Coordinate c = new Coordinate(lat, lon);
