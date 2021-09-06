@@ -64,7 +64,11 @@ namespace BH.Engine.Adapters.OpenStreetMap
         [Output("utmPoint", "Converted Node as a Point.")]
         public static Point ToUTMPoint(this double lat, double lon, int gridZone = 0)
         {
-            Coordinate c = new Coordinate(lat, lon);
+            //EagerLoad sets which CoordinateSystems are calculated set all to false except UTM_MGRS
+            EagerLoad el = new EagerLoad(false);
+            el.UTM_MGRS = true;
+            el.Extensions.MGRS = false;
+            Coordinate c = new Coordinate(lat, lon,el);
             if (gridZone >= 1 && gridZone <= 60)
                 c.Lock_UTM_MGRS_Zone(gridZone);
             Point utmPoint = Geometry.Create.Point(c.UTM.Easting, c.UTM.Northing, 0);
