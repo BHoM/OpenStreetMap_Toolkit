@@ -1,6 +1,6 @@
 /*
  * This file is part of the Buildings and Habitats object Model (BHoM)
- * Copyright (c) 2015 - 2020, the respective contributors. All rights reserved.
+ * Copyright (c) 2015 - 2021, the respective contributors. All rights reserved.
  *
  * Each contributor holds copyright over their respective contributions.
  * The project versioning (Git) records all such contribution source information.
@@ -36,7 +36,7 @@ namespace BH.Engine.Adapters.OpenStreetMap
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        [Description("Convert an OpenStreetMap Node to a UTM Point.")]
+        [Description("Convert an OpenStreetMap Node to a Point in Universal Transverse Mercator coordinates.")]
         [Input("node", "OpenStreetMap Node to convert.")]
         [Output("utmPoint", "Converted Node as a Point.")]
         public static Point ToUTMPoint(this Node node)
@@ -44,7 +44,7 @@ namespace BH.Engine.Adapters.OpenStreetMap
             return ToUTMPoint(node.Latitude, node.Longitude);
         }
         /***************************************************/
-        [Description("Convert a collection of OpenStreetMap Nodes to UTM Points using parallel processing to improve performance.")]
+        [Description("Convert a collection of OpenStreetMap Nodes to a collection of Points in Universal Transverse Mercator coordinates using parallel processing.")]
         [Input("nodes", "OpenStreetMap Nodes to convert.")]
         [Output("utmPoints", "Converted Nodes as Points.")]
         public static List<Point> ToUTMPoint(this List<Node> nodes)
