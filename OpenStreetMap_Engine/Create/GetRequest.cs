@@ -15,7 +15,8 @@ namespace BH.Engine.Adapters.OpenStreetMap
         [Description("Create a OpenStreetMap Nominatim GetRequest from a free-form string. " +
             "Free-form queries are processed first left-to-right and then right-to-left if that fails. " +
             "So you may search for pilkington avenue, birmingham as well as for birmingham, pilkington avenue. " +
-            "Commas are optional, but improve performance by reducing the complexity of the search.")]
+            "Commas are optional, but improve performance by reducing the complexity of the search." +
+            " Special phrases can cause Nominatim to search for particular object types see https://wiki.openstreetmap.org/wiki/Nominatim/Special_Phrases/EN for more details.")]
         [Input("structuredSearch", "Alternative query string format split into several parameters for structured requests. Structured requests are faster but are less robust against alternative OSM tagging schemas.")]
         [Input("outputFormat", "The data format for places found. Default is GeoJson.")]
         [Input("outputDetails", "Details to be included in the returned data of places found. Default is null - all details are excluded.")]
@@ -42,7 +43,7 @@ namespace BH.Engine.Adapters.OpenStreetMap
 
         /***************************************************/
 
-        [Description("Create the OpenStreetMap Nominatim GetRequest from a structure string.")]
+        [Description("Create the OpenStreetMap Nominatim GetRequest from a structured string.")]
         [Input("structuredSearch", "Alternative query string format split into several parameters for structured requests. Structured requests are faster but are less robust against alternative OSM tagging schemas.")]
         [Input("outputFormat", "The data format for places found. Default is GeoJson.")]
         [Input("outputDetails", "Details to be included in the returned data of places found. Default is null - all details are excluded.")]
