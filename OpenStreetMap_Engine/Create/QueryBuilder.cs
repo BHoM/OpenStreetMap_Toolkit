@@ -25,6 +25,8 @@ using BH.oM.Reflection.Attributes;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using BH.oM.Adapters.OpenStreetMap.Nominatim;
+using System;
 
 namespace BH.Engine.Adapters.OpenStreetMap
 {
@@ -81,6 +83,7 @@ namespace BH.Engine.Adapters.OpenStreetMap
         }
 
         /***************************************************/
+
     }
 }
 
