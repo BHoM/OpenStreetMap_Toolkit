@@ -18,18 +18,23 @@ namespace BH.Engine.Adapters.OpenStreetMap
             "Commas are optional, but improve performance by reducing the complexity of the search." +
             "Special phrases can cause Nominatim to search for particular object types see https://wiki.openstreetmap.org/wiki/Nominatim/Special_Phrases/EN for more details.")]
         [Input("freeFormQuery", "Free-form query string to search for.")]
-        [Input("outputFormat", "The data format for places found. Default is GeoJson.")]
-        [Input("outputDetails", "Details to be included in the returned data of places found. Default is null - all details are excluded.")]
-        [Input("resultLimitation", "Limit the results to certain areas or number of results. Default is null - search is limited to 10 results.")]
-        [Input("polygonOutput", "Format of the polygon geometry of the places found. Default is None.")]
+        [Input("outputFormat", "The data format for places found. Default is GeoJSON.")]
+        [Input("outputDetails", "Details to be included in the returned data of places found. Default all details are included.")]
+        [Input("resultLimitation", "Limit the results to certain areas or number of results. Default search is limited to 50 results across all countries.")]
+        [Input("polygonOutput", "Format of the polygon geometry of the places found. Default is GeoJSON.")]
         [Output("getRequest", "The GetRequest.")]
-        public static GetRequest GetRequest(string freeFormQuery, OutputFormat outputFormat = OutputFormat.GeoJSON, OutputDetails outputDetails = null, ResultLimitation resultLimitation = null, PolygonOutput polygonOutput = PolygonOutput.None)
+        public static GetRequest GetRequest(string freeFormQuery, OutputFormat outputFormat = OutputFormat.GeoJSON, OutputDetails outputDetails = null, ResultLimitation resultLimitation = null, PolygonOutput polygonOutput = PolygonOutput.GeoJSON)
         {
             if (String.IsNullOrEmpty(freeFormQuery))
             {
                 Reflection.Compute.RecordError("The freeFormQuery cannot be null or empty.");
                 return null;
             }
+
+            if (outputDetails == null)
+                outputDetails = new OutputDetails();
+            if (resultLimitation == null)
+                resultLimitation = new ResultLimitation();
 
             GetRequest request = new GetRequest(){ BaseUrl = BaseUriNominatimSearch() };
 
@@ -46,18 +51,22 @@ namespace BH.Engine.Adapters.OpenStreetMap
 
         [Description("Create the OpenStreetMap Nominatim GetRequest from a StructuredAddressSearch.")]
         [Input("addressSearch", "Query structured by address parameters from a StructuredAddressSearch.")]
-        [Input("outputFormat", "The data format for places found. Default is GeoJson.")]
-        [Input("outputDetails", "Details to be included in the returned data of places found. Default is null - all details are excluded.")]
-        [Input("resultLimitation", "Limit the results to certain areas or number of results. Default is null - search is limited to 10 results.")]
-        [Input("polygonOutput", "Format of the polygon geometry of the places found. Default is None.")]
+        [Input("outputFormat", "The data format for places found. Default is GeoJSON.")]
+        [Input("outputDetails", "Details to be included in the returned data of places found. Default all details are included.")]
+        [Input("resultLimitation", "Limit the results to certain areas or number of results. Default search is limited to 50 results across all countries.")]
+        [Input("polygonOutput", "Format of the polygon geometry of the places found. Default is GeoJSON.")]
         [Output("getRequest", "The GetRequest.")]
-        public static GetRequest GetRequest(StructuredAddressSearch addressSearch, OutputFormat outputFormat = OutputFormat.GeoJSON, OutputDetails outputDetails = null, ResultLimitation resultLimitation = null, PolygonOutput polygonOutput = PolygonOutput.None)
+        public static GetRequest GetRequest(StructuredAddressSearch addressSearch, OutputFormat outputFormat = OutputFormat.GeoJSON, OutputDetails outputDetails = null, ResultLimitation resultLimitation = null, PolygonOutput polygonOutput = PolygonOutput.GeoJSON)
         {
             if (addressSearch == null)
             {
                 Reflection.Compute.RecordError("The addressSearch cannot be null");
                 return null;
             }
+            if (outputDetails == null)
+                outputDetails = new OutputDetails();
+            if (resultLimitation == null)
+                resultLimitation = new ResultLimitation();
 
             GetRequest request = new GetRequest() { BaseUrl = BaseUriNominatimSearch() };
 
@@ -78,18 +87,22 @@ namespace BH.Engine.Adapters.OpenStreetMap
             "The API returns exactly one result or an error when the coordinate is in an area with no OSM data coverage.")]
         [Input("latitude", "Latitude of a coordinate in WGS84 projection. Permitted range is -90 to 90.")]
         [Input("longitude", "Longitude of a coordinate in WGS84 projection. Permitted range is -180 to 180.")]
-        [Input("outputFormat", "The data format for places found. Default is GeoJson.")]
-        [Input("outputDetails", "Details to be included in the returned data of places found. Default is null - all details are excluded.")]
-        [Input("resultLimitation", "Limit the results to certain areas or number of results. Default is null - search is limited to 10 results.")]
-        [Input("polygonOutput", "Format of the polygon geometry of the places found. Default is None.")]
+        [Input("outputFormat", "The data format for places found. Default is GeoJSON.")]
+        [Input("outputDetails", "Details to be included in the returned data of places found. Default all details are included.")]
+        [Input("resultLimitation", "Limit the results to certain areas or number of results. Default search is zoom detail of 18. Other ResultLimitation parameters are not applicable to reverse geocoding.")]
+        [Input("polygonOutput", "Format of the polygon geometry of the places found. Default is GeoJSON.")]
         [Output("getRequest", "The GetRequest.")]
-        public static GetRequest GetRequest(double latitude, double longitude, OutputFormat outputFormat = OutputFormat.GeoJSON, OutputDetails outputDetails = null, ResultLimitation resultLimitation = null, PolygonOutput polygonOutput = PolygonOutput.None)
+        public static GetRequest GetRequest(double latitude, double longitude, OutputFormat outputFormat = OutputFormat.GeoJSON, OutputDetails outputDetails = null, ResultLimitation resultLimitation = null, PolygonOutput polygonOutput = PolygonOutput.GeoJSON)
         {
             if(latitude < -90 || latitude > 90 || longitude < -180 || longitude > 180)
             {
                 Reflection.Compute.RecordWarning("The latitude or longitude provided is outside the permitted range. Latitude range is -90 to 90. Longitude range is -180 to 180.");
                 return null;
             }
+            if (outputDetails == null)
+                outputDetails = new OutputDetails();
+            if (resultLimitation == null)
+                resultLimitation = new ResultLimitation();
 
             GetRequest request = new GetRequest() { BaseUrl = BaseUriNominatimReverse() };
 
@@ -194,14 +207,21 @@ namespace BH.Engine.Adapters.OpenStreetMap
 
             if (!String.IsNullOrEmpty(structuredSearch.Country))
                 request.Parameters.Add("country", structuredSearch.Country);
+
             if (!String.IsNullOrEmpty(structuredSearch.County))
-                request.Parameters.Add("county", structuredSearch.Country);
+                request.Parameters.Add("county", structuredSearch.County);
+
             if (!String.IsNullOrEmpty(structuredSearch.City))
-                request.Parameters.Add("city", structuredSearch.Country);
+                request.Parameters.Add("city", structuredSearch.City);
+
             if (!String.IsNullOrEmpty(structuredSearch.State))
-                request.Parameters.Add("state", structuredSearch.Country);
+                request.Parameters.Add("state", structuredSearch.State);
+
+            if (!String.IsNullOrEmpty(structuredSearch.Street))
+                request.Parameters.Add("street", structuredSearch.Street);
+
             if (!String.IsNullOrEmpty(structuredSearch.PostalCode))
-                request.Parameters.Add("postalcode", structuredSearch.Country);
+                request.Parameters.Add("postalcode", structuredSearch.PostalCode);
         }
 
         /***************************************************/
