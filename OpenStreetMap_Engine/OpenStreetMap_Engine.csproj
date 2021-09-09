@@ -52,6 +52,14 @@
       <HintPath>C:\ProgramData\BHoM\Assemblies\Geometry_oM.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="HTTP_oM">
+      <HintPath>C:\ProgramData\BHoM\Assemblies\HTTP_oM.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Reflection_Engine">
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Reflection_Engine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Reflection_oM">
       <HintPath>C:\ProgramData\BHoM\Assemblies\Reflection_oM.dll</HintPath>
       <Private>False</Private>
@@ -76,6 +84,7 @@
     <Compile Include="Convert\ToQLString.cs" />
     <Compile Include="Convert\ToUTMPoint.cs" />
     <Compile Include="Convert\ToUTMZone.cs" />
+    <Compile Include="Create\GetRequest.cs" />
     <Compile Include="Create\Node.cs" />
     <Compile Include="Create\QueryBuilder.cs" />
     <Compile Include="Create\Relation.cs" />

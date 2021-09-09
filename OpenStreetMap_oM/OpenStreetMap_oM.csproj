@@ -67,12 +67,18 @@
     <Compile Include="Elements\Relation.cs" />
     <Compile Include="Elements\TaggedArea.cs" />
     <Compile Include="Elements\Way.cs" />
+    <Compile Include="Nominatim\OutputDetails.cs" />
+    <Compile Include="Nominatim\OutputFormat.cs" />
+    <Compile Include="Nominatim\PolygonOutput.cs" />
+    <Compile Include="Nominatim\ResultLimitation.cs" />
+    <Compile Include="Nominatim\StructuredAddressSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Versioning_33.json" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
