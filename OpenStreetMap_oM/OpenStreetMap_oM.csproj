@@ -71,7 +71,7 @@
     <Compile Include="Nominatim\OutputFormat.cs" />
     <Compile Include="Nominatim\PolygonOutput.cs" />
     <Compile Include="Nominatim\ResultLimitation.cs" />
-    <Compile Include="Nominatim\StructuredSearch.cs" />
+    <Compile Include="Nominatim\StructuredAddressSearch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
