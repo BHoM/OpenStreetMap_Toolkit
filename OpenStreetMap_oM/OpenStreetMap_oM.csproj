@@ -57,6 +57,16 @@
     <Compile Include="Elements\LineStringRadius.cs" />
     <Compile Include="Elements\Node.cs" />
     <Compile Include="Elements\ElementContainer.cs" />
+    <Compile Include="GeoJSON\BoundingBox.cs" />
+    <Compile Include="GeoJSON\Feature.cs" />
+    <Compile Include="GeoJSON\GeometryCollection.cs" />
+    <Compile Include="GeoJSON\IGeoJSON.cs" />
+    <Compile Include="GeoJSON\LineString.cs" />
+    <Compile Include="GeoJSON\MultiLineString.cs" />
+    <Compile Include="GeoJSON\MultiPoint.cs" />
+    <Compile Include="GeoJSON\MultiPolygon.cs" />
+    <Compile Include="GeoJSON\Point.cs" />
+    <Compile Include="GeoJSON\Polygon.cs" />
     <Compile Include="Nominatim\OutputDetails.cs" />
     <Compile Include="Elements\Polygon.cs" />
     <Compile Include="Elements\QueryBuilder.cs" />
