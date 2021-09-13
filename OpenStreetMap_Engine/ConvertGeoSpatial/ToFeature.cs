@@ -1,52 +1,21 @@
-﻿using BH.oM.Adapters.OpenStreetMap.GeoJSON;
+﻿using BH.oM.Geospatial;
 using BH.oM.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
-namespace BH.Engine.Adapters.OpenStreetMap
+namespace BH.Engine.Geospatial
 {
     public static partial class Convert
     {
         /***************************************************/
         /****           Public Methods                  ****/
         /***************************************************/
-        public static List<Feature> ToFeatures(CustomObject customObject)
-        {
-            if (customObject == null)
-            {
-                Reflection.Compute.RecordError("Cannot convert a null object.");
-                return null;
-            }
-            try
-            {
-                if (customObject.CustomData.ContainsKey("features"))
-                {
-                    List<Feature> geoJSONFeatures = new List<Feature>();
-                    List<object> features = (List<object>)customObject.CustomData["features"];
-                    foreach (object feature in features)
-                    {
-                        geoJSONFeatures.Add(ToFeature(feature as CustomObject));
-                    }
-                    return geoJSONFeatures;
-                }
-                else
-                    Reflection.Compute.RecordError("No features found in the customObject.");
 
-            }
-            catch
-            {
-                Reflection.Compute.RecordError("Unexpected data format in customObject check OutputFormat is GeoJSON.");
-                return null;
-            }
-
-            return null;
-        }
-
-        /***************************************************/
-
+        [Description("Convert a Custom Object based on a geoJSON formatted string to BHoM Geospatial Feature.")]
         public static Feature ToFeature(CustomObject customObject)
         {
             object fType;
@@ -70,17 +39,40 @@ namespace BH.Engine.Adapters.OpenStreetMap
                 CustomObject geometry = (CustomObject)customObject.CustomData["geometry"];
                 string gType = (string)geometry.CustomData["type"];
                 object coordinates = geometry.CustomData["coordinates"];
-                feature.Geometry = IToGeoJSON(gType, coordinates);
+                feature.Geometry = ToGeospatial(gType, coordinates);
                 
             }
             if (customObject.CustomData.ContainsKey("bbox"))
             {
                 //box should be list of coordinates per https://datatracker.ietf.org/doc/html/rfc7946#section-5
                 List<object> bbox = (List<object>)customObject.CustomData["bbox"];
-                feature.BoundingBox = (BoundingBox)ToGeoJSONBoundingBox(bbox);
+                feature.BoundingBox = (BoundingBox)ToBoundingBox(bbox);
             }
             return feature;
 
+        }
+
+        /***************************************************/
+        private static IGeospatial ToGeospatial(string type, object geoJSONCoordinates)
+        {
+            switch (type)
+            {
+                case "Point":
+                    return ToPoint(geoJSONCoordinates);
+                case "MultiPoint":
+                    return ToMultiPoint(geoJSONCoordinates);
+                case "Polygon":
+                    return ToPolygon(geoJSONCoordinates);
+                case "MultiPolyon":
+                    return ToMultiPolygon(geoJSONCoordinates);
+                case "LineString":
+                    return ToLineString(geoJSONCoordinates);
+                case "MultiLineString":
+                    return ToMultiLineString(geoJSONCoordinates);
+                case "GeometryCollection":
+                    return ToGeometryCollection(geoJSONCoordinates);
+            }
+            return null;
         }
     }
 }

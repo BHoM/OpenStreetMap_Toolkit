@@ -44,6 +44,10 @@
       <HintPath>..\packages\CoordinateSharp.2.5.1.1\lib\net40\CoordinateSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Dimensional_oM, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ProgramData\BHoM\Assemblies\Dimensional_oM.dll</HintPath>
+    </Reference>
     <Reference Include="Geometry_Engine">
       <HintPath>C:\ProgramData\BHoM\Assemblies\Geometry_Engine.dll</HintPath>
       <Private>False</Private>
@@ -78,8 +82,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Convert\ToFeature.cs" />
-    <Compile Include="Convert\ToGeoJSON.cs" />
+    <Compile Include="ConvertGeospatial.cs" />
+    <Compile Include="ConvertGeoSpatial\ToBoundingBox.cs" />
+    <Compile Include="ConvertGeoSpatial\ToFeature.cs" />
+    <Compile Include="ConvertGeoSpatial\ToGeometryCollection.cs" />
+    <Compile Include="ConvertGeoSpatial\ToFeatureCollection.cs" />
+    <Compile Include="ConvertGeoSpatial\ToLineString.cs" />
+    <Compile Include="ConvertGeoSpatial\ToMultiLineString.cs" />
+    <Compile Include="ConvertGeoSpatial\ToMultiPoint.cs" />
+    <Compile Include="ConvertGeoSpatial\ToMultiPolygon.cs" />
+    <Compile Include="ConvertGeoSpatial\ToPoint.cs" />
+    <Compile Include="ConvertGeoSpatial\ToPolygon.cs" />
+    <Compile Include="ConvertGeoSpatial\ToUTM.cs" />
     <Compile Include="Convert\ToLatLonNode.cs" />
     <Compile Include="Convert\ToUTM.cs" />
     <Compile Include="Convert\ToElementContainer.cs" />
@@ -93,6 +107,7 @@
     <Compile Include="Create\Way.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Convert\ToUTMPolyline.cs" />
+    <Compile Include="QueryGeospatial\Geometry.cs" />
     <Compile Include="Query\AverageNode.cs" />
     <Compile Include="Query\Area.cs" />
   </ItemGroup>
@@ -107,6 +122,7 @@
     <None Include="packages.config" />
     <None Include="Versioning_33.json" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace BH.Engine.Adapters.OpenStreetMap
 {
+    /***************************************************/
+    /****           Public Methods                  ****/
+    /***************************************************/
     public static partial class Create
     {
         [Description("Create a OpenStreetMap Nominatim GetRequest from a free-form string. " +
@@ -18,10 +21,10 @@ namespace BH.Engine.Adapters.OpenStreetMap
             "Commas are optional, but improve performance by reducing the complexity of the search." +
             "Special phrases can cause Nominatim to search for particular object types see https://wiki.openstreetmap.org/wiki/Nominatim/Special_Phrases/EN for more details.")]
         [Input("freeFormQuery", "Free-form query string to search for.")]
-        [Input("outputFormat", "The data format for places found. Default is GeoJSON.")]
+        [Input("outputFormat", "The data format for places found. Default is GeoJSON. Use GeoJSON to take advantage of converts to GeoJSON based Geospatial objects in the BHoM.")]
         [Input("outputDetails", "Details to be included in the returned data of places found. Default all details are included.")]
         [Input("resultLimitation", "Limit the results to certain areas or number of results. Default search is limited to 50 results across all countries.")]
-        [Input("polygonOutput", "Format of the polygon geometry of the places found. Default is GeoJSON.")]
+        [Input("polygonOutput", "Format of the polygon geometry of the places found. Default is GeoJSON. Use GeoJSON to take advantage of converts to GeoJSON based Geospatial objects in the BHoM.")]
         [Output("getRequest", "The GetRequest.")]
         public static GetRequest GetRequest(string freeFormQuery, OutputFormat outputFormat = OutputFormat.GeoJSON, OutputDetails outputDetails = null, ResultLimitation resultLimitation = null, PolygonOutput polygonOutput = PolygonOutput.GeoJSON)
         {
@@ -51,10 +54,10 @@ namespace BH.Engine.Adapters.OpenStreetMap
 
         [Description("Create the OpenStreetMap Nominatim GetRequest from a StructuredAddressSearch.")]
         [Input("addressSearch", "Query structured by address parameters from a StructuredAddressSearch.")]
-        [Input("outputFormat", "The data format for places found. Default is GeoJSON.")]
+        [Input("outputFormat", "The data format for places found. Default is GeoJSON. Use GeoJSON to take advantage of converts to GeoJSON based Geospatial objects in the BHoM.")]
         [Input("outputDetails", "Details to be included in the returned data of places found. Default all details are included.")]
         [Input("resultLimitation", "Limit the results to certain areas or number of results. Default search is limited to 50 results across all countries.")]
-        [Input("polygonOutput", "Format of the polygon geometry of the places found. Default is GeoJSON.")]
+        [Input("polygonOutput", "Format of the polygon geometry of the places found. Default is GeoJSON. Use GeoJSON to take advantage of converts to GeoJSON based Geospatial objects in the BHoM.")]
         [Output("getRequest", "The GetRequest.")]
         public static GetRequest GetRequest(StructuredAddressSearch addressSearch, OutputFormat outputFormat = OutputFormat.GeoJSON, OutputDetails outputDetails = null, ResultLimitation resultLimitation = null, PolygonOutput polygonOutput = PolygonOutput.GeoJSON)
         {
@@ -87,10 +90,10 @@ namespace BH.Engine.Adapters.OpenStreetMap
             "The API returns exactly one result or an error when the coordinate is in an area with no OSM data coverage.")]
         [Input("latitude", "Latitude of a coordinate in WGS84 projection. Permitted range is -90 to 90.")]
         [Input("longitude", "Longitude of a coordinate in WGS84 projection. Permitted range is -180 to 180.")]
-        [Input("outputFormat", "The data format for places found. Default is GeoJSON.")]
+        [Input("outputFormat", "The data format for places found. Default is GeoJSON. Use GeoJSON to take advantage of converts to GeoJSON based Geospatial objects in the BHoM.")]
         [Input("outputDetails", "Details to be included in the returned data of places found. Default all details are included.")]
         [Input("resultLimitation", "Limit the results to certain areas or number of results. Default search is zoom detail of 18. Other ResultLimitation parameters are not applicable to reverse geocoding.")]
-        [Input("polygonOutput", "Format of the polygon geometry of the places found. Default is GeoJSON.")]
+        [Input("polygonOutput", "Format of the polygon geometry of the places found. Default is GeoJSON. Use GeoJSON to take advantage of converts to GeoJSON based Geospatial objects in the BHoM.")]
         [Output("getRequest", "The GetRequest.")]
         public static GetRequest GetRequest(double latitude, double longitude, OutputFormat outputFormat = OutputFormat.GeoJSON, OutputDetails outputDetails = null, ResultLimitation resultLimitation = null, PolygonOutput polygonOutput = PolygonOutput.GeoJSON)
         {
