@@ -10,6 +10,10 @@ namespace BH.Engine.Adapters.OpenStreetMap
 {
     public static partial class Convert
     {
+        /***************************************************/
+        /****           Public Methods                  ****/
+        /***************************************************/
+        //Todo make these converts recursive
         public static IGeoJSON IToGeoJSON(string type, object coordinates)
         {
             switch (type)
@@ -21,16 +25,19 @@ namespace BH.Engine.Adapters.OpenStreetMap
                 case "Polygon":
                     return ToGeoJSONPolygon(coordinates);
                 case "MultiPolyon":
-                    break;
+                    return ToGeoJSONMultiPolygon(coordinates);
                 case "LineString":
                     return ToGeoJSONLineString(coordinates);
                 case "MultiLineString":
+                    ToGeoJSONMultiLineString(coordinates);
                     break;
-                case "GeometryCollection":
+                case "GeometryCollection"://todo geometry collection
                     break;
             }
             return null;
         }
+
+        /***************************************************/
 
         public static IGeoJSON ToGeoJSONBoundingBox(List<object> coordinates)
         {
@@ -49,41 +56,69 @@ namespace BH.Engine.Adapters.OpenStreetMap
             boundingBox.BBox = coords;
             return boundingBox;
         }
+
+        /***************************************************/
+
         public static IGeoJSON ToGeoJSONPolygon(object coordinates)
         {
             Polygon polygon = new Polygon();
-            List<object> coords = coordinates as List<object>;
+            List<object> coords = GetList(coordinates);
             if (coords == null)
-            {
-                Reflection.Compute.RecordError("Polygon coordinates could not be converted.");
                 return null;
-            }
             List<List<List<double>>> lonlats = new List<List<List<double>>>();
             foreach(object c in coords)
             {
-                lonlats.Add(GetLineStringCoords(c));
+                lonlats.Add(GetCoordSet(c));
             }
+            //Todo add check start and end points are equal
             polygon.Coordinates = lonlats;
             return polygon;
         }
+
+        /***************************************************/
+
+        public static IGeoJSON ToGeoJSONMultiPolygon(object coordinates)
+        {
+            MultiPolygon polygon = new MultiPolygon();
+            List<object> coords = GetList(coordinates);
+            if (coords == null)
+                return null;
+            List<List<List<List<double>>>> outer = new List<List<List<List<double>>>>();
+            foreach (object c in coords)
+            {
+                List<object> polyg = GetList(c);
+                if (polyg == null)
+                    return null;
+                List<List<List<double>>> lonlats = new List<List<List<double>>>();
+                foreach (object poly in polyg)
+                    lonlats.Add(GetCoordSet(poly));
+
+                outer.Add(lonlats);
+            }
+            //Todo add check start and end points are equal
+            polygon.Coordinates = outer;
+            return polygon;
+        }
+
+        /***************************************************/
 
         public static IGeoJSON ToGeoJSONLineString(object coordinates)
         {
             LineString lineString = new LineString();
             
-            lineString.Coordinates = GetLineStringCoords(coordinates);
+            lineString.Coordinates = GetCoordSet(coordinates);
 
             return lineString;
         }
+
+        /***************************************************/
+
         public static IGeoJSON ToGeoJSONMultiPoint(object coordinates)
         {
             MultiPoint point = new MultiPoint();
-            List<object> coords = coordinates as List<object>;
+            List<object> coords = GetList(coordinates);
             if (coords == null)
-            {
-                Reflection.Compute.RecordError("MultiPoint coordinates could not be converted.");
                 return null;
-            }
             List<List<double>> lonlats = new List<List<double>>();
             foreach (object c in coords)
                 lonlats.Add(GetPointCoords(c));
@@ -91,6 +126,27 @@ namespace BH.Engine.Adapters.OpenStreetMap
             point.Coordinates = lonlats;
             return point;
         }
+
+        /***************************************************/
+
+        public static IGeoJSON ToGeoJSONMultiLineString(object coordinates)
+        {
+            MultiLineString multiLineString  = new MultiLineString();
+            List<object> coords = GetList(coordinates);
+            if (coords == null)
+                return null;
+            List<List<List<double>>> lonlats = new List<List<List<double>>>();
+            foreach (object c in coords)
+            {
+                lonlats.Add(GetCoordSet(c));
+            }
+            //Todo add check start and end points are not equal
+            multiLineString.Coordinates = lonlats;
+            return multiLineString;
+        }
+
+        /***************************************************/
+
         public static IGeoJSON ToGeoJSONPoint(object coordinates)
         {
             Point point = new Point();
@@ -98,28 +154,38 @@ namespace BH.Engine.Adapters.OpenStreetMap
             return point;
         }
 
-        private static List<List<double>> GetLineStringCoords(object coordinates)
+        /***************************************************/
+        /****           Private Methods                  ****/
+        /***************************************************/
+
+        private static List<object> GetList(object coordinates)
         {
             List<object> coords = coordinates as List<object>;
             if (coords == null)
             {
-                Reflection.Compute.RecordError("LineString coordinates could not be converted.");
+                Reflection.Compute.RecordError("Coordinates could not be converted.");
                 return null;
             }
-
-            List<List<double>> lonlats = new List<List<double>>();
+            return coords;
+        }
+        private static List<List<double>> GetCoordSet(object coordinates)
+        {
+            List<object> coords = GetList(coordinates);
+            if (coords == null)
+                return null;
+            List <List<double>> lonlats = new List<List<double>>();
             foreach (object c in coords)
                 lonlats.Add(GetPointCoords(c));
             return lonlats;
         }
+
+        /***************************************************/
+
         private static List<double> GetPointCoords(object coordinates)
         {
-            List<object> coords = coordinates as List<object>;
+            List<object> coords = GetList(coordinates);
             if (coords == null)
-            {
-                Reflection.Compute.RecordError("Point coordinates could not be converted.");
                 return null;
-            }
             if (coords.Count > 2)
                 Reflection.Compute.RecordWarning("Point coordinates contains more than 2 values only the first 2 will be used.");
             if (coords.Count < 2)
@@ -141,25 +207,5 @@ namespace BH.Engine.Adapters.OpenStreetMap
             }
             return new List<double>() { lon, lat };
         }
-
-        //private static object GetCoords(object coordinates)
-        //{
-        //    List<object> coords = coordinates as List<object>;
-        //    if (coords == null)
-        //    {
-        //        Reflection.Compute.RecordError("Coordinates could not be converted.");
-        //        return null;
-        //    }
-        //    if (coords[0] is double && coords[1] is double)
-        //    {
-        //        double lat = System.Convert.ToDouble(coords[0]);
-        //        double lon = System.Convert.ToDouble(coords[1]);
-        //        return new List<double>() { lon, lat };
-        //    }
-        //    foreach (object c in coords)
-        //        return GetCoords(c);
-
-
-        //}
     }
 }

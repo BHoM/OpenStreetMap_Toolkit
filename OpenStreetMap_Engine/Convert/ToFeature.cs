@@ -10,6 +10,9 @@ namespace BH.Engine.Adapters.OpenStreetMap
 {
     public static partial class Convert
     {
+        /***************************************************/
+        /****           Public Methods                  ****/
+        /***************************************************/
         public static List<Feature> ToFeatures(CustomObject customObject)
         {
             if (customObject == null)
@@ -41,6 +44,9 @@ namespace BH.Engine.Adapters.OpenStreetMap
 
             return null;
         }
+
+        /***************************************************/
+
         public static Feature ToFeature(CustomObject customObject)
         {
             object fType;
