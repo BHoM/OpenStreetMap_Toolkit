@@ -69,7 +69,7 @@ namespace BH.Engine.Geospatial
                     return ToMultiPoint(geoJSONCoordinates);
                 case "Polygon":
                     return ToPolygon(geoJSONCoordinates);
-                case "MultiPolyon":
+                case "MultiPolygon":
                     return ToMultiPolygon(geoJSONCoordinates);
                 case "LineString":
                     return ToLineString(geoJSONCoordinates);

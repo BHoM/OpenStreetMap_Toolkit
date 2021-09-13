@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BH.oM.Geospatial
 {
     [Description("Class for representing the GeoJSON feature. See: https://datatracker.ietf.org/doc/html/rfc7946 for more details.")]
-    public class Feature : BHoMObject
+    public class Feature : BHoMObject, IGeospatial
     {
         [Description("Properties associated with this Geospatial feature.")]
         public virtual Dictionary<string, object> Properties { get; set; } = new Dictionary<string, object>();
