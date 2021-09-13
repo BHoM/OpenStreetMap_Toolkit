@@ -52,7 +52,7 @@ namespace BH.Engine.Adapters.OpenStreetMap
             object fType;
             customObject.CustomData.TryGetValue("type", out fType);
 
-            if (fType is null || ((string)fType).ToLower() != "feature")
+            if (fType == null || ((string)fType).ToLower() != "feature")
             {
                 Reflection.Compute.RecordError("Object was not a feature type.");
                 return null;
