@@ -83,7 +83,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConvertGeospatial.cs" />
     <Compile Include="ConvertGeoSpatial\ToBoundingBox.cs" />
     <Compile Include="ConvertGeoSpatial\ToFeature.cs" />
     <Compile Include="ConvertGeoSpatial\ToGeometryCollection.cs" />
