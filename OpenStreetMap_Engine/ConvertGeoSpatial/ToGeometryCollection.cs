@@ -15,11 +15,11 @@ namespace BH.Engine.Geospatial
         /****           Public Methods                  ****/
         /***************************************************/
 
-        [Description("Convert geoJSON formatted geometry collection to BHoM Geospatial GeometryCollection.")]
-        public static IGeospatial ToGeometryCollection(object geometry)
+        [Description("Convert a CustomObject based on a geoJSON formatted string to BHoM Geospatial GeometryCollection.")]
+        public static IGeospatial ToGeometryCollection(CustomObject customObject)
         {
             GeometryCollection geometryCollection = new GeometryCollection();
-            List<object> geometries = GetList(geometry);
+            List<object> geometries = (List<object>)customObject.CustomData["geometries"];
             if (geometries == null)
                 return null;
             //todo test this with 

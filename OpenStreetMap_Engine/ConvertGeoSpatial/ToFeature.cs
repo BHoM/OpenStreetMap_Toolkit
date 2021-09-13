@@ -15,7 +15,7 @@ namespace BH.Engine.Geospatial
         /****           Public Methods                  ****/
         /***************************************************/
 
-        [Description("Convert a Custom Object based on a geoJSON formatted string to BHoM Geospatial Feature.")]
+        [Description("Convert a CustomObject based on a geoJSON formatted string to BHoM Geospatial Feature.")]
         public static Feature ToFeature(CustomObject customObject)
         {
             object fType;
@@ -38,8 +38,14 @@ namespace BH.Engine.Geospatial
             {
                 CustomObject geometry = (CustomObject)customObject.CustomData["geometry"];
                 string gType = (string)geometry.CustomData["type"];
-                object coordinates = geometry.CustomData["coordinates"];
-                feature.Geometry = ToGeospatial(gType, coordinates);
+                if (gType == "GeometryCollection")
+                    feature.Geometry = ToGeometryCollection(geometry);
+                else
+                {
+                    object coordinates = geometry.CustomData["coordinates"];
+                    feature.Geometry = ToGeospatial(gType, coordinates);
+                }
+                
                 
             }
             if (customObject.CustomData.ContainsKey("bbox"))
@@ -69,8 +75,6 @@ namespace BH.Engine.Geospatial
                     return ToLineString(geoJSONCoordinates);
                 case "MultiLineString":
                     return ToMultiLineString(geoJSONCoordinates);
-                case "GeometryCollection":
-                    return ToGeometryCollection(geoJSONCoordinates);
             }
             return null;
         }
