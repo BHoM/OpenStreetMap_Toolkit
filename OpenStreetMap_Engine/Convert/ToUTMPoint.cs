@@ -65,11 +65,6 @@ namespace BH.Engine.Adapters.OpenStreetMap
         [Output("utmPoint", "Converted Node as a Point.")]
         public static Point ToUTMPoint(this double lat, double lon, int gridZone = 0)
         {
-            if (lat < -90 || lat > 90 || lon < -180 || lon > 180)
-            {
-                Reflection.Compute.RecordError("One or more Point coordinates was outside the permitted ranges.");
-                return null;
-            }
             //EagerLoad sets which CoordinateSystems are calculated set all to false except UTM_MGRS
             EagerLoad el = new EagerLoad(false);
             el.UTM_MGRS = true;
