@@ -94,6 +94,8 @@
     <Compile Include="ConvertGeoSpatial\ToPoint.cs" />
     <Compile Include="ConvertGeoSpatial\ToPolygon.cs" />
     <Compile Include="ConvertGeoSpatial\ToUTM.cs" />
+    <Compile Include="Convert\ToFeature.cs" />
+    <Compile Include="Convert\ToFeatureCollection.cs" />
     <Compile Include="Convert\ToLatLonNode.cs" />
     <Compile Include="Convert\ToUTM.cs" />
     <Compile Include="Convert\ToElementContainer.cs" />
