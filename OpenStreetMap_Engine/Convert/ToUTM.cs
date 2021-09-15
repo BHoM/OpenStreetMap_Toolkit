@@ -37,7 +37,16 @@ namespace BH.Engine.Adapters.OpenStreetMap
         [Output("eastingNorthing", "Array of two doubles as easting and northing (x,y)")]
         public static double[] ToUTM(this double lat, double lon, int gridZone = 0)
         {
-            Coordinate c = new Coordinate(lat, lon);
+            if (lat < -90 || lat > 90 || lon < -180 || lon > 180)
+            {
+                Reflection.Compute.RecordError("One or more Point coordinates was outside the permitted ranges.");
+                return null;
+            }
+            // EagerLoad sets which CoordinateSystems are calculated set all to false except UTM_MGRS
+            EagerLoad el = new EagerLoad(false);
+            el.UTM_MGRS = true;
+            el.Extensions.MGRS = false;
+            Coordinate c = new Coordinate(lat, lon,el);
             if (gridZone >= 1 && gridZone <= 60)
                 c.Lock_UTM_MGRS_Zone(gridZone);
             double[] eastingNorthing = new double[] { c.UTM.Easting, c.UTM.Northing };

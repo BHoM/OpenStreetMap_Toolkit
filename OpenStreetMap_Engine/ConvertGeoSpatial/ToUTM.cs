@@ -40,14 +40,7 @@ namespace BH.Engine.Geospatial
             if(!convertToUTM)
                 return BH.Engine.Geometry.Create.Point(geospatial.Longitude, geospatial.Latitude, 0);
 
-            // EagerLoad sets which CoordinateSystems are calculated set all to false except UTM_MGRS
-            EagerLoad el = new EagerLoad(false);
-            el.UTM_MGRS = true;
-            el.Extensions.MGRS = false;
-            Coordinate c = new Coordinate(geospatial.Latitude, geospatial.Longitude, el);
-            if (gridZone >= 1 && gridZone <= 60)
-                c.Lock_UTM_MGRS_Zone(gridZone);
-            Point utmPoint = BH.Engine.Geometry.Create.Point(c.UTM.Easting, c.UTM.Northing, 0);
+            Point utmPoint = BH.Engine.Adapters.OpenStreetMap.Convert.ToUTMPoint(geospatial.Latitude, geospatial.Longitude, gridZone);
             return utmPoint;
         }
 
@@ -64,7 +57,9 @@ namespace BH.Engine.Geospatial
             ConcurrentBag<Point> points = new ConcurrentBag<Point>();
             Parallel.ForEach(geospatial.Points, n =>
             {
-                points.Add(ToUTM(n, convertToUTM, gridZone));
+                Point utmPoint = ToUTM(n, convertToUTM, gridZone);
+                if (utmPoint != null)
+                    points.Add(utmPoint);
             }
             );
             composite.Elements.AddRange(points);
@@ -85,7 +80,8 @@ namespace BH.Engine.Geospatial
             Parallel.For(0, geospatial.Points.Count, n =>
             {
                 Point utmPoint = ToUTM(geospatial.Points[n], convertToUTM, gridZone);
-                pointDict.TryAdd(n, utmPoint);
+                if(utmPoint != null)
+                    pointDict.TryAdd(n, utmPoint);
             }
             );
             List<Point> points = pointDict.OrderBy(kvp => kvp.Key).Select(kvp => kvp.Value).ToList();
@@ -149,12 +145,22 @@ namespace BH.Engine.Geospatial
             CompositeGeometry composite = new CompositeGeometry();
             //dictionary to ensure node order is maintained
             ConcurrentDictionary<int, CompositeGeometry> polyDict = new ConcurrentDictionary<int, CompositeGeometry>();
-
-            Parallel.For(0, geospatial.Polygons.Count, n =>
-            {
-                polyDict.TryAdd(n, ToUTM(geospatial.Polygons[n], convertToUTM, gridZone));
-            }
+            try
+                {
+                Parallel.For(0, geospatial.Polygons.Count, n =>
+                {
+                    if(!polyDict.TryAdd(n, ToUTM(geospatial.Polygons[n], convertToUTM, gridZone)))
+                    {
+                        int s = 0;
+                    }
+                }
             );
+            }
+            catch
+            {
+                int s = 0;
+            }
+            
             List<CompositeGeometry> polylines = polyDict.OrderBy(kvp => kvp.Key).Select(kvp => kvp.Value).ToList();
             composite.Elements.AddRange(polylines);
             return composite;
