@@ -15,10 +15,10 @@ namespace BH.Engine.Geospatial
         /****           Public Methods                  ****/
         /***************************************************/
 
-        [Description("Convert any geospatial to geometry in the Universal Transverse Mercator projection. Where a single element spans two grid zones results maybe unexpected.")]
+        [Description("Convert any geospatial to geometry in the plane coordinates determined by the conversion of Longitude to X and Latitude to Y.")]
         public static IGeometry Geometry(this IGeospatial geospatial)
         {
-            return geospatial.IToUTM();
+            return geospatial.IToUTM(false);
         }
 
         /***************************************************/
