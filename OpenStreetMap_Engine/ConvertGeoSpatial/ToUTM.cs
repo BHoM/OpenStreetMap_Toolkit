@@ -145,21 +145,13 @@ namespace BH.Engine.Geospatial
             CompositeGeometry composite = new CompositeGeometry();
             //dictionary to ensure node order is maintained
             ConcurrentDictionary<int, CompositeGeometry> polyDict = new ConcurrentDictionary<int, CompositeGeometry>();
-            try
-                {
-                Parallel.For(0, geospatial.Polygons.Count, n =>
-                {
-                    if(!polyDict.TryAdd(n, ToUTM(geospatial.Polygons[n], convertToUTM, gridZone)))
-                    {
-                        int s = 0;
-                    }
-                }
-            );
-            }
-            catch
+
+            Parallel.For(0, geospatial.Polygons.Count, n =>
             {
-                int s = 0;
+                polyDict.TryAdd(n, ToUTM(geospatial.Polygons[n], convertToUTM, gridZone));
+
             }
+            );
             
             List<CompositeGeometry> polylines = polyDict.OrderBy(kvp => kvp.Key).Select(kvp => kvp.Value).ToList();
             composite.Elements.AddRange(polylines);
