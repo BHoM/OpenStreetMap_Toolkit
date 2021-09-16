@@ -15,19 +15,45 @@ namespace BH.Engine.Geospatial
         /****           Public Methods                  ****/
         /***************************************************/
 
-        [Description("Convert geoJSON formatted coordinate object to BHoM Geospatial MultiPolygon.")]
+        [Description("Convert a CustomObject based on a GeoJSON formatted string to BHoM Geospatial MultiPolygon.")]
 
-        public static IGeospatial ToMultiPolygon(object coordinates)
+        public static IGeospatial ToMultiPolygon(CustomObject customObject)
         {
-            MultiPolygon multipolygon = new MultiPolygon();
+            if (customObject.CheckObject("MultiPolygon"))
+            {
+                object coordinates = customObject.TopLevelCoordinates();
+                if (coordinates != null)
+                {
+                    MultiPolygon multipolygon = new MultiPolygon();
+                    List<object> coords = GetList(coordinates);
+                    if (coords == null)
+                        return null;
+
+                    foreach (object c in coords)
+                        multipolygon.Polygons.Add((Polygon)ToPolygon(c));
+
+                    return multipolygon;
+                }
+
+            }
+            return null;
+            
+        }
+
+        /***************************************************/
+
+        [Description("Convert GeoJSON formatted coordinate object to BHoM Geospatial Polygon.")]
+
+        public static IGeospatial ToPolygon(object coordinates)
+        {
+            Polygon polygon = new Polygon();
             List<object> coords = GetList(coordinates);
             if (coords == null)
                 return null;
-
             foreach (object c in coords)
-                multipolygon.Polygons.Add((Polygon)ToPolygon(c));
-
-            return multipolygon;
+                polygon.Polygons.Add(new LineString() { Points = GetCoordSet(c) });
+            //Todo add check start and end points are equal
+            return polygon;
         }
 
         /***************************************************/

@@ -15,7 +15,7 @@ namespace BH.Engine.Geospatial
         /****           Public Methods                  ****/
         /***************************************************/
 
-        [Description("Convert CustomObject from geoJSON formatted string to BHoM Geospatial FeatureCollection.")]
+        [Description("Convert a CustomObject from GeoJSON formatted string to BHoM Geospatial FeatureCollection.")]
         public static FeatureCollection ToFeatureCollection(CustomObject customObject)
         {
             if (customObject == null)

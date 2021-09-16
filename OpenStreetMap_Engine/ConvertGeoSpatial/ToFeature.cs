@@ -15,7 +15,7 @@ namespace BH.Engine.Geospatial
         /****           Public Methods                  ****/
         /***************************************************/
 
-        [Description("Convert a CustomObject based on a geoJSON formatted string to BHoM Geospatial Feature.")]
+        [Description("Convert a CustomObject based on a GeoJSON formatted string to BHoM Geospatial Feature.")]
         public static Feature ToFeature(CustomObject customObject)
         {
             object fType;
@@ -37,16 +37,7 @@ namespace BH.Engine.Geospatial
             if (customObject.CustomData.ContainsKey("geometry"))
             {
                 CustomObject geometry = (CustomObject)customObject.CustomData["geometry"];
-                string gType = (string)geometry.CustomData["type"];
-                if (gType == "GeometryCollection")
-                    feature.Geometry = ToGeometryCollection(geometry);
-                else
-                {
-                    object coordinates = geometry.CustomData["coordinates"];
-                    feature.Geometry = ToGeospatial(gType, coordinates);
-                }
-                
-                
+                feature.Geometry = ToGeospatial(geometry);
             }
             if (customObject.CustomData.ContainsKey("bbox"))
             {
@@ -59,24 +50,6 @@ namespace BH.Engine.Geospatial
         }
 
         /***************************************************/
-        private static IGeospatial ToGeospatial(string type, object geoJSONCoordinates)
-        {
-            switch (type)
-            {
-                case "Point":
-                    return ToPoint(geoJSONCoordinates);
-                case "MultiPoint":
-                    return ToMultiPoint(geoJSONCoordinates);
-                case "Polygon":
-                    return ToPolygon(geoJSONCoordinates);
-                case "MultiPolygon":
-                    return ToMultiPolygon(geoJSONCoordinates);
-                case "LineString":
-                    return ToLineString(geoJSONCoordinates);
-                case "MultiLineString":
-                    return ToMultiLineString(geoJSONCoordinates);
-            }
-            return null;
-        }
+        
     }
 }

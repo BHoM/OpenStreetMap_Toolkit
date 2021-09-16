@@ -87,6 +87,7 @@
     <Compile Include="ConvertGeoSpatial\ToFeature.cs" />
     <Compile Include="ConvertGeoSpatial\ToGeometryCollection.cs" />
     <Compile Include="ConvertGeoSpatial\ToFeatureCollection.cs" />
+    <Compile Include="ConvertGeoSpatial\ToGeospatial.cs" />
     <Compile Include="ConvertGeoSpatial\ToLineString.cs" />
     <Compile Include="ConvertGeoSpatial\ToMultiLineString.cs" />
     <Compile Include="ConvertGeoSpatial\ToMultiPoint.cs" />
@@ -107,7 +108,9 @@
     <Compile Include="Create\Way.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Convert\ToUTMPolyline.cs" />
+    <Compile Include="QueryGeospatial\CheckObject.cs" />
     <Compile Include="QueryGeospatial\Geometry.cs" />
+    <Compile Include="QueryGeospatial\TopLevelCoordinates.cs" />
     <Compile Include="Query\AverageNode.cs" />
     <Compile Include="Query\Area.cs" />
   </ItemGroup>

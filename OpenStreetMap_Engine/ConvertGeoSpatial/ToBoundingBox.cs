@@ -15,7 +15,7 @@ namespace BH.Engine.Geospatial
         /****           Public Methods                  ****/
         /***************************************************/
 
-        [Description("Convert geoJSON formatted coordinate object collection to BHoM Geospatial BoundingBox.")]
+        [Description("Convert GeoJSON formatted coordinate object collection to BHoM Geospatial BoundingBox.")]
         public static IGeospatial ToBoundingBox(List<object> coordinates)
         {
             BoundingBox boundingBox = new BoundingBox();

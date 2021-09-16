@@ -15,20 +15,29 @@ namespace BH.Engine.Geospatial
         /****           Public Methods                  ****/
         /***************************************************/
 
-        [Description("Convert geoJSON formatted coordinate object to BHoM Geospatial MultiPoint.")]
+        [Description("Convert a CustomObject based on a GeoJSON formatted string to BHoM Geospatial MultiPoint.")]
 
-        public static IGeospatial ToMultiPoint(object coordinates)
+        public static IGeospatial ToMultiPoint(CustomObject customObject)
         {
-            MultiPoint multiPoint = new MultiPoint();
-            //list of coordinates per point
-            List<object> coords = GetList(coordinates);
-            if (coords == null)
-                return null;
+            if (customObject.CheckObject("MultiPoint"))
+            {
+                object coordinates = customObject.TopLevelCoordinates();
+                if (coordinates != null)
+                {
+                    MultiPoint multiPoint = new MultiPoint();
+                    //list of coordinates per point
+                    List<object> coords = GetList(coordinates);
+                    if (coords == null)
+                        return null;
 
-            foreach (object c in coords)
-                multiPoint.Points.Add(GetPoint(c));
+                    foreach (object c in coords)
+                        multiPoint.Points.Add(GetPoint(c));
 
-            return multiPoint;
+                    return multiPoint;
+                }
+                 
+            }
+            return null;
         }
 
         /***************************************************/

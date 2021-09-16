@@ -15,19 +15,27 @@ namespace BH.Engine.Geospatial
         /****           Public Methods                  ****/
         /***************************************************/
 
-        [Description("Convert geoJSON formatted coordinate object to BHoM Geospatial MultiLineString.")]
-        public static IGeospatial ToMultiLineString(object coordinates)
+        [Description("Convert a CustomObject based on a GeoJSON formatted string to BHoM Geospatial MultiLineString.")]
+        public static IGeospatial ToMultiLineString(CustomObject customObject)
         {
-            MultiLineString multiLineString = new MultiLineString();
-            //list of coordinates per line string
-            List<object> coords = GetList(coordinates);
-            if (coords == null)
-                return null;
+            if (customObject.CheckObject("MultiLineString"))
+            {
+                object coordinates = customObject.TopLevelCoordinates();
+                if (coordinates != null)
+                {
+                    MultiLineString multiLineString = new MultiLineString();
+                    //list of coordinates per line string
+                    List<object> coords = GetList(coordinates);
+                    if (coords == null)
+                        return null;
 
-            foreach (object c in coords)
-                multiLineString.LineStrings.Add((LineString)ToLineString(c));
+                    foreach (object c in coords)
+                        multiLineString.LineStrings.Add((LineString)ToLineString(c));
 
-            return multiLineString;
+                    return multiLineString;
+                }
+            }
+            return null;
         }
 
         /***************************************************/
