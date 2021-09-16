@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Collections.Concurrent;
+using BH.Engine.Base;
 
 namespace BH.Engine.Adapters.OpenStreetMap
 {
@@ -29,55 +31,32 @@ namespace BH.Engine.Adapters.OpenStreetMap
                 {
                     FeatureCollection featureCollection = new FeatureCollection();
                     List<object> elements = (List<object>)customObject.CustomData["elements"];
+                    m_AddedPoints = new ConcurrentBag<long>();
+                    m_AddedLineStrings = new ConcurrentBag<long>();
+
+                    //first convert all the nodes
                     m_Points = new List<Feature>();
-                    foreach (CustomObject element in elements)
-                    {
-                        if((string)element.CustomData["type"] == "node")
-                        {
-                            Feature feature = new Feature();
-                            feature.Geometry = ToPoint(element);
+                    m_Points.AddRange(ConvertByOSMType("node", elements));
 
-                            feature.Properties = GetTags(element);
-                            if(!feature.Properties.ContainsKey("OSM_Id"))
-                                feature.Properties.Add("OSM_Id", GetOSMId(element));
-                            m_Points.Add(feature);
-                        }
-                            
-                    }
+                    //then convert ways that contain references to nodes
                     m_LineString = new List<Feature>();
-                    foreach (CustomObject element in elements)
-                    {
-                        string type = (string)element.CustomData["type"];
-                        if (type == "way")
-                        {
-                            Feature feature = new Feature();
-                            feature.Geometry = ToLineString(element);
+                    m_LineString.AddRange(ConvertByOSMType("way", elements));
 
-                            feature.Properties = GetTags(element);
-                            if (!feature.Properties.ContainsKey("OSM_Id"))
-                                feature.Properties.Add("OSM_Id", GetOSMId(element));
-                            m_LineString.Add(feature);
-                        }
-                    }
-                    foreach (CustomObject element in elements)
-                    {
-                        string type = (string)element.CustomData["type"];
-                        if (type == "relation")
-                        {
-                            Feature feature = new Feature();
-                            feature.Geometry = ToMultiLineString(element);
+                    //last of all convert relations that contain references to ways
+                    featureCollection.Features.AddRange(ConvertByOSMType("relation", elements));
 
-                            feature.Properties = GetTags(element);
-                            if (!feature.Properties.ContainsKey("OSM_Id"))
-                                feature.Properties.Add("OSM_Id", GetOSMId(element));
-                            featureCollection.Features.Add(feature);
-                        }
-                    }
+                    //check for ways not associated with relations
+                    featureCollection.Features.AddRange(CheckForFeaturesNotAdded(m_LineString, m_AddedLineStrings.ToList()));
+
+                    //check for nodes not associated with ways
+                    featureCollection.Features.AddRange(CheckForFeaturesNotAdded(m_Points, m_AddedPoints.ToList()));
+
                     return featureCollection;
-
-                    
                 }
-
+                else
+                {
+                    Reflection.Compute.RecordError("No OpenStreetMap elements were found.");
+                }
             }
             catch
             {
@@ -92,6 +71,56 @@ namespace BH.Engine.Adapters.OpenStreetMap
         /****           Private Methods                 ****/
         /***************************************************/
 
+        private static List<Feature> CheckForFeaturesNotAdded(List<Feature> converted, List<long> addedIds)
+        {
+            List<Feature> features = new List<Feature>();
+            List<object> convertedIds = converted.Select(s => s.Properties["OSM_Id"]).ToList();
+            foreach (object id in convertedIds)
+            {
+                if (!addedIds.Contains(System.Convert.ToInt64(id)))
+                {
+                    Feature p = converted.Find(x => System.Convert.ToInt64(x.Properties["OSM_Id"]).Equals(System.Convert.ToInt64(id)));
+                    features.Add(p);
+                }
+            }
+            return features;
+        }
+
+        /***************************************************/
+
+        private static List<Feature> ConvertByOSMType(string type, List<object> elements)
+        {
+            ConcurrentBag<Feature> features = new ConcurrentBag<Feature>();
+            Parallel.ForEach(elements, x =>
+            {
+                CustomObject element = x as CustomObject;
+                string osmtype = (string)element.CustomData["type"];
+                if (osmtype == type)
+                {
+                    Feature feature = new Feature();
+                    switch (type)
+                    {
+                        case "node":
+                            feature.Geometry = ToPoint(element);
+                            break;
+                        case "way":
+                            feature.Geometry = ToLineString(element);
+                            break;
+                        case "relation":
+                            feature.Geometry = ToMultiLineString(element);
+                            break;
+                    }
+                    feature.Properties = GetTags(element);
+                    if (!feature.Properties.ContainsKey("OSM_Id"))
+                        feature.Properties.Add("OSM_Id", GetOSMId(element));
+                    features.Add(feature);
+                }
+            });
+            return features.ToList();
+        }
+
+        /***************************************************/
+
         private static Point ToPoint(CustomObject customObject)
         {
             double latitude = (double)customObject.CustomData["lat"];
@@ -104,8 +133,11 @@ namespace BH.Engine.Adapters.OpenStreetMap
             return point;
         }
 
+        /***************************************************/
+
         private static LineString ToLineString(CustomObject customObject)
         {
+            //todo if the line string is closed we should convert to Polygon 
             LineString lineString = new LineString();
 
             List<object> ids = new List<object>();
@@ -114,16 +146,23 @@ namespace BH.Engine.Adapters.OpenStreetMap
 
             foreach (object id in ids)
             {
-
-                Feature point = m_Points.Find(x => System.Convert.ToInt64(x.Properties["OSM_Id"]).Equals(System.Convert.ToInt64(id)));
+                long osmid = System.Convert.ToInt64(id);
+                Feature point = m_Points.Find(x => System.Convert.ToInt64(x.Properties["OSM_Id"]).Equals(osmid));
                 if (point!=null)
+                {
+                    if(!m_AddedPoints.Contains(osmid))
+                        m_AddedPoints.Add(osmid);
                     lineString.Points.Add((Point)point.Geometry);
+                }
+                    
             }
             return lineString;
         }
 
+        /***************************************************/
         private static MultiLineString ToMultiLineString(CustomObject customObject)
         {
+            //todo if the multi line string contains some open and some closed we should convert to GeometryCollection
             MultiLineString lineString = new MultiLineString();
             List<object> members = new List<object>();
             if (customObject.CustomData.ContainsKey("members"))
@@ -133,49 +172,48 @@ namespace BH.Engine.Adapters.OpenStreetMap
             {
                 CustomObject element = (CustomObject)member;
                 long osmid = 0;
-                if (element.CustomData["ref"] is int)
-                    osmid = (int)element.CustomData["ref"];
-                if (element.CustomData["ref"] is long)
-                    osmid = (long)element.CustomData["ref"];
-                string role = "";
-                if (element.CustomData.ContainsKey("role"))
-                    role = (string)element.CustomData["role"];
-                
-                
-                Feature ls = m_LineString.Find(x => System.Convert.ToInt64(x.Properties["OSM_Id"]).Equals(System.Convert.ToInt64(osmid)));
+                if (element.CustomData.ContainsKey("ref"))
+                    osmid = System.Convert.ToInt64(element.CustomData["ref"]);
+
+                Feature ls = m_LineString.Find(x => System.Convert.ToInt64(x.Properties["OSM_Id"]).Equals(osmid));
                 if (ls != null)
+                {
+                    if (!m_AddedLineStrings.Contains(osmid))
+                        m_AddedLineStrings.Add(osmid);
                     lineString.LineStrings.Add((LineString)ls.Geometry);
+                }
+                    
             }
             return lineString;
         }
 
-        private static long GetOSMId(CustomObject customObject)
+        /***************************************************/
+
+        private static object GetOSMId(CustomObject customObject)
         {
-            long id = 0;
             if (customObject.CustomData.ContainsKey("id"))
-            {
-                if (customObject.CustomData["id"] is int)
-                    id = (int)customObject.CustomData["id"];
-                if (customObject.CustomData["id"] is long)
-                    id = (long)customObject.CustomData["id"];
-            }
-            
-            return id;
+                return customObject.CustomData["id"];
+            return -1;
         }
 
         /***************************************************/
         private static Dictionary<string,object> GetTags(CustomObject customObject)
         {
-
             if (customObject.CustomData.ContainsKey("tags"))
             {
                 CustomObject tags = (CustomObject)customObject.CustomData["tags"];
-                return tags.CustomData;
+                return tags.CustomData.ShallowClone();
             }
             return new Dictionary<string, object>();
         }
 
+        /***************************************************/
+        /****           Private Fields                  ****/
+        /***************************************************/
+
         private static List<Feature> m_Points = new List<Feature>();
         private static List<Feature> m_LineString = new List<Feature>();
+        private static ConcurrentBag<long> m_AddedPoints = new ConcurrentBag<long>();
+        private static ConcurrentBag<long> m_AddedLineStrings = new ConcurrentBag<long>();
     }
 }
