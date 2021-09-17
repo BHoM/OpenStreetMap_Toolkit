@@ -23,9 +23,9 @@ namespace BH.Engine.Geospatial
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
         [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
-        public static IGeometry IToUTM(this GeoSp.IGeospatial geospatial, bool convertToUTM = true, int gridZone = 0)
+        public static IGeometry IToUTM(this GeoSp.IGeospatial geospatial, int gridZone = 0)
         {
-            return ToUTM(geospatial as dynamic, convertToUTM, gridZone);
+            return ToUTM(geospatial as dynamic,  gridZone);
         }
 
         /***************************************************/
@@ -35,11 +35,8 @@ namespace BH.Engine.Geospatial
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
         [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
-        public static Point ToUTM(this GeoSp.Point geospatial, bool convertToUTM = true, int gridZone = 0)
+        public static Point ToUTM(this GeoSp.Point geospatial, int gridZone = 0)
         {
-            if(!convertToUTM)
-                return BH.Engine.Geometry.Create.Point(geospatial.Longitude, geospatial.Latitude, 0);
-
             Point utmPoint = BH.Engine.Adapters.OpenStreetMap.Convert.ToUTMPoint(geospatial.Latitude, geospatial.Longitude, gridZone);
             return utmPoint;
         }
@@ -51,13 +48,13 @@ namespace BH.Engine.Geospatial
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
         [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
-        public static CompositeGeometry ToUTM(this GeoSp.MultiPoint geospatial, bool convertToUTM = true, int gridZone = 0)
+        public static CompositeGeometry ToUTM(this GeoSp.MultiPoint geospatial, int gridZone = 0)
         {
             CompositeGeometry composite = new CompositeGeometry();
             ConcurrentBag<Point> points = new ConcurrentBag<Point>();
             Parallel.ForEach(geospatial.Points, n =>
             {
-                Point utmPoint = ToUTM(n, convertToUTM, gridZone);
+                Point utmPoint = ToUTM(n,  gridZone);
                 if (utmPoint != null)
                     points.Add(utmPoint);
             }
@@ -73,13 +70,13 @@ namespace BH.Engine.Geospatial
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
         [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
-        public static Polyline ToUTM(this GeoSp.LineString geospatial, bool convertToUTM = true, int gridZone = 0)
+        public static Polyline ToUTM(this GeoSp.LineString geospatial, int gridZone = 0)
         {
             //dictionary to ensure node order is maintained
             ConcurrentDictionary<int, Point> pointDict = new ConcurrentDictionary<int, Point>();
             Parallel.For(0, geospatial.Points.Count, n =>
             {
-                Point utmPoint = ToUTM(geospatial.Points[n], convertToUTM, gridZone);
+                Point utmPoint = ToUTM(geospatial.Points[n],  gridZone);
                 if(utmPoint != null)
                     pointDict.TryAdd(n, utmPoint);
             }
@@ -96,13 +93,13 @@ namespace BH.Engine.Geospatial
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
         [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
-        public static CompositeGeometry ToUTM(this GeoSp.MultiLineString geospatial, bool convertToUTM = true, int gridZone = 0)
+        public static CompositeGeometry ToUTM(this GeoSp.MultiLineString geospatial, int gridZone = 0)
         {
             CompositeGeometry composite = new CompositeGeometry();
             ConcurrentBag<Polyline> polylines = new ConcurrentBag<Polyline>();
             Parallel.ForEach(geospatial.LineStrings, n =>
             {
-                polylines.Add(ToUTM(n, convertToUTM, gridZone));
+                polylines.Add(ToUTM(n,  gridZone));
             }
             );
 
@@ -117,7 +114,7 @@ namespace BH.Engine.Geospatial
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
         [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
-        public static CompositeGeometry ToUTM(this GeoSp.Polygon geospatial, bool convertToUTM = true, int gridZone = 0)
+        public static CompositeGeometry ToUTM(this GeoSp.Polygon geospatial, int gridZone = 0)
         {
             CompositeGeometry composite = new CompositeGeometry();
             //dictionary to ensure node order is maintained
@@ -125,7 +122,7 @@ namespace BH.Engine.Geospatial
             
             Parallel.For(0, geospatial.Polygons.Count, n =>
             {
-                polyDict.TryAdd(n, ToUTM(geospatial.Polygons[n], convertToUTM, gridZone));
+                polyDict.TryAdd(n, ToUTM(geospatial.Polygons[n],  gridZone));
             }
             );
             List<Polyline> polylines = polyDict.OrderBy(kvp => kvp.Key).Select(kvp => kvp.Value).ToList();
@@ -140,7 +137,7 @@ namespace BH.Engine.Geospatial
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
         [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
-        public static CompositeGeometry ToUTM(this GeoSp.MultiPolygon geospatial, bool convertToUTM = true, int gridZone = 0)
+        public static CompositeGeometry ToUTM(this GeoSp.MultiPolygon geospatial, int gridZone = 0)
         {
             CompositeGeometry composite = new CompositeGeometry();
             //dictionary to ensure node order is maintained
@@ -148,7 +145,7 @@ namespace BH.Engine.Geospatial
 
             Parallel.For(0, geospatial.Polygons.Count, n =>
             {
-                polyDict.TryAdd(n, ToUTM(geospatial.Polygons[n], convertToUTM, gridZone));
+                polyDict.TryAdd(n, ToUTM(geospatial.Polygons[n],  gridZone));
 
             }
             );
@@ -165,11 +162,11 @@ namespace BH.Engine.Geospatial
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
         [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
-        public static BoundingBox ToUTM(this GeoSp.BoundingBox geospatial, bool convertToUTM = true, int gridZone = 0)
+        public static BoundingBox ToUTM(this GeoSp.BoundingBox geospatial, int gridZone = 0)
         {
             BoundingBox boundingBox = new BoundingBox();
-            boundingBox.Max = ToUTM(geospatial.Max, convertToUTM, gridZone);
-            boundingBox.Min = ToUTM(geospatial.Min, convertToUTM, gridZone);
+            boundingBox.Max = ToUTM(geospatial.Max,  gridZone);
+            boundingBox.Min = ToUTM(geospatial.Min,  gridZone);
             return boundingBox;
         }
 
@@ -180,9 +177,9 @@ namespace BH.Engine.Geospatial
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
         [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
-        public static IGeometry ToUTM(this GeoSp.Feature geospatial, bool convertToUTM = true, int gridZone = 0)
+        public static IGeometry ToUTM(this GeoSp.Feature geospatial, int gridZone = 0)
         {
-            return ToUTM(geospatial.Geometry as dynamic, convertToUTM, gridZone);
+            return ToUTM(geospatial.Geometry as dynamic,  gridZone);
         }
 
         /**************************************************/
@@ -192,11 +189,11 @@ namespace BH.Engine.Geospatial
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
         [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
-        public static CompositeGeometry ToUTM(this GeoSp.FeatureCollection geospatial, bool convertToUTM = true, int gridZone = 0)
+        public static CompositeGeometry ToUTM(this GeoSp.FeatureCollection geospatial, int gridZone = 0)
         {
             CompositeGeometry composite = new CompositeGeometry();
             foreach (GeoSp.Feature f in geospatial.Features)
-                composite.Elements.Add(ToUTM(f, convertToUTM, gridZone));
+                composite.Elements.Add(ToUTM(f,  gridZone));
             return composite;
         }
 
@@ -207,11 +204,11 @@ namespace BH.Engine.Geospatial
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
         [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
-        public static CompositeGeometry ToUTM(this GeoSp.GeometryCollection geospatial, bool convertToUTM = true, int gridZone = 0)
+        public static CompositeGeometry ToUTM(this GeoSp.GeometryCollection geospatial, int gridZone = 0)
         {
             CompositeGeometry composite = new CompositeGeometry();
             foreach (GeoSp.IGeospatial f in geospatial.Geometries)
-                composite.Elements.Add(ToUTM(f as dynamic, convertToUTM, gridZone));
+                composite.Elements.Add(ToUTM(f as dynamic,  gridZone));
             return composite;
         }
 
@@ -219,8 +216,9 @@ namespace BH.Engine.Geospatial
         /****           Private Fallback Method         ****/
         /***************************************************/
 
-        private static IGeometry ToUTM(GeoSp.IGeospatial geospatial, bool convertToUTM = true, int gridZone = 0)
+        private static IGeometry ToUTM(GeoSp.IGeospatial geospatial, int gridZone = 0)
         {
+            Reflection.Compute.RecordError($"Unable to convert {geospatial.GetType()} to Universal Transverse Mercator Coordinates.");
             return null;
         }
     }

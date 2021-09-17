@@ -38,7 +38,7 @@ namespace BH.Engine.Adapters.OpenStreetMap
         [Output("utmZone","Universal transverse Mercator zone.")]
         public static int ToUTMZone(this double longitude)
         {
-            return (int)Math.Ceiling((longitude + 180) / 6);
+            return (int)Math.Floor((longitude + 180) / 6) +1;
         }
         /***************************************************/
         [Description("Convert longitude of a Node to Universal Transverse Mercator zone.")]
@@ -46,7 +46,7 @@ namespace BH.Engine.Adapters.OpenStreetMap
         [Output("utmZone", "Universal transverse Mercator zone.")]
         public static int ToUTMZone(this Node node)
         {
-            return (int)Math.Ceiling((node.Longitude + 180) / 6);
+            return ToUTMZone(node.Longitude);
         }
         /***************************************************/
         [Description("Convert all nodes in a Way to single, averaged Universal Transverse Mercator zone.")]

@@ -18,7 +18,7 @@ namespace BH.Engine.Geospatial
         [Description("Convert any geospatial to geometry in the plane coordinates determined by the conversion of Longitude to X and Latitude to Y.")]
         public static IGeometry Geometry(this IGeospatial geospatial)
         {
-            return geospatial.IToUTM(false);
+            return geospatial.IToUTM();
         }
 
         /***************************************************/
