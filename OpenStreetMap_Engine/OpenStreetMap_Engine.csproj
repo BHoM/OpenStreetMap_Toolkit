@@ -111,6 +111,7 @@
     <Compile Include="QueryGeospatial\CheckObject.cs" />
     <Compile Include="QueryGeospatial\Geometry.cs" />
     <Compile Include="QueryGeospatial\TopLevelCoordinates.cs" />
+    <Compile Include="QueryGeospatial\UTMZone.cs" />
     <Compile Include="Query\AverageNode.cs" />
     <Compile Include="Query\Area.cs" />
   </ItemGroup>

@@ -21,7 +21,8 @@ namespace BH.Engine.Geospatial
         [Description("Interface method for converting an IGeospatial to Geometry in the Universal Transverse Mercator Projection.")]
         [Input("geospatial", "IGeospatial object to convert.")]
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
-        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
+        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone. Permitted range is 1 - 60. " +
+            "If set to zero the UTM zone will be automatically calculated, if objects are detected that span multiple zones the average zone is used. Default value is 0.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
         public static IGeometry IToUTM(this GeoSp.IGeospatial geospatial, int gridZone = 0)
         {
@@ -33,7 +34,8 @@ namespace BH.Engine.Geospatial
         [Description("Method for converting an IGeospatial Point to Geometry in the Universal Transverse Mercator Projection.")]
         [Input("geospatial", "IGeospatial object to convert.")]
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
-        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
+        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone. Permitted range is 1 - 60. " +
+            "If set to zero the UTM zone will be automatically calculated, if objects are detected that span multiple zones the average zone is used. Default value is 0.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
         public static Point ToUTM(this GeoSp.Point geospatial, int gridZone = 0)
         {
@@ -46,7 +48,8 @@ namespace BH.Engine.Geospatial
         [Description("Method for converting an IGeospatial MultiPoint to Geometry in the Universal Transverse Mercator Projection.")]
         [Input("geospatial", "IGeospatial object to convert.")]
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
-        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
+        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone. Permitted range is 1 - 60. " +
+            "If set to zero the UTM zone will be automatically calculated, if objects are detected that span multiple zones the average zone is used. Default value is 0.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
         public static CompositeGeometry ToUTM(this GeoSp.MultiPoint geospatial, int gridZone = 0)
         {
@@ -68,7 +71,8 @@ namespace BH.Engine.Geospatial
         [Description("Method for converting an IGeospatial LineString to Geometry in the Universal Transverse Mercator Projection.")]
         [Input("geospatial", "IGeospatial object to convert.")]
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
-        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
+        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone. Permitted range is 1 - 60. " +
+            "If set to zero the UTM zone will be automatically calculated, if objects are detected that span multiple zones the average zone is used. Default value is 0.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
         public static Polyline ToUTM(this GeoSp.LineString geospatial, int gridZone = 0)
         {
@@ -91,7 +95,8 @@ namespace BH.Engine.Geospatial
         [Description("Method for converting an IGeospatial MultiLineString to Geometry in the Universal Transverse Mercator Projection.")]
         [Input("geospatial", "IGeospatial object to convert.")]
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
-        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
+        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone. Permitted range is 1 - 60. " +
+            "If set to zero the UTM zone will be automatically calculated, if objects are detected that span multiple zones the average zone is used. Default value is 0.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
         public static CompositeGeometry ToUTM(this GeoSp.MultiLineString geospatial, int gridZone = 0)
         {
@@ -112,7 +117,8 @@ namespace BH.Engine.Geospatial
         [Description("Method for converting an IGeospatial Polygon to Geometry in the Universal Transverse Mercator Projection.")]
         [Input("geospatial", "IGeospatial object to convert.")]
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
-        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
+        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone. Permitted range is 1 - 60. " +
+            "If set to zero the UTM zone will be automatically calculated, if objects are detected that span multiple zones the average zone is used. Default value is 0.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
         public static CompositeGeometry ToUTM(this GeoSp.Polygon geospatial, int gridZone = 0)
         {
@@ -135,7 +141,8 @@ namespace BH.Engine.Geospatial
         [Description("Method for converting an IGeospatial MultiPolygon to Geometry in the Universal Transverse Mercator Projection.")]
         [Input("geospatial", "IGeospatial object to convert.")]
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
-        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
+        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone. Permitted range is 1 - 60. " +
+            "If set to zero the UTM zone will be automatically calculated, if objects are detected that span multiple zones the average zone is used. Default value is 0.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
         public static CompositeGeometry ToUTM(this GeoSp.MultiPolygon geospatial, int gridZone = 0)
         {
@@ -160,7 +167,8 @@ namespace BH.Engine.Geospatial
         [Description("Method for converting an IGeospatial BoundingBox to Geometry in the Universal Transverse Mercator Projection.")]
         [Input("geospatial", "IGeospatial object to convert.")]
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
-        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
+        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone. Permitted range is 1 - 60. " +
+            "If set to zero the UTM zone will be automatically calculated, if objects are detected that span multiple zones the average zone is used. Default value is 0.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
         public static BoundingBox ToUTM(this GeoSp.BoundingBox geospatial, int gridZone = 0)
         {
@@ -175,7 +183,8 @@ namespace BH.Engine.Geospatial
         [Description("Method for converting an IGeospatial Feature to Geometry in the Universal Transverse Mercator Projection.")]
         [Input("geospatial", "IGeospatial object to convert.")]
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
-        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
+        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone. Permitted range is 1 - 60. " +
+            "If set to zero the UTM zone will be automatically calculated, if objects are detected that span multiple zones the average zone is used. Default value is 0.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
         public static IGeometry ToUTM(this GeoSp.Feature geospatial, int gridZone = 0)
         {
@@ -187,7 +196,8 @@ namespace BH.Engine.Geospatial
         [Description("Method for converting an IGeospatial FeatureCollection to Geometry in the Universal Transverse Mercator Projection.")]
         [Input("geospatial", "IGeospatial object to convert.")]
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
-        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
+        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone. Permitted range is 1 - 60. " +
+            "If set to zero the UTM zone will be automatically calculated, if objects are detected that span multiple zones the average zone is used. Default value is 0.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
         public static CompositeGeometry ToUTM(this GeoSp.FeatureCollection geospatial, int gridZone = 0)
         {
@@ -202,7 +212,8 @@ namespace BH.Engine.Geospatial
         [Description("Method for converting an IGeospatial GeometryCollection to Geometry in the Universal Transverse Mercator Projection.")]
         [Input("geospatial", "IGeospatial object to convert.")]
         [Input("convertToUTM", "Optional boolean to override conversion to UTM geometry, allowing generation of the geometry in the WGS coordinate space if required. Default is true.")]
-        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
+        [Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone. Permitted range is 1 - 60. " +
+            "If set to zero the UTM zone will be automatically calculated, if objects are detected that span multiple zones the average zone is used. Default value is 0.")]
         [Output("geometry", "The converted geometry. The resulting geometry may be far from the model origin. Use fit view to locate the results.")]
         public static CompositeGeometry ToUTM(this GeoSp.GeometryCollection geospatial, int gridZone = 0)
         {
