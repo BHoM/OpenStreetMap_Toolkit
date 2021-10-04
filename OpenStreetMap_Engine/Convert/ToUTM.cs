@@ -35,14 +35,14 @@ namespace BH.Engine.Adapters.OpenStreetMap
         //[Input("lon", "The longitude, in the range -180.0 to 180.0 with up to 7 decimal places.")]
         //[Input("gridZone", "Optional Universal Transverse Mercator zone to allow locking conversion to a single zone.")]
         //[Output("eastingNorthing", "Array of two doubles as easting and northing (x,y)")]
-        //public static double[] ToUTM(this double lat, double lon, int gridZone = 0)
-        //{
-        //    Coordinate c = new Coordinate(lat, lon);
-        //    if (gridZone >= 1 && gridZone <= 60)
-        //        c.Lock_UTM_MGRS_Zone(gridZone);
-        //    double[] eastingNorthing = new double[] { c.UTM.Easting, c.UTM.Northing };
-        //    return eastingNorthing;
-        //}
+        public static double[] ToUTM(this double lat, double lon, int gridZone = 0)
+        {
+            Coordinate c = new Coordinate(lat, lon);
+            if (gridZone >= 1 && gridZone <= 60)
+                c.Lock_UTM_MGRS_Zone(gridZone);
+            double[] eastingNorthing = new double[] { c.UTM.Easting, c.UTM.Northing };
+            return eastingNorthing;
+        }
 
         /***************************************************/
     }

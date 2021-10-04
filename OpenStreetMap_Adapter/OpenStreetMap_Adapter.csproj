@@ -47,6 +47,10 @@
       <HintPath>C:\ProgramData\BHoM\Assemblies\Data_oM.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Geospatial_oM, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\ProgramData\BHoM\Assemblies\Geospatial_oM.dll</HintPath>
+    </Reference>
     <Reference Include="HTTP_Adapter">
       <HintPath>C:\ProgramData\BHoM\Assemblies\HTTP_Adapter.dll</HintPath>
       <Private>False</Private>
@@ -69,6 +73,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Convert\ToGeospatial.cs" />
     <Compile Include="OpenStreetMapAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AdapterActions\Pull.cs" />
