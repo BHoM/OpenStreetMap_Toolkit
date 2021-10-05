@@ -47,9 +47,9 @@
       <HintPath>C:\ProgramData\BHoM\Assemblies\Data_oM.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Geospatial_oM, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\ProgramData\BHoM\Assemblies\Geospatial_oM.dll</HintPath>
+    <Reference Include="Geospatial_oM">
+      <HintPath>C:\ProgramData\BHoM\Assemblies\Geospatial_oM.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="HTTP_Adapter">
       <HintPath>C:\ProgramData\BHoM\Assemblies\HTTP_Adapter.dll</HintPath>

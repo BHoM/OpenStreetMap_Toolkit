@@ -37,7 +37,7 @@ namespace BH.Adapter.OpenStreetMap
         {
             GetRequest getRequest = Create.GetRequest(request, config);
             List<object> responses = new List<object>();
-            responses.Add(Convert.ToGeospatial(m_HTTPAdapter.Pull(getRequest).First()));
+            responses.Add(m_HTTPAdapter.Pull(getRequest).First());
 
             return responses;
         }
