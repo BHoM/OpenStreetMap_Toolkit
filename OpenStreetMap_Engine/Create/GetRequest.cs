@@ -17,9 +17,9 @@ namespace BH.Engine.Adapters.OpenStreetMap
         {
 
             StringBuilder q = new StringBuilder();
-            q.Append(BaseUri());
+            q.Append(GetBaseUri(config.OverpassEndpoint));
             q.Append("(");
-            q.Append(GetElements(Convert.ToQLString(request.Category, request.Subtype), Convert.ToQLString(request.GeospatialRegion), config));
+            q.Append(GetElements(Convert.ToQLString(request.Category, request.Type), Convert.ToQLString(request.GeospatialRegion), config));
             q.Append(");");
             q.Append("(._;");
             q.Append(">;");
@@ -28,6 +28,8 @@ namespace BH.Engine.Adapters.OpenStreetMap
             return new GetRequest(){BaseUrl = q.ToString(), Parameters = null };
         }
 
+        /***************************************************/
+        /****           Private Methods                 ****/
         /***************************************************/
 
         private static string GetElements(string tagfilter, string regionQuery, OpenStreetMapConfig config)
@@ -51,6 +53,27 @@ namespace BH.Engine.Adapters.OpenStreetMap
                 default:
                     return "";
             }
+
+        }
+
+        /***************************************************/
+
+        private static string GetBaseUri(OverpassEndpoint endpoint)
+        {
+            switch (endpoint)
+            {
+                case OverpassEndpoint.Main:
+                    return BaseUri();
+                case OverpassEndpoint.French:
+                    return "https://overpass.openstreetmap.fr/api/interpreter?data=[out:json];";
+                case OverpassEndpoint.Russian:
+                    return "https://overpass.openstreetmap.ru/api/interpreter?data=[out:json];";
+                case OverpassEndpoint.Kumi:
+                    return "https://overpass.kumi.systems/api/interpreter?data=[out:json];";
+                default:
+                    return BaseUri();
+            }
+
         }
     }
 }

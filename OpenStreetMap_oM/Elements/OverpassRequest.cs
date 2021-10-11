@@ -12,12 +12,12 @@ namespace BH.oM.Adapters.OpenStreetMap
 {
     public class OverpassRequest : BHoMObject, IRequest
     {
-        [Description("OpenStreetMap objects to search for. Categories are equivalent to OpenStreetMap 'keys'. See https://wiki.openstreetmap.org/wiki/Map_features for full documentation.")]
+        [Description("OpenStreetMap Category to search for. Categories are equivalent to OpenStreetMap 'keys'. See https://wiki.openstreetmap.org/wiki/Map_features for full documentation.")]
         public virtual string Category { get; set; } = "";
 
-        [Description("Optional OpenStreetMap subtypes to search for. Subtypes are equivalent to OpenStreetMap 'values'. See https://wiki.openstreetmap.org/wiki/Map_features for full documentation." +
+        [Description("Optional OpenStreetMap type to search for. Types are equivalent to OpenStreetMap 'values'. See https://wiki.openstreetmap.org/wiki/Map_features for full documentation." +
             "Default value is \"\" and the search will look for all Subtypes for the provided category.")]
-        public virtual string Subtype { get; set; } = "";
+        public virtual string Type { get; set; } = "";
 
         [Description("Geospatial region to search.")]
         public virtual IGeospatialRegion GeospatialRegion { get; set; } = null;

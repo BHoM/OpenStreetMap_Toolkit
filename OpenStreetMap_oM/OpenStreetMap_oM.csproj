@@ -40,6 +40,9 @@
       <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="CoordinateSharp, Version=2.12.1.1, Culture=neutral, PublicKeyToken=f45e02df057b7725, processorArchitecture=MSIL">
+      <HintPath>..\packages\CoordinateSharp.2.12.1.1\lib\net40\CoordinateSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Data_oM">
       <HintPath>C:\ProgramData\BHoM\Assemblies\Data_oM.dll</HintPath>
       <Private>False</Private>
@@ -69,11 +72,13 @@
     <Compile Include="Elements\LineStringRadius.cs" />
     <Compile Include="Elements\Node.cs" />
     <Compile Include="Elements\ElementContainer.cs" />
+    <Compile Include="Elements\OverpassEndpoint.cs" />
     <Compile Include="Elements\OverpassRequest.cs" />
     <Compile Include="Elements\Polygon.cs" />
     <Compile Include="Elements\QueryBuilder.cs" />
     <Compile Include="Elements\QueryString.cs" />
     <Compile Include="Elements\Relation.cs" />
+    <Compile Include="Elements\Response.cs" />
     <Compile Include="Elements\TaggedArea.cs" />
     <Compile Include="Elements\Way.cs" />
     <Compile Include="Elements\OpenStreetMapConfig.cs" />

@@ -4,6 +4,7 @@ using BH.oM.Adapter;
 using BH.oM.Adapters.HTTP;
 using BH.oM.Adapters.OpenStreetMap;
 using BH.oM.Data.Requests;
+using BH.oM.Geospatial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,18 @@ namespace BH.Adapter.OpenStreetMap
 
             if (request is OverpassRequest)
             {
-                return Pull(request as OverpassRequest, actionConfig as OpenStreetMapConfig);
+                Response response = new Response();
+                foreach (object r in Pull(request as OverpassRequest, actionConfig as OpenStreetMapConfig))
+                {
+                    //if we get a feature collection
+                    IGeospatial geospatial = Convert.ToGeospatial(r);
+                    if (geospatial is FeatureCollection)
+                        response.FeatureCollection = geospatial as FeatureCollection;
+                    else
+                        response.FeatureCollection.Features.Add(new Feature() { Geometry = geospatial });
+                }
+                return new List<object> { response };
+
             }
             Engine.Reflection.Compute.RecordError("This type of request is not supported.");
             return new List<object>();

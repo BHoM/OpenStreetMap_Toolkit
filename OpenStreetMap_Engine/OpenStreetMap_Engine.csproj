@@ -40,9 +40,8 @@
       <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM_Engine.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="CoordinateSharp, Version=2.5.1.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CoordinateSharp.2.5.1.1\lib\net40\CoordinateSharp.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="CoordinateSharp, Version=2.12.1.1, Culture=neutral, PublicKeyToken=f45e02df057b7725, processorArchitecture=MSIL">
+      <HintPath>..\packages\CoordinateSharp.2.12.1.1\lib\net40\CoordinateSharp.dll</HintPath>
     </Reference>
     <Reference Include="Geometry_Engine">
       <HintPath>C:\ProgramData\BHoM\Assemblies\Geometry_Engine.dll</HintPath>
@@ -60,6 +59,7 @@
       <HintPath>C:\ProgramData\BHoM\Assemblies\HTTP_oM.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="netstandard" />
     <Reference Include="Reflection_Engine">
       <HintPath>C:\ProgramData\BHoM\Assemblies\Reflection_Engine.dll</HintPath>
       <Private>False</Private>
@@ -82,11 +82,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Convert\ToGeospatial.cs" />
     <Compile Include="Convert\ToLatLonNode.cs" />
-    <Compile Include="Convert\ToUTM.cs" />
     <Compile Include="Convert\ToElementContainer.cs" />
     <Compile Include="Convert\ToQLString.cs" />
+    <Compile Include="Convert\ToUTM.cs" />
     <Compile Include="Convert\ToUTMPoint.cs" />
     <Compile Include="Convert\ToUTMZone.cs" />
     <Compile Include="Create\GetRequest.cs" />
