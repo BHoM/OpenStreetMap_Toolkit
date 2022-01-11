@@ -23,7 +23,7 @@ using BH.oM.Adapters.OpenStreetMap;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base.Attributes;
 using BH.oM.Base;
 using BH.Engine.Serialiser;
 

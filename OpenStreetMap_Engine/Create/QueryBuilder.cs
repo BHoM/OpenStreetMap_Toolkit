@@ -21,7 +21,7 @@
  */
 using BH.oM.Adapters.OpenStreetMap;
 using System.ComponentModel;
-using BH.oM.Reflection.Attributes;
+using BH.oM.Base.Attributes;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
