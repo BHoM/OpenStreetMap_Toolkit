@@ -4,21 +4,20 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{743D0DE2-40C7-4229-AF19-C7A656894242}</ProjectGuid>
+    <ProjectGuid>{8FDED6AE-4CE5-42C3-95FE-2E1E2EC4C438}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BH.oM.Adapters.OpenStreetMap</RootNamespace>
-    <AssemblyName>OpenStreetMap_oM</AssemblyName>
+    <RootNamespace>OpenStreetMap_Adapter</RootNamespace>
+    <AssemblyName>OpenStreetMap_Adapter</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Build\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -26,7 +25,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\Build\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -40,16 +39,32 @@
       <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="BHoM_Adapter">
+      <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM_Adapter.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="BHoM_Engine">
+      <HintPath>C:\ProgramData\BHoM\Assemblies\BHoM_Engine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Data_oM">
       <HintPath>C:\ProgramData\BHoM\Assemblies\Data_oM.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Geometry_oM">
-      <HintPath>C:\ProgramData\BHoM\Assemblies\Geometry_oM.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Geospatial_oM">
       <HintPath>C:\ProgramData\BHoM\Assemblies\Geospatial_oM.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="HTTP_Adapter">
+      <HintPath>C:\ProgramData\BHoM\Assemblies\HTTP_Adapter.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="HTTP_Engine">
+      <HintPath>C:\ProgramData\BHoM\Assemblies\HTTP_Engine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="HTTP_oM">
+      <HintPath>C:\ProgramData\BHoM\Assemblies\HTTP_oM.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -62,34 +77,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Elements\BoundingBox.cs" />
-    <Compile Include="Elements\CentreRadius.cs" />
-    <Compile Include="Elements\ElementsToSearch.cs" />
-    <Compile Include="Elements\IOpenStreetMapElement.cs" />
-    <Compile Include="Elements\IOpenStreetMapRegion.cs" />
-    <Compile Include="Elements\LineStringRadius.cs" />
-    <Compile Include="Elements\Node.cs" />
-    <Compile Include="Elements\ElementContainer.cs" />
-    <Compile Include="Elements\OpenStreetMapConfig.cs" />
-    <Compile Include="Elements\OverpassEndpoint.cs" />
-    <Compile Include="Elements\OverpassRequest.cs" />
-    <Compile Include="Elements\Polygon.cs" />
-    <Compile Include="Elements\QueryBuilder.cs" />
-    <Compile Include="Elements\QueryString.cs" />
-    <Compile Include="Elements\Relation.cs" />
-    <Compile Include="Elements\Response.cs" />
-    <Compile Include="Elements\TaggedArea.cs" />
-    <Compile Include="Elements\Way.cs" />
+    <Compile Include="AdapterActions\Pull.cs" />
+    <Compile Include="Convert\ToGeospatial.cs" />
+    <Compile Include="OpenStreetMapAdapter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="Versioning_33.json" />
+    <ProjectReference Include="..\OpenStreetMap_Engine\OpenStreetMap_Engine.csproj">
+      <Project>{6fa965a7-a120-472d-a85b-75a63ef9ba1f}</Project>
+      <Name>OpenStreetMap_Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OpenStreetMap_oM\OpenStreetMap_oM.csproj">
+      <Project>{743d0de2-40c7-4229-af19-c7a656894242}</Project>
+      <Name>OpenStreetMap_oM</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>
-xcopy "$(TargetDir)$(TargetFileName)"  "C:\ProgramData\BHoM\Assemblies" /Y
-    </PostBuildEvent>
-  </PropertyGroup>
 </Project>
