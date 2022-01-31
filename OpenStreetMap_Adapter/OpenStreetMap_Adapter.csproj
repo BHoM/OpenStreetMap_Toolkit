@@ -93,4 +93,11 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+   <PropertyGroup>
+    <PostBuildEvent>
+xcopy "$(TargetDir)$(TargetFileName)"  "C:\ProgramData\BHoM\Assemblies" /Y
+
+xcopy "$(TargetDir)CoordinateSharp.dll"  "C:\ProgramData\BHoM\Assemblies" /Y
+</PostBuildEvent>
+  </PropertyGroup>
 </Project>
