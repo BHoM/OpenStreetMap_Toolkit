@@ -7,9 +7,10 @@
     <AssemblyTitle>OpenStreetMap_Engine</AssemblyTitle>
     <Description>https://github.com/BHoM/OpenStreetMap_Toolkit</Description>
     <Product>OpenStreetMap_Engine</Product>
-    <Copyright>Copyright © https://github.com/BHoM</Copyright>
+    <Copyright>Copyright ï¿½ https://github.com/BHoM</Copyright>
     <AssemblyVersion>9.0.0.0</AssemblyVersion>
     <FileVersion>9.1.0.0</FileVersion>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="xcopy &quot;$(TargetDir)$(TargetFileName)&quot;  &quot;C:\ProgramData\BHoM\Assemblies&quot; /Y&#xD;&#xA;xcopy &quot;$(TargetDir)CoordinateSharp.dll&quot;  &quot;C:\ProgramData\BHoM\Assemblies&quot; /Y" />
