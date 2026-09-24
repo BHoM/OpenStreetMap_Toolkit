@@ -9,7 +9,7 @@
     <Product>OpenStreetMap_Engine</Product>
     <Copyright>Copyright � https://github.com/BHoM</Copyright>
     <AssemblyVersion>9.0.0.0</AssemblyVersion>
-    <FileVersion>9.2.0.0</FileVersion>
+    <FileVersion>9.3.0.0</FileVersion>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
